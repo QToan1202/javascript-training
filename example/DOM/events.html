@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>JS</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+
+  <h1>Events</h1>
+  <button>Click here</button>
+  <p></p>
+  <p>Press any key: <strong></strong></p>
+
+  <script>
+    const button = document.querySelector('button');
+    const p = document.querySelector('p');
+    const key = document.querySelector('strong');
+
+    button.style.width = '200px';
+
+
+    button.addEventListener('click', () => {
+      p.textContent = 'Hello';
+    });
+
+    button.addEventListener('mouseenter', () => {
+      p.textContent = 'Your are hoving on the button';
+    });
+
+    button.addEventListener('mouseleave', () => {
+      p.textContent = 'Your aren\'t hoving on the button';
+    });
+
+    document.addEventListener('keydown', e => {
+      key.textContent = e.key;
+    });
+  </script>
+
+</body>
+</html>
