@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DOM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<style>
+  .title {
+    font-family: 'Courier New', Courier, monospace;
+    color: red;
+    font-size: 20px;
+  }
+
+  .active {
+    border: 2px solid green;
+  }
+
+  .hiden {
+    display: none;
+  }
+</style>
+<body>
+  <h1>Modify Attributes, Classes, and Styles in the DOM</h1>
+  <img id="image" src="https://picsum.photos/400/500" alt="Lorem picsum" />
+
+  <script>
+    const title = document.getElementsByTagName('h1')[0];
+    const image = document.getElementById('image');
+    if (image.hasAttribute('alt')) {
+      image.removeAttribute('alt');
+    } else {
+      alert('NOT OK');
+    }
+
+    title.className = 'title';
+    title.classList.add('active', 'hiden');
+    title.classList.toggle('hiden');
+
+    title.style.fontFamily = 'sans-serif';
+    title.style.color = 'blueviolet';
+
+    image.style.width = '300px';
+    image.style.height = '200px';
+  </script>
+</body>
+</html>
