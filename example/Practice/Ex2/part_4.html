@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>JavaScript function to get the value of the href, hreflang, rel, target, and type attributes of the specified link</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+  <p>
+    <a id="w3r" type="text/html" hreflang="en-us" rel="nofollow" target="_self"
+      href="https://www.w3resource.com/">w3resource</a>
+  </p>
+  <button onclick="getAttributes()">Click here to get attributes value</button>
+
+  <script>
+    const link = document.getElementById('w3r');
+    const button = document.querySelector('button');
+    function getAttributes() {
+      createElement(link, 'href');
+      createElement(link, 'hreflang');
+      createElement(link, 'rel');
+      createElement(link, 'target');
+      createElement(link, 'type');
+    }
+    function createElement(url, attr) {
+      const p = document.createElement('p');
+      p.textContent = attr + ' = ' + url[attr];
+      p.style.fontFamily = 'Arial';
+      p.style.fontSize = '20px';
+      document.body.appendChild(p);
+    }
+  </script>
+</body>
+
+</html>

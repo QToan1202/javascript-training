@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Set the background color of a paragraph</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+  <button>Change background</button>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic soluta distinctio excepturi earum eveniet harum unde
+    nam, minima mollitia accusantium ut reiciendis expedita laboriosam iusto? Perspiciatis modi doloremque voluptate
+    minima.</p>
+  <p>Hello it me</p>
+
+  <script>
+    const button = document.querySelector('button');
+    const paragraphs = document.querySelectorAll('p');
+
+    button.addEventListener('click', () => {
+      for (const e of paragraphs) {
+        e.style.backgroundColor = '#ffc18e';
+      };
+    });
+
+
+  </script>
+</body>
+
+</html>

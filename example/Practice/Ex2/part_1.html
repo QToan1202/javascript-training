@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>JS DOM paragraph style</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+  <p id="text">Javascript Exercises - w3resource</p>
+  <div>
+    <button id="jsstyle" onclick="js_style()">Style</button>
+  </div>
+
+  <script>
+    function js_style() {
+      const paragraph = document.querySelector('#text');
+      paragraph.style.fontFamily = 'Arial';
+      paragraph.style.color = 'red';
+      paragraph.style.fontSize = '40px';
+    }
+  </script>
+</body>
+
+</html>
