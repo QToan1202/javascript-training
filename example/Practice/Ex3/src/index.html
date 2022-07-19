@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Ex3: Table</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script type="module" src='./main.js' defer></script>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    td {
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table id="table" border="1">
+    <thead id="table-head">
+      <tr>
+        <th>Task name</th>
+        <th>Status (done/planned)</th>
+        <th>Controls</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <tr>
+        <td>Write pomodoro app</td>
+        <td>2 / 4 pomodori</td>
+        <td>Finished <button>Delete task</button></td>
+      </tr>
+      <tr>
+        <td>Write pomodoro article</td>
+        <td>4 / 4 pomodori</td>
+        <td><button>Done</button><button>Increse Pomodoro Count</button><button>Delete task</button></td>
+      </tr>
+    </tbody>
+    <tfoot id="table-foot">
+      <tr>
+        <td colspan="3" id="note">End of table</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <form action="" method="post" id="form-add-new-task">
+    <input type="text" placeholder="Task name" id="task-name"/>
+    <select id="pomodoro-count">
+      <option value="1" selected>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <input type="submit" />
+  </form>
+
+</body>
+
+</html>
