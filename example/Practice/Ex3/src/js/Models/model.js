@@ -29,20 +29,53 @@ export default class Model {
     this.onPomodoroListChanged = callback;
   }
 
+  isValidate(taskName) {
+    if (taskName.trim().length !== 0) {
+      const obj = this.pomodoro.find((item) => item.taskName === taskName);
+      return obj === undefined;
+    }
+    return false;
+  }
+
   addTask(taskName, pomodoroCount) {
-    const task = {
-      id: Math.floor(Math.random() * 100),
-      taskName,
-      pomodoroDone: 0,
-      pomodoroCount,
-      finished: false,
-    };
-    this.pomodoro.push(task);
-    this.onPomodoroListChanged(this.pomodoro);
+    if (this.isValidate(taskName)) {
+      const task = {
+        id: Math.floor(Math.random() * 100),
+        taskName,
+        pomodoroDone: 0,
+        pomodoroCount,
+        finished: false,
+      };
+      this.pomodoro.push(task);
+      this.onPomodoroListChanged(this.pomodoro);
+    }
   }
 
   deleteTask(id) {
-    this.pomodoro = this.pomodoro.filter((e) => e.id !== id);
+    this.pomodoro = this.pomodoro.filter((item) => item.id !== id);
+    this.onPomodoroListChanged(this.pomodoro);
+  }
+
+  increaseTask(id) {
+    this.pomodoro = this.pomodoro.map((item) => {
+      if (item.id === id) {
+        item.pomodoroDone += 1;
+        if (item.pomodoroDone === item.pomodoroCount) {
+          item.finished = true;
+        }
+      }
+      return item;
+    });
+    this.onPomodoroListChanged(this.pomodoro);
+  }
+
+  doneTask(id) {
+    this.pomodoro = this.pomodoro.map((item) => {
+      if (item.id === id) {
+        item.finished = true;
+      }
+      return item;
+    });
     this.onPomodoroListChanged(this.pomodoro);
   }
 }

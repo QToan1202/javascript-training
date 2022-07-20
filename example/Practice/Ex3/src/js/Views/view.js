@@ -42,19 +42,26 @@ export default class View {
         const status = this.createElement('td');
         status.textContent = `${element.pomodoroDone} / ${element.pomodoroCount} pomodori`;
         const controls = this.createElement('td');
+        const doneButton = this.createElement('button');
+        doneButton.id = 'done';
+        doneButton.dataId = element.id;
+        doneButton.textContent = 'Done';
+        const countButton = this.createElement('button');
+        countButton.id = 'count';
+        countButton.dataId = element.id;
+        countButton.textContent = 'Increse Pomodoro Count';
+        const deleteButton = this.createElement('button');
+        deleteButton.id = 'delete';
+        deleteButton.dataId = element.id;
+        deleteButton.textContent = 'Delete task';
         if (element.finished) {
           controls.textContent = 'Finished';
+          doneButton.classList.add('hidden');
+          countButton.classList.add('hidden');
         } else {
           controls.textContent = '';
         }
 
-        const doneButton = this.createElement('button');
-        doneButton.textContent = 'Done';
-        const countButton = this.createElement('button');
-        countButton.textContent = 'Increse Pomodoro Count';
-        const deleteButton = this.createElement('button');
-        deleteButton.dataId = element.id;
-        deleteButton.textContent = 'Delete task';
         controls.append(doneButton, countButton, deleteButton);
 
         list.append(name, status, controls);
@@ -77,8 +84,28 @@ export default class View {
 
   bindDeleteTask(handler) {
     this.content.addEventListener('click', (event) => {
-      const deleteTask = event.target.dataId;
-      handler(deleteTask);
+      if (event.target.id === 'delete') {
+        const deleteTask = event.target.dataId;
+        handler(deleteTask);
+      }
+    });
+  }
+
+  bindIncreaseTask(handler) {
+    this.content.addEventListener('click', (event) => {
+      if (event.target.id === 'count') {
+        const increaseTask = event.target.dataId;
+        handler(increaseTask);
+      }
+    });
+  }
+
+  bindDoneTask(handler) {
+    this.content.addEventListener('click', (event) => {
+      if (event.target.id === 'done') {
+        const doneTask = event.target.dataId;
+        handler(doneTask);
+      }
     });
   }
 }

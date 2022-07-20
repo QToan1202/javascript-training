@@ -6,6 +6,8 @@ export default class Controller {
     this.model.bindPomodoroListChanged(this.onPomodoroListChanged);
     this.view.bindAddTask(this.handleAddTask);
     this.view.bindDeleteTask(this.handleDeleteTask);
+    this.view.bindIncreaseTask(this.handleIncreaseTask);
+    this.view.bindDoneTask(this.handleDoneTask);
 
     this.onPomodoroListChanged(this.model.pomodoro);
   }
@@ -20,5 +22,13 @@ export default class Controller {
 
   handleDeleteTask = (id) => {
     this.model.deleteTask(id);
+  };
+
+  handleIncreaseTask = (id) => {
+    this.model.increaseTask(id);
+  };
+
+  handleDoneTask = (id) => {
+    this.model.doneTask(id);
   };
 }
