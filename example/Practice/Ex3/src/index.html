@@ -12,10 +12,14 @@
       font-family: 'Courier New', Courier, monospace;
       font-size: 20px;
       text-align: center;
+      margin: 0 auto;
     }
 
     td {
       width: 300px;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -31,16 +35,6 @@
       </tr>
     </thead>
     <tbody id="table-body">
-      <tr>
-        <td>Write pomodoro app</td>
-        <td>2 / 4 pomodori</td>
-        <td>Finished <button>Delete task</button></td>
-      </tr>
-      <tr>
-        <td>Write pomodoro article</td>
-        <td>4 / 4 pomodori</td>
-        <td><button>Done</button><button>Increse Pomodoro Count</button><button>Delete task</button></td>
-      </tr>
     </tbody>
     <tfoot id="table-foot">
       <tr>
@@ -50,7 +44,7 @@
   </table>
 
   <form action="" method="post" id="form-add-new-task">
-    <input type="text" placeholder="Task name" id="task-name"/>
+    <input type="text" placeholder="Task name" id="task-name" />
     <select id="pomodoro-count">
       <option value="1" selected>1</option>
       <option value="2">2</option>

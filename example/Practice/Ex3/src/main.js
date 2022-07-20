@@ -1,9 +1,9 @@
 class Model {
   constructor() {
     this.pomodoro = [
-      { taskName: "Hello", pomodoroDone: 0, pomodoroCount: 1, finished: false },
-      { taskName: "Adding MVC", pomodoroDone: 2, pomodoroCount: 4, finished: false, },
-      { taskName: "Testing", pomodoroDone: 3, pomodoroCount: 4, finished: false },
+      { taskName: 'Hello', pomodoroDone: 0, pomodoroCount: 1, finished: false },
+      { taskName: 'Adding MVC', pomodoroDone: 2, pomodoroCount: 4, finished: false, },
+      { taskName: 'Testing', pomodoroDone: 3, pomodoroCount: 4, finished: false },
     ];
   }
 
@@ -14,18 +14,17 @@ class Model {
       pomodoroCount,
       finished: false,
     };
-    console.log(task);
     this.pomodoro.push(task);
   }
 }
 
 class View {
   constructor() {
-    this.content = this.getElement("table-body");
-    this.note = this.getElement("note");
-    this.formAddTask = this.getElement("form-add-new-task");
-    this.taskName = this.getElement("task-name");
-    this.pomodoroCount = this.getElement("pomodoro-count");
+    this.content = this.getElement('table-body');
+    this.note = this.getElement('note');
+    this.formAddTask = this.getElement('form-add-new-task');
+    this.taskName = this.getElement('task-name');
+    this.pomodoroCount = this.getElement('pomodoro-count');
   }
 
   createElement(tag, className) {
@@ -52,27 +51,27 @@ class View {
 
   displayTasks(pomodoro) {
     if (pomodoro.length === 0) {
-      this.note.textContent = "None";
+      this.note.textContent = 'None';
     } else {
       pomodoro.forEach((element) => {
-        const list = this.createElement("tr");
-        const name = this.createElement("td");
+        const list = this.createElement('tr');
+        const name = this.createElement('td');
         name.textContent = element.taskName;
-        const status = this.createElement("td");
+        const status = this.createElement('td');
         status.textContent = `${element.pomodoroDone} / ${element.pomodoroCount} pomodori`;
-        const controls = this.createElement("td");
+        const controls = this.createElement('td');
         if (element.finished) {
-          controls.textContent = "Finished";
+          controls.textContent = 'Finished';
         } else {
-          controls.textContent = "";
+          controls.textContent = '';
         }
 
-        const doneButton = this.createElement("button");
-        doneButton.textContent = "Done";
-        const countButton = this.createElement("button");
-        countButton.textContent = "Increse Pomodoro Count";
-        const deleteButton = this.createElement("button");
-        deleteButton.textContent = "Delete task";
+        const doneButton = this.createElement('button');
+        doneButton.textContent = 'Done';
+        const countButton = this.createElement('button');
+        countButton.textContent = 'Increse Pomodoro Count';
+        const deleteButton = this.createElement('button');
+        deleteButton.textContent = 'Delete task';
         controls.append(doneButton, countButton, deleteButton);
 
         list.append(name, status, controls);
@@ -83,7 +82,7 @@ class View {
   }
 
   bindAddTask(handler) {
-    this.formAddTask.addEventListener('submit', event => {
+    this.formAddTask.addEventListener('submit', (event) => {
       event.preventDefault();
 
       if (this._valueTask) {
@@ -100,7 +99,6 @@ class Controller {
     this.view = view;
 
     this.onPomodoroListChanged(this.model.pomodoro);
-    this.view.bindAddTask(this.handleAddTask);
   }
 
   onPomodoroListChanged(pomodoro) {
