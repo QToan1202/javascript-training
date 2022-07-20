@@ -1,24 +1,4 @@
-class Model {
-  constructor() {
-    this.pomodoro = [
-      { taskName: 'Hello', pomodoroDone: 0, pomodoroCount: 1, finished: false },
-      { taskName: 'Adding MVC', pomodoroDone: 2, pomodoroCount: 4, finished: false, },
-      { taskName: 'Testing', pomodoroDone: 3, pomodoroCount: 4, finished: false },
-    ];
-  }
-
-  addTask(taskName, pomodoroCount) {
-    const task = {
-      taskName,
-      pomodoroDone: 0,
-      pomodoroCount,
-      finished: false,
-    };
-    this.pomodoro.push(task);
-  }
-}
-
-class View {
+export default class View {
   constructor() {
     this.content = this.getElement('table-body');
     this.note = this.getElement('note');
@@ -37,19 +17,21 @@ class View {
     return document.getElementById(selected);
   }
 
-  get _valueTask() {
+  get valueTask() {
     return this.taskName.value;
   }
 
-  get _valueCount() {
-    return this.pomodoroCount.value;
+  get valueCount() {
+    return parseInt(this.pomodoroCount.value, 10);
   }
 
-  _resetForm() {
+  resetForm() {
     this.formAddTask.reset();
   }
 
   displayTasks(pomodoro) {
+    this.content.innerHTML = '';
+
     if (pomodoro.length === 0) {
       this.note.textContent = 'None';
     } else {
@@ -71,6 +53,7 @@ class View {
         const countButton = this.createElement('button');
         countButton.textContent = 'Increse Pomodoro Count';
         const deleteButton = this.createElement('button');
+        deleteButton.dataId = element.id;
         deleteButton.textContent = 'Delete task';
         controls.append(doneButton, countButton, deleteButton);
 
@@ -85,29 +68,17 @@ class View {
     this.formAddTask.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      if (this._valueTask) {
-        handler(this._valueTask, this._valueCount);
-        this._resetForm();
+      if (this.valueTask) {
+        handler(this.valueTask, this.valueCount);
+        this.resetForm();
       }
     });
   }
-}
 
-class Controller {
-  constructor(model, view) {
-    this.model = model;
-    this.view = view;
-
-    this.onPomodoroListChanged(this.model.pomodoro);
+  bindDeleteTask(handler) {
+    this.content.addEventListener('click', (event) => {
+      const deleteTask = event.target.dataId;
+      handler(deleteTask);
+    });
   }
-
-  onPomodoroListChanged(pomodoro) {
-    this.view.displayTasks(pomodoro);
-  }
-
-  handleAddTask = (taskName, pomodoroCount) => {
-    this.model.addTask(taskName, pomodoroCount);
-  };
 }
-
-const app = new Controller(new Model(), new View());
