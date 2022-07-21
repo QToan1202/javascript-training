@@ -18,7 +18,7 @@ export default class View {
   }
 
   get valueTask() {
-    return this.taskName.value;
+    return this.taskName.value.trim();
   }
 
   get valueCount() {
@@ -30,30 +30,45 @@ export default class View {
   }
 
   displayTasks(pomodoro) {
-    this.content.innerHTML = '';
+    this.content.innerHTML = ''; // Delete all the content in table body
 
+    // Checking the list data is empty
     if (pomodoro.length === 0) {
       this.note.textContent = 'None';
     } else {
       pomodoro.forEach((element) => {
+        // Create a row in table body
         const list = this.createElement('tr');
+
+        // Create 3 cell
         const name = this.createElement('td');
         name.textContent = element.taskName;
         const status = this.createElement('td');
         status.textContent = `${element.pomodoroDone} / ${element.pomodoroCount} pomodori`;
         const controls = this.createElement('td');
+
+        // Create Done Button
         const doneButton = this.createElement('button');
         doneButton.id = 'done';
         doneButton.dataId = element.id;
         doneButton.textContent = 'Done';
+
+        // Create Increase Button
         const countButton = this.createElement('button');
         countButton.id = 'count';
         countButton.dataId = element.id;
         countButton.textContent = 'Increse Pomodoro Count';
+
+        // Create Delete Button
         const deleteButton = this.createElement('button');
         deleteButton.id = 'delete';
         deleteButton.dataId = element.id;
         deleteButton.textContent = 'Delete task';
+
+        /**
+         * Checking finished or not
+         * If it already finished hidden Done button and Count button
+         */
         if (element.finished) {
           controls.textContent = 'Finished';
           doneButton.classList.add('hidden');
@@ -62,10 +77,14 @@ export default class View {
           controls.textContent = '';
         }
 
+        // Add 3 button to the final cell of the row
         controls.append(doneButton, countButton, deleteButton);
 
+        // Attach 3 cell to new row then add to the table body
         list.append(name, status, controls);
         this.content.append(list);
+
+        // Count the total item that have
         this.note.textContent = `This table has: ${pomodoro.length} item`;
       });
     }
@@ -73,14 +92,17 @@ export default class View {
 
   bindAddTask(handler) {
     this.formAddTask.addEventListener('submit', (event) => {
-      event.preventDefault();
+      event.preventDefault();// Prevent browser form submit form
 
+      // Send the information if taskName aren't empty
       if (this.valueTask) {
         handler(this.valueTask, this.valueCount);
         this.resetForm();
       }
     });
   }
+
+  // Add events for buttons base on the ID of element
 
   bindDeleteTask(handler) {
     this.content.addEventListener('click', (event) => {

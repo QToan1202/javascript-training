@@ -9,6 +9,7 @@ export default class Controller {
     this.view.bindIncreaseTask(this.handleIncreaseTask);
     this.view.bindDoneTask(this.handleDoneTask);
 
+    // Display the list
     this.onPomodoroListChanged(this.model.pomodoro);
   }
 
