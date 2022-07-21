@@ -92,7 +92,7 @@ export default class View {
 
   bindAddTask(handler) {
     this.formAddTask.addEventListener('submit', (event) => {
-      event.preventDefault();// Prevent browser form submit form
+      event.preventDefault();// Prevent form submit data
 
       // Send the information if taskName aren't empty
       if (this.valueTask) {
