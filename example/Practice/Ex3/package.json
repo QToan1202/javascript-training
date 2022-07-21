@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "source": "src/signup_dom.html",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "dev": "parcel",
+    "build": "parcel build",
     "lint": "eslint ./"
   },
   "devDependencies": {

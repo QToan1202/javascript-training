@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Ex3(Form): Signup DOM</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script type="module" src='./form_js/signup_dom.js' defer></script>
+  <style>
+    body {
+      font-size: 20px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .error {
+      margin: 0;
+      color: red;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Sign Up Page</h1>
+  <form action="" method="post" id="form">
+    <p id="email-error" class="error"></p>
+    <label>Email:</label>
+    <input type="text" id="email"/>
+
+    <br />
+    <p id="name-error" class="error"></p>
+    <label>Name:</label>
+    <input type="text" id="name"/>
+
+    <br />
+    <p id="password-error" class="error"></p>
+    <label>Password:</label>
+    <input type="password" id="password"/>
+
+    <br />
+    <p id="confirm-password-error" class="error"></p>
+    <label>Confirm Password:</label>
+    <input type="password" id="confirm-password"/>
+
+    <br />
+    <input type="submit" value="Sign Up" />
+    <input type="button" value="Reset" id="reset-button"/>
+  </form>
+</body>
+
+</html>
