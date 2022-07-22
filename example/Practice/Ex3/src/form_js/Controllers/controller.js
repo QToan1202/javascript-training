@@ -3,22 +3,18 @@ export default class Controller {
     this.model = model;
     this.view = view;
 
-    this.model.bindUserChanged(this.onUserChanged);
+    this.model.bindDataChanged(this.onDataChanged);
     this.view.bindAddUser(this.handleAddUser);
-    this.view.resetAll(this.handleResetForm);
+    this.view.resetAll();
 
-    this.onUserChanged(this.model.user);
+    this.onDataChanged(this.model.user, this.model.error);
   }
 
-  onUserChanged = (user) => {
-    this.view.displayUser(user);
+  onDataChanged = (user, error) => {
+    this.view.displayData(user, error);
   };
 
   handleAddUser = (email, name, password, confirmPassword) => {
     this.model.addUser(email, name, password, confirmPassword);
-  };
-
-  handleResetForm = () => {
-    this.view.resetAll();
   };
 }

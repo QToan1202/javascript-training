@@ -45,7 +45,24 @@ export default class View {
     this.form.reset();
   }
 
-  displayUser(user) {
+  displayData(user, error) {
+    // Remove the information paragraph display a new one
+    if (this.form.parentElement.lastElementChild.tagName === 'DIV') this.form.parentElement.lastElementChild.remove();
+
+    // Show error
+    if (Object.keys(error).length !== 0) {
+      this.errorEmail.textContent = error.errorEmail;
+      this.errorName.textContent = error.errorName;
+      this.errorPassword.textContent = error.errorPassword;
+      this.errorConfirmPassword.textContent = error.errorConfirmPassword;
+    } else {
+      this.errorEmail.textContent = '';
+      this.errorName.textContent = '';
+      this.errorPassword.textContent = '';
+      this.errorConfirmPassword.textContent = '';
+    }
+
+    // Show user information after submit successfull
     if (Object.keys(user).length !== 0) {
       const information = this.createElement('div');
       information.innerHTML = `
@@ -62,20 +79,13 @@ export default class View {
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      if (
-        this.userEmail &&
-        this.userName &&
-        this.userPassword &&
-        this.userConfirmPassword
-      ) {
-        handler(
-          this.userEmail,
-          this.userName,
-          this.userPassword,
-          this.userConfirmPassword,
-        );
-        this.resetForm();
-      }
+      handler(
+        this.userEmail,
+        this.userName,
+        this.userPassword,
+        this.userConfirmPassword,
+      );
+      this.resetForm();
     });
   }
 
