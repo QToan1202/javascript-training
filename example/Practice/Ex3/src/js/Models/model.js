@@ -9,6 +9,10 @@ export default class Model {
     this.onPomodoroListChanged = callback;
   }
 
+  bindExistedTaskName(callback) {
+    this.onExistedTask = callback;
+  }
+
   /**
    * Checking the item is already exist or not
    * @param {string} taskName
@@ -28,8 +32,9 @@ export default class Model {
       const task = new Task(taskName, 0, pomodoroCount, false);
       this.pomodoro.push(task);
       localStorage.setItem('pomodoro', JSON.stringify(this.pomodoro));
-      this.onPomodoroListChanged(this.pomodoro);
+      return this.onPomodoroListChanged(this.pomodoro);
     }
+    return this.onExistedTask(`Task ${taskName} existed`);
   }
 
   /**

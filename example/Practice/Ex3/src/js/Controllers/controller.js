@@ -4,14 +4,20 @@ export default class Controller {
     this.view = view;
 
     this.model.bindPomodoroListChanged(this.onPomodoroListChanged);
+    this.model.bindExistedTaskName(this.onExistedTask);
     this.view.bindAddTask(this.handleAddTask);
     this.view.bindDeleteTask(this.handleDeleteTask);
     this.view.bindIncreaseTask(this.handleIncreaseTask);
     this.view.bindDoneTask(this.handleDoneTask);
+    this.view.clearError();
 
     // Display the list
     this.onPomodoroListChanged(this.model.pomodoro);
   }
+
+  onExistedTask = (hasError) => {
+    this.view.displayError(hasError);
+  };
 
   onPomodoroListChanged = (pomodoro) => {
     this.view.displayTasks(pomodoro);
