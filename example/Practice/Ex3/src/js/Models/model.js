@@ -65,7 +65,7 @@ export default class Model {
    */
   doneTask(id) {
     const task = this.pomodoro.find((item) => item.id === id);
-    if (task.id === id) task.finished = true;
+    task.finished = true;
     localStorage.setItem('pomodoro', JSON.stringify(this.pomodoro));
     this.onPomodoroListChanged(this.pomodoro);
   }
