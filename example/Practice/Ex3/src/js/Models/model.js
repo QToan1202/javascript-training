@@ -1,28 +1,8 @@
+import Task from './task';
+
 export default class Model {
   constructor() {
-    this.pomodoro = [
-      {
-        id: 1,
-        taskName: 'Hello',
-        pomodoroDone: 0,
-        pomodoroCount: 1,
-        finished: false,
-      },
-      {
-        id: 2,
-        taskName: 'Adding MVC',
-        pomodoroDone: 2,
-        pomodoroCount: 4,
-        finished: false,
-      },
-      {
-        id: 3,
-        taskName: 'Testing',
-        pomodoroDone: 3,
-        pomodoroCount: 4,
-        finished: false,
-      },
-    ];
+    this.pomodoro = JSON.parse(localStorage.getItem('pomodoro')) || [];
   }
 
   bindPomodoroListChanged(callback) {
@@ -30,32 +10,25 @@ export default class Model {
   }
 
   // Checking the item is already exist or not
-  isValidate(taskName) {
-    let obj;
-    if (taskName.trim().length !== 0) {
-      obj = this.pomodoro.find((item) => item.taskName === taskName.trim());
-    }
-    return obj === undefined;
+  isExist(taskName) {
+    return this.pomodoro.some((item) => item.taskName === taskName);
   }
 
   // Add new task if validate success
   addTask(taskName, pomodoroCount) {
-    if (this.isValidate(taskName)) {
-      const task = {
-        id: Math.floor(Math.random() * 100), // Genererate random ID(0-99)
-        taskName,
-        pomodoroDone: 0,
-        pomodoroCount,
-        finished: false,
-      };
+    if (!this.isExist(taskName)) {
+      const task = new Task(taskName, 0, pomodoroCount, false);
       this.pomodoro.push(task);
-      this.onPomodoroListChanged(this.pomodoro); // Tell the view to render the table body
+
+      localStorage.setItem('pomodoro', JSON.stringify(this.pomodoro));
+      this.onPomodoroListChanged(this.pomodoro);
     }
   }
 
   // Delete task belong to the specified ID
   deleteTask(id) {
     this.pomodoro = this.pomodoro.filter((item) => item.id !== id);
+    localStorage.setItem('pomodoro', JSON.stringify(this.pomodoro));
     this.onPomodoroListChanged(this.pomodoro);
   }
 
@@ -70,6 +43,7 @@ export default class Model {
       }
       return item;
     });
+    localStorage.setItem('pomodoro', JSON.stringify(this.pomodoro));
     this.onPomodoroListChanged(this.pomodoro);
   }
 
@@ -81,6 +55,7 @@ export default class Model {
       }
       return item;
     });
+    localStorage.setItem('pomodoro', JSON.stringify(this.pomodoro));
     this.onPomodoroListChanged(this.pomodoro);
   }
 }
