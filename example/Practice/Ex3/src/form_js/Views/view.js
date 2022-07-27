@@ -4,10 +4,10 @@ export default class View {
     this.form = document.getElementById('form');
 
     // Input
-    this.email = document.getElementById('email');
-    this.name = document.getElementById('name');
-    this.password = document.getElementById('password');
-    this.confirmPassword = document.getElementById('confirm-password');
+    this.emailInput = document.getElementById('email');
+    this.nameInput = document.getElementById('name');
+    this.passwordInput = document.getElementById('password');
+    this.confirmPasswordInput = document.getElementById('confirm-password');
 
     // Error
     this.errorEmail = document.getElementById('email-error');
@@ -26,44 +26,45 @@ export default class View {
   }
 
   get userEmail() {
-    return this.email.value.trim();
+    return this.emailInput.value.trim();
   }
 
   get userName() {
-    return this.name.value.trim();
+    return this.nameInput.value.trim();
   }
 
   get userPassword() {
-    return this.password.value;
+    return this.passwordInput.value;
   }
 
   get userConfirmPassword() {
-    return this.confirmPassword.value;
+    return this.confirmPasswordInput.value;
   }
 
   resetForm() {
     this.form.reset();
   }
 
+  /**
+   * Display user information and errors
+   * @param {object} user
+   * @param {array} error
+   */
   displayData(user, error) {
-    // Remove the information paragraph display a new one
+    // Remove the information paragraph
     if (this.form.parentElement.lastElementChild.tagName === 'DIV') this.form.parentElement.lastElementChild.remove();
 
     // Show error
-    if (Object.keys(error).length !== 0) {
+    if (Object.keys(error).length) {
       this.errorEmail.textContent = error.errorEmail;
       this.errorName.textContent = error.errorName;
       this.errorPassword.textContent = error.errorPassword;
       this.errorConfirmPassword.textContent = error.errorConfirmPassword;
-    } else {
-      this.errorEmail.textContent = '';
-      this.errorName.textContent = '';
-      this.errorPassword.textContent = '';
-      this.errorConfirmPassword.textContent = '';
     }
 
     // Show user information after submit successfull
-    if (Object.keys(user).length !== 0) {
+    if (Object.keys(user).length) {
+      this.resetForm();
       const information = this.createElement('div');
       information.innerHTML = `
       <p>Email: ${user.email}</p>
@@ -85,7 +86,6 @@ export default class View {
         this.userPassword,
         this.userConfirmPassword,
       );
-      this.resetForm();
     });
   }
 
