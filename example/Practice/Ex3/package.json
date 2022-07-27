@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "source": "src/index.html",
+  "source": ["src/signup_dom.html", "src/index.html"],
   "scripts": {
     "dev": "parcel",
     "build": "parcel build",
