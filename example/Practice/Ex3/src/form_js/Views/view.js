@@ -76,6 +76,27 @@ export default class View {
     }
   }
 
+  /**
+   * Add event for input to clear error when changed
+   */
+  bindInputChanged() {
+    this.emailInput.addEventListener('input', () => {
+      this.errorEmail.textContent = '';
+    });
+
+    this.nameInput.addEventListener('input', () => {
+      this.errorName.textContent = '';
+    });
+
+    this.passwordInput.addEventListener('input', () => {
+      this.errorPassword.textContent = '';
+    });
+
+    this.confirmPasswordInput.addEventListener('input', () => {
+      this.errorConfirmPassword.textContent = '';
+    });
+  }
+
   bindAddUser(handler) {
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();

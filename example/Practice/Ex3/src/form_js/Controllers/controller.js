@@ -6,6 +6,7 @@ export default class Controller {
     this.model.bindDataChanged(this.onDataChanged);
     this.view.bindAddUser(this.handleAddUser);
     this.view.resetAll();
+    this.view.bindInputChanged();
 
     this.onDataChanged(this.model.user, this.model.error);
   }
