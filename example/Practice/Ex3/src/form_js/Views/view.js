@@ -79,7 +79,7 @@ export default class View {
   /**
    * Add event for input to clear error when changed
    */
-  bindInputChanged() {
+  addEventInputChanged() {
     this.emailInput.addEventListener('input', () => {
       this.errorEmail.textContent = '';
     });
