@@ -1,22 +1,22 @@
 export default class View {
   constructor() {
     // Form
-    this.form = document.getElementById('form');
+    this.form = document.getElementById('js-form');
 
     // Input
-    this.emailInput = document.getElementById('email');
-    this.nameInput = document.getElementById('name');
-    this.passwordInput = document.getElementById('password');
-    this.confirmPasswordInput = document.getElementById('confirm-password');
+    this.emailInput = document.getElementById('js-email');
+    this.nameInput = document.getElementById('js-name');
+    this.passwordInput = document.getElementById('js-password');
+    this.confirmPasswordInput = document.getElementById('js-confirm-password');
 
     // Error
-    this.errorEmail = document.getElementById('email-error');
-    this.errorName = document.getElementById('name-error');
-    this.errorPassword = document.getElementById('password-error');
-    this.errorConfirmPassword = document.getElementById('confirm-password-error');
+    this.errorEmail = document.getElementById('js-email-error');
+    this.errorName = document.getElementById('js-name-error');
+    this.errorPassword = document.getElementById('js-password-error');
+    this.errorConfirmPassword = document.getElementById('js-confirm-password-error');
 
     // Button
-    this.btnReset = document.getElementById('reset-button');
+    this.btnReset = document.getElementById('js-reset-button');
   }
 
   createElement(tag, className) {
