@@ -1,0 +1,21 @@
+@use '../abstracts/colors' as color;
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: color.$white;
+
+  &__logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__title {
+    line-height: 29px;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: color.$dark-sky-blue;
+  }
+}
