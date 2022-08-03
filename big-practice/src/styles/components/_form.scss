@@ -1,19 +1,26 @@
 @use '../abstracts/colors' as color;
 
 .form {
-  text-align: center;
-  width: 300px;
+  display: flex;
+  align-items: center;
   border: 1px solid color.$grey-goose;
+  min-width: 300px;
+  border-radius: 4px;
 
   &__input {
+    margin: 10px 5px;
+    flex-grow: 1;
     border: none;
     outline: none;
+    line-height: 19px;
   }
 
   &__input::placeholder {
-    padding-bottom: 100px;
     color: color.$raven;
-    line-height: 19px;
+  }
+
+  &__input:focus {
+    border-bottom: 0.5px solid color.$black;
   }
 
 

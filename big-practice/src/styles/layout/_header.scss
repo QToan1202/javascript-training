@@ -2,10 +2,20 @@
 
 .header {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: color.$white;
+
+  &-container {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
 
   &__logo {
     width: 40px;
