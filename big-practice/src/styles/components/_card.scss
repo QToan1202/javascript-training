@@ -1,0 +1,28 @@
+@use '../abstracts/colors' as color;
+@use '../abstracts/variables' as var;
+
+.card {
+  background-color: color.$white;
+
+  &-header {
+    display: flex;
+    align-items: center;
+
+    &__title {
+      padding-right: 20px;
+      font-size: 20px;
+      line-height: 23px;
+      font-family: var.$font-bold;
+    }
+
+    &__state {
+      width: 100px;
+    }
+
+    &__btn {
+      font-size: 30px;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@use '../abstracts/colors' as color;
+@use '../abstracts/variables' as var;
+
+.container {
+  margin: 20px 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.col {
+  margin: 0 10px;
+  flex: 1;
+  border: 1px solid color.$lavender-pinocchio;
+  background-color: color.$desert-storm;
+  border-radius: 4px;
+
+  &__title {
+    padding: 20px;
+    font-size: 18px;
+    line-height: 21px;
+    text-transform: uppercase;
+    font-family: var.$font-bold;
+
+    &--todo {
+      color: color.$white;
+      background-color: color.$butterfly-blue;
+    }
+  
+    &--in-progress {
+      background-color: color.$beer;
+    }
+  
+    &--done {
+      color: color.$white;
+      background-color: color.$clover-green;
+    }
+  
+    &--archived {
+      background-color: color.$lavender-pinocchio;
+    }
+  }
+
+  &__form {
+    width: auto;
+  }
+
+  &__task {
+    margin: 20px 15px;
+  }
+
+}
