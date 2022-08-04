@@ -27,6 +27,12 @@ body {
     line-height: 23px;
     color: color.$black;
   }
+
+  &--login {
+    color: color.$black;
+    font-size: 25px;
+    margin: 20px;
+  }
 }
 
 .desc {
