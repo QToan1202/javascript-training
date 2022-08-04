@@ -17,7 +17,7 @@
         <h1 class="header__title">task management</h1>
       </a>
       <form class="form" action="#" method="get">
-        <img class="form__search-icon" src="./assets/images/search-icon.svg" alt="search-icon" />
+        <img width="25" height="25" class="form__search-icon" src="./assets/images/search-icon.svg" alt="search-icon" />
         <input class="form__input" type="text" placeholder="Search for tasks" />
         <input type="submit" hidden />
         <button type="reset" class="form__button-clear" id="js-clear-button">&times;</button>
@@ -30,8 +30,8 @@
       <div class="col">
         <h2 class="col__title  col__title--todo">Todo</h2>
         <div class="col__task">
-          <form class="col__form"  action="#" method="get">
-            <input type="text" id="js-"/>
+          <form class="form  form--add" action="#" method="get">
+            <input class="form__input  form__input--add" type="text" id="js-add-task-input"/>
             <p>Enter to create a new task</p>
           </form>
         </div>
