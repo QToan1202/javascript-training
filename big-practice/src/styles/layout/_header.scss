@@ -1,7 +1,6 @@
 @use '../abstracts/colors' as color;
 
 .header {
-  width: 100%;
   background-color: color.$white;
 
   &-container {
