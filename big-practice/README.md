@@ -53,7 +53,7 @@ Open Windows PowerShell or cmd or [Windows Terminal](https://www.microsoft.com/e
 **_Step 1:_** Clone code
 
 ```bash
-git clone --single-branch --branch feature/big-practice git@github.com:QToan1202/javascript-training.git
+git clone --single-branch --branch develop git@github.com:QToan1202/javascript-training.git
 ```
 
 **_Step 2:_**  Move to big-practice folder
