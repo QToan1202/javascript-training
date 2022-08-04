@@ -12,6 +12,8 @@
   }
 
   &--login {
+    flex-direction: column;
+    align-items: flex-start;
     margin: 10px auto;
     padding: 20px;
     border: none;
@@ -45,7 +47,7 @@
 }
 
 .input {
-  border: 1px solid black;
+  border: 1px solid color.$black;
   border-radius: 4px;
   margin-bottom: 10px;
   background-color: transparent;
@@ -54,7 +56,7 @@
   width: 100%;
 
   &:focus {
-    border: 1px solid white;
+    border: 1px solid color.$white;
     transition: 0.3s ease;
     outline: none;
   }
