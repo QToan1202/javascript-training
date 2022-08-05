@@ -1,0 +1,20 @@
+.row {
+  display: flex;
+
+  &--task {
+    padding: 8px 0;
+    align-items: center;
+  }
+
+  &--center {
+    align-items: center;
+  }
+
+  &--direction {
+    flex-direction: column;
+  }
+}
+
+.push {
+  margin-left: auto;
+}
