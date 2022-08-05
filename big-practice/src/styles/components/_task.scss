@@ -1,8 +1,9 @@
 @use '../abstracts/colors' as color;
 
 .task {
+  margin: 10px 0;
   box-shadow: 0 4px 8px 0 color.$box-shadow;
-  max-width: 500px;
+  width: 100%;
   background: color.$white;
   border-radius: 4px;
   cursor: pointer;
@@ -18,12 +19,6 @@
     &__title {
       line-height: 19px;
       font-size: 16px;
-    }
-
-    &--row {
-      padding: 8px 0;
-      display: flex;
-      justify-content: space-between;
     }
   }
 }

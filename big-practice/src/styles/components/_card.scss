@@ -18,19 +18,12 @@
       outline: none;
     }
 
-    &__btn {
-      margin-left: auto;
-      cursor: pointer;
-      font-size: 30px;
-      border: none;
-      background-color: transparent;
-    }
   }
   &-content {
     padding: 20px;
   }
 
-  &--register {
+  &--hidden {
     display: none;
   }
 

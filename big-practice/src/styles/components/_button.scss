@@ -1,15 +1,22 @@
-.btn {
-  display: block;
-  margin: 0 auto;
-  padding: 5px;
-  border-radius: 5px;
-  width: 90%;
-}
+@use "../abstracts/colors" as color;
 
-.btn-close {
-  margin-left: auto;
+.btn {
   font-size: 30px;
   background-color: transparent;
   border: none;
-  cursor: pointer
+  cursor: pointer;
+
+  &--clear {
+    font-size: 25px;
+  }
+
+  &--form {
+    margin: 0 auto;
+    padding: 5px;
+    width: 90%;
+    border-radius: 5px;
+    font-size: 18px;
+    color: color.$white;
+    background-color: color.$clover-green;
+  }
 }
