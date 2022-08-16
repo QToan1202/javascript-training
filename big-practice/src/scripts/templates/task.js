@@ -1,4 +1,4 @@
-class Task {
+export default class Task {
   static renderWorkItem = (
     id,
     taskName,
