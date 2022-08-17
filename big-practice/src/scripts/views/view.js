@@ -20,12 +20,7 @@ export default class View {
    * Add a new task to TODO column
    * @param {Object} task
    */
-  displayNewTask({
-    id,
-    taskName,
-    createdDate,
-    dueDate,
-  }) {
+  displayNewTask({ id, taskName, createdDate, dueDate }) {
     const element = document.createElement('template');
     element.innerHTML = Task.renderWorkItem(id, taskName, createdDate, dueDate);
     this.todoColumn.appendChild(element.content.firstElementChild);
