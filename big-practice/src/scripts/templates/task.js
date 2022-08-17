@@ -1,3 +1,7 @@
+import clockIcon from '../../assets/images/clock-icon.svg';
+import deleteIcon from '../../assets/images/delete-icon.svg';
+import editIcon from '../../assets/images/edit-icon.svg';
+
 export default class Task {
   static renderWorkItem = (
     id,
@@ -8,11 +12,11 @@ export default class Task {
   <div class="task-content">
     <div class="row  row--task">
       <h2 class="task-content__title">${taskName}</h2>
-      <img class="push" src="./assets/images/delete-icon.svg" alt="delete-icon" id="delete" />
+      <img class="push" src="${deleteIcon}" alt="delete-icon" id="delete" />
     </div>
     <div class="row  row--task">
       <p>${createdDate}</p>
-      <img class="push" src="./assets/images/clock-icon.svg" alt="clock-icon" />
+      <img class="push" src="${clockIcon}" alt="clock-icon" />
       <p> ${dueDate} </p>
     </div>
   </div>
@@ -39,7 +43,7 @@ export default class Task {
     <div class="row  row--direction">
       <div class="title">
         <h3>Description</h3>
-        <img width="20" height="20" src="./assets/images/edit-icon.svg" alt="edit-icon" />
+        <img width="20" height="20" src="${editIcon}" alt="edit-icon" />
       </div>
       <p id="js-desc" class="desc" contenteditable="true">${desc}</p>
     </div>
