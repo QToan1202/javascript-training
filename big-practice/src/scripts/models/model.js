@@ -3,13 +3,23 @@ import APITask from '../utilities/apiTask';
 
 export default class Model {
   constructor() {
-    this.newTask = {};
     this.APITask = new APITask();
   }
 
+  /**
+   * Add a new task with taskName
+   * @param {String} taskName
+   * @return Object
+   */
   async addTask(taskName) {
+    // Check if taskName is empty or not
+    if (!taskName) throw new Error('Name is empty');
     const task = new Task(taskName);
-    const newTask = await this.APITask.addTask(task);
-    this.newTask = newTask;
+    try {
+      // Calling API addTask form APITask
+      return await this.APITask.addTask(task);
+    } catch (error) {
+      throw new Error('Error occurred in adding process');
+    }
   }
 }
