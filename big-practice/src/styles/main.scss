@@ -1,15 +1,9 @@
-@use 'abstracts/variables';
-@use 'abstracts/colors';
+@use 'abstracts';
 
-@use 'base/reset';
-@use 'base/font';
-@use 'base/typography';
+@use 'base';
 
-@use 'layout/header';
+@use 'layout';
 
-@use 'components/form';
-@use 'components/card';
-@use 'components/column';
-@use 'components/task';
+@use 'components';
 
-@use 'pages/home';
+@use 'pages';
