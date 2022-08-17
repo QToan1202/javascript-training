@@ -9,11 +9,15 @@ export default class View {
     this.archivedColumn = document.getElementById('js-archivied');
   }
 
-  displayNewTask(task) {
-    console.log(task);
-    const addedTask = document.createElement('div');
-    addedTask.innerHTML = Task.renderWorkItem(task.id, task.taskName, task.createdDate, task.dueDate);
-    this.todoColumn.append(addedTask);
+  displayNewTask({
+    id,
+    taskName,
+    createdDate,
+    dueDate,
+  }) {
+    const element = document.createElement('template');
+    element.innerHTML = Task.renderWorkItem(id, taskName, createdDate, dueDate);
+    this.todoColumn.appendChild(element.content.firstElementChild);
   }
 
   handlerAddTask(handler) {
