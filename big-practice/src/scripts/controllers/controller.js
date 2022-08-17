@@ -3,11 +3,18 @@ export default class Controller {
     this.view = view;
     this.model = model;
 
-    this.view.handlerAddTask(this.handlerAddTask);
+    this.view.bindAddTask(this.handlerAddTask);
   }
 
+  /**
+   * Sending taskName to model
+   * Then receive a object to render a new task
+   * Finally reset form
+   * @param {String} taskName
+   */
   handlerAddTask = async (taskName) => {
-    await this.model.addTask(taskName);
-    this.view.displayNewTask(this.model.newTask);
+    const task = await this.model.addTask(taskName);
+    this.view.displayNewTask(task);
+    this.view.resetForm();
   };
 }
