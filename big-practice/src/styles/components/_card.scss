@@ -1,0 +1,32 @@
+@use '../abstracts/colors' as color;
+@use '../abstracts/variables' as var;
+
+.card {
+  background-color: color.$white;
+  max-width: 700px;
+  border-radius: 4px;
+
+  &-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid color.$lavender-pinocchio;
+
+    &__state {
+      padding: 6px 15px;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    &__btn {
+      margin-left: auto;
+      cursor: pointer;
+      font-size: 30px;
+      border: none;
+      background-color: transparent;
+    }
+  }
+  &-content {
+    padding: 20px;
+  }
+}

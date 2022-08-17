@@ -1,0 +1,39 @@
+@use "../abstracts/colors" as color;
+
+.form {
+  display: flex;
+  align-items: center;
+  border: 1px solid color.$grey-goose;
+  border-radius: 4px;
+
+  &--add {
+    display: block;
+    border: none;
+  }
+
+  &__input {
+    margin: 10px 5px;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    line-height: 19px;
+    border-bottom: 0.5px solid color.$black;
+
+    &--add {
+      width: 100%;
+      margin: 0 0 10px 0;
+      background-color: transparent;
+      border-bottom: 0.5px solid color.$black;
+    }
+  }
+
+  &__input::placeholder {
+    color: color.$raven;
+  }
+
+  &__button-clear {
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+  }
+}

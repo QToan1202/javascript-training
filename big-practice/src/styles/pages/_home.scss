@@ -1,0 +1,16 @@
+@use '../abstracts/variables' as var;
+@use '../abstracts/colors' as color;
+
+body {
+  background-color: color.$mercury;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+
+  &--inline-center {
+    flex-direction: row; 
+    align-items: center;
+  }
+}
