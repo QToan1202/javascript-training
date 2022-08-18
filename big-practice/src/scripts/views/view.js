@@ -44,6 +44,16 @@ export default class View {
   }
 
   /**
+   * Display a task with all information
+   * @param {Object} task
+   */
+  renderDetailInformation({ id, taskName, dueDate, description }) {
+    const element = document.createElement('template');
+    element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
+    document.body.appendChild(element.content.firstElementChild);
+  }
+
+  /**
    * Event for input to add a new task when pressing Enter
    * @param {String} handler
    */
