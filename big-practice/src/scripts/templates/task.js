@@ -25,7 +25,7 @@ export default class Task {
   static renderDetailTask = (
     id,
     taskName,
-    desc,
+    description,
     dueDate,
   ) => `<div class="card" id="${id}">
   <div class="card-header">
@@ -45,7 +45,7 @@ export default class Task {
         <h3>Description</h3>
         <img width="20" height="20" src="${editIcon}" alt="edit-icon" />
       </div>
-      <p id="js-desc" class="desc" contenteditable="true">${desc}</p>
+      <p id="js-desc" class="desc" contenteditable="true">${description}</p>
     </div>
 
     <div class="row  row--direction">
