@@ -34,4 +34,17 @@ export default class Model {
       throw new Error('Error occurred in getting process');
     }
   }
+
+  /**
+   * Get the task information with ID
+   * @param {Number} id
+   * @returns Object
+   */
+  async getDetailTask(id) {
+    try {
+      return await this.APITask.getDetailTask(id);
+    } catch (error) {
+      throw new Error('Error occurred in getting process');
+    }
+  }
 }

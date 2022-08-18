@@ -50,6 +50,20 @@ export default class APITask {
   }
 
   /**
+   * Calling API to get task base on ID that pass in
+   * @param {Number} id
+   * @returns Object
+   */
+  async getDetailTask(id) {
+    try {
+      const response = await fetch(this.apiEndpoint(`/tasks/${id}`));
+      return await response.json();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
    * Get the full path of API endpoint
    * @param {String} url
    * @returns String
