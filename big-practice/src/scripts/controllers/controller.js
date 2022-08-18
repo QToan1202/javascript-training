@@ -7,6 +7,10 @@ export default class Controller {
     this.renderList();
   }
 
+  /**
+   * Get the task list from model
+   * Then execute renderTaskList method in view
+   */
   renderList = async () => {
     const tasks = await this.model.getTasks();
     this.view.renderTaskList(tasks);
