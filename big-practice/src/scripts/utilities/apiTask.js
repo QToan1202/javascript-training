@@ -24,7 +24,7 @@ export default class APITask {
    */
   async addTask(taskName) {
     try {
-      const response = await fetch(this.apiEndpoint('tasks'), this.requestOptions('POST', taskName));
+      const response = await fetch(this.apiEndpoint('/tasks'), this.requestOptions('POST', taskName));
       return await response.json();
     } catch (error) {
       throw new Error(error);
