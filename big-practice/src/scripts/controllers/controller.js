@@ -24,7 +24,7 @@ export default class Controller {
    */
   handlerAddTask = async (taskName) => {
     const task = await this.model.addTask(taskName);
-    this.view.displayNewTask(task);
+    this.view.displayTask(this.view.todoColumn, task);
     this.view.resetForm();
   };
 }
