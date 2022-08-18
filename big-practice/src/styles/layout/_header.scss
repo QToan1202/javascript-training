@@ -19,4 +19,11 @@
     width: 40px;
     height: 40px;
   }
+
+  &__title {
+    text-transform: uppercase;
+    line-height: 29px;
+    font-size: 25px;
+    color: color.$dark-sky-blue;
+  }
 }
