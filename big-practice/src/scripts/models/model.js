@@ -22,4 +22,16 @@ export default class Model {
       throw new Error('Error occurred in adding process');
     }
   }
+
+  /**
+   * Get all task in db.json file
+   * @returns Array
+   */
+  async getTasks() {
+    try {
+      return await this.APITask.getTaskList();
+    } catch (error) {
+      throw new Error('Error occurred in getting process');
+    }
+  }
 }

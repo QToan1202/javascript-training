@@ -4,7 +4,13 @@ export default class Controller {
     this.model = model;
 
     this.view.bindAddTask(this.handlerAddTask);
+    this.renderList();
   }
+
+  renderList = async () => {
+    const tasks = await this.model.getTasks();
+    this.view.renderTaskList(tasks);
+  };
 
   /**
    * Sending taskName to model
