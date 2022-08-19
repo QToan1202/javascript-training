@@ -25,8 +25,8 @@ export default class Task {
   static renderDetailTask = (
     id,
     taskName,
-    description,
     dueDate,
+    description,
   ) => `<div class="card" id="${id}">
   <div class="card-header">
     <h2 class="title  title--card">${taskName}</h2>
@@ -36,7 +36,7 @@ export default class Task {
       <option value="done">Done</option>
       <option value="archived">Archived</option>
     </select>
-    <button class="btn  push">&times;</button>
+    <button class="btn  push" id="js-close-btn">&times;</button>
   </div>
 
   <div class="card-content">
