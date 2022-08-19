@@ -51,11 +51,22 @@ export default class View {
     const element = document.createElement('template');
     element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
     document.body.appendChild(element.content.firstElementChild);
+    this.closeDetailTaskBtn();
+  }
+
+  /**
+   * Add event for closing button in the information card
+   */
+  closeDetailTaskBtn() {
+    const btnClose = document.querySelectorAll('#js-close-btn');
+    [...btnClose].map((btn) => btn.addEventListener('click', () => {
+      btn.closest('.card').setAttribute('style', 'display: none');
+    }));
   }
 
   /**
    * Event for input to add a new task when pressing Enter
-   * @param {String} handler
+   * @param {Function} handler
    */
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
@@ -63,6 +74,28 @@ export default class View {
         event.preventDefault();
         handler(this.taskName.value);
       }
+    });
+  }
+
+  /**
+   * Add event for column to get task ID to show detail information
+   * @param {Function} handler
+   */
+  bindGetTaskDetail(handler) {
+    this.todoColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+    this.inProgressColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+    this.doneColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+    this.archivedColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+  }
+
+  /**
+   * Add event when change the description
+   * @param {Function} handler
+   */
+  bindUpdateTask(handler) {
+    const desc = document.getElementById('js-desc');
+    desc.addEventListener('focusout', () => {
+      handler(desc.closest('.card').id, desc.textContent);
     });
   }
 }

@@ -5,6 +5,7 @@ export default class Controller {
 
     this.view.bindAddTask(this.handlerAddTask);
     this.renderList();
+    this.view.bindGetTaskDetail(this.handlerGetDetailTask);
   }
 
   /**
@@ -26,5 +27,25 @@ export default class Controller {
     const task = await this.model.addTask(taskName);
     this.view.displayTask(this.view.todoColumn, task);
     this.view.resetForm();
+  };
+
+  /**
+   * Sending ID of the task to model
+   * Then receive that task to render the detail card
+   * @param {Number} id
+   */
+  handlerGetDetailTask = async (id) => {
+    const task = await this.model.getDetailTask(id);
+    this.view.renderDetailInformation(task);
+    this.view.bindUpdateTask(this.handlerUpdateTask);
+  };
+
+  /**
+   * Update the task description
+   * @param {Number} id
+   * @param {String} description
+   */
+  handlerUpdateTask = async (id, description) => {
+    const isOk = await this.model.updateTask(id, description);
   };
 }

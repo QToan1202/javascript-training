@@ -13,7 +13,7 @@ export default class Model {
    */
   async addTask(taskName) {
     // Check if taskName is empty or not
-    if (!taskName) throw new Error('Name is empty');
+    if (!taskName.trim()) throw new Error('Name is empty');
     const task = new Task(taskName);
     try {
       // Calling API addTask form APITask
@@ -45,6 +45,20 @@ export default class Model {
       return await this.APITask.getDetailTask(id);
     } catch (error) {
       throw new Error('Error occurred in getting process');
+    }
+  }
+
+  /**
+   * Update task description
+   * @param {Number} id
+   * @param {String} description
+   * @returns Boolean
+   */
+  async updateTask(id, description) {
+    try {
+      return await this.APITask.updateTask(id, description);
+    } catch (error) {
+      throw new Error('Error occurred in uppdate process');
     }
   }
 }
