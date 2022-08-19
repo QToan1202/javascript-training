@@ -25,7 +25,7 @@ class Task {
     dueDate,
   ) => `<div class="card" id="${id}">
   <div class="card-header">
-    <h2 class="title  title--card">${taskName}</h2>
+    <h2 class="card__title">${taskName}</h2>
     <select id="js-state" class="card-header__state">
       <option value="todo">Todo</option>
       <option value="in-progress">In progress</option>
