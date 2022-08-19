@@ -7,12 +7,12 @@ export default class APITask {
    * @param {*} data
    * @returns Object
    */
-  requestOptions(method, data) {
+  requestOptions(method, data, contentType) {
     return {
       method,
-      body: JSON.stringify(data),
+      body: data,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': contentType,
       },
     };
   }
@@ -24,7 +24,7 @@ export default class APITask {
    */
   async addTask(taskName) {
     try {
-      const response = await fetch(this.apiEndpoint('/tasks'), this.requestOptions('POST', taskName));
+      const response = await fetch(this.apiEndpoint('/tasks'), this.requestOptions('POST', JSON.stringify(taskName), 'application/json'));
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -58,6 +58,25 @@ export default class APITask {
     try {
       const response = await fetch(this.apiEndpoint(`/tasks/${id}`));
       return await response.json();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Update task description base on ID
+   * @param {Number} id
+   * @param {String} description
+   * @returns Boolean
+   */
+  async updateTask(id, description) {
+    const formData = [];
+    const key = encodeURIComponent('description');
+    const value = encodeURIComponent(description);
+    formData.push(`${key}=${value}`);
+    try {
+      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('PATCH', formData.join('&'), 'application/x-www-form-urlencoded'));
+      return response.ok;
     } catch (error) {
       throw new Error(error);
     }
