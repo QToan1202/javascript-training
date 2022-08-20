@@ -53,7 +53,7 @@ class Task {
     </div>
 
     <div class="row  row--direction">
-      <h3 class="title  title--spacing">Comments</h3>
+      <h3 class="title  spacing-top">Comments</h3>
       <textarea class="comments" id="js-comment" placeholder="Enter new comment..." rows="1"></textarea>
     </div>
   </div>
