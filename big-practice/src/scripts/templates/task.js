@@ -37,7 +37,7 @@ class Task {
 
   <div class="card-content">
     <div class="row  row--direction">
-      <div class="title">
+      <div class="row  row--center  title">
         <h3>Description</h3>
         <img src="./assets/images/edit-icon.svg" alt="edit-icon" />
       </div>
