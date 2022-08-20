@@ -48,6 +48,9 @@ export default class View {
    * @param {Object} task
    */
   renderDetailInformation({ id, taskName, dueDate, description }) {
+    const existDetailCard = document.getElementsByClassName('card');
+    if (existDetailCard.length) existDetailCard[0].remove();
+
     const element = document.createElement('template');
     element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
     document.body.appendChild(element.content.firstElementChild);
@@ -60,7 +63,7 @@ export default class View {
   closeDetailTaskBtn() {
     const btnClose = document.querySelectorAll('#js-close-btn');
     [...btnClose].map((btn) => btn.addEventListener('click', () => {
-      btn.closest('.card').setAttribute('style', 'display: none');
+      btn.closest('.card').remove();
     }));
   }
 
