@@ -101,4 +101,35 @@ export default class View {
       handler(desc.closest('.card').id, desc.textContent);
     });
   }
+
+  /**
+   * Add event data for draggable element
+   */
+  dragTask() {
+    const tasks = document.getElementsByClassName('task');
+    [...tasks].map((task) => task.addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('application/x-moz-node', event.target.id);
+      event.dataTransfer.dragEffect = 'move';
+    }));
+  }
+
+  /**
+   * Define drop zone for element
+   */
+  dropTask() {
+    const columns = document.getElementsByClassName('col');
+
+    [...columns].map((col) => col.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+    }));
+
+    [...columns].map((col) => col.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const receiveData = event.dataTransfer.getData('application/x-moz-node');
+      let attachColumn = [...event.target.children].find((child) => child.className === 'col__task');
+      if (event.target.className !== 'col') attachColumn = event.target.closest('.col__task');
+      attachColumn.appendChild(document.getElementById(receiveData));
+    }));
+  }
 }

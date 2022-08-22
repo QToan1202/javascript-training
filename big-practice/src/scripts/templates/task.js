@@ -8,15 +8,15 @@ export default class Task {
     taskName,
     createdDate,
     dueDate,
-  ) => `<div class="task" id="${id}">
+  ) => `<div class="task" id="${id}" draggable="true">
   <div class="task-content">
     <div class="row  row--task">
       <h2 class="task-content__title">${taskName}</h2>
-      <img class="push" src="${deleteIcon}" alt="delete-icon" id="delete" />
+      <img class="push" src="${deleteIcon}" alt="delete-icon" id="delete" draggable="false" />
     </div>
     <div class="row  row--task">
       <p>${createdDate}</p>
-      <img class="push" src="${clockIcon}" alt="clock-icon" />
+      <img class="push" src="${clockIcon}" alt="clock-icon" draggable="false" />
       <p> ${dueDate} </p>
     </div>
   </div>

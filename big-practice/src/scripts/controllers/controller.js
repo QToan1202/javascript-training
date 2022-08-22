@@ -15,6 +15,8 @@ export default class Controller {
   renderList = async () => {
     const tasks = await this.model.getTasks();
     this.view.renderTaskList(tasks);
+    this.view.dragTask();
+    this.view.dropTask();
   };
 
   /**
