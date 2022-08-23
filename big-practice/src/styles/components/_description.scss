@@ -1,0 +1,10 @@
+@use '../abstracts' as *;
+
+.desc {
+  min-height: 80px;
+
+  &:focus {
+    color: $clover-green;
+    outline: none;
+  }
+}

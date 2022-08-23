@@ -1,7 +1,7 @@
-@use '../abstracts/colors' as color;
+@use '../abstracts' as *;
 
 .header {
-  background-color: color.$white;
+  background-color: $white;
 
   &-container {
     padding: 10px 20px;
@@ -18,5 +18,12 @@
   &__logo {
     width: 40px;
     height: 40px;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    line-height: 29px;
+    font-size: 25px;
+    color: $dark-sky-blue;
   }
 }
