@@ -1,61 +1,16 @@
-@use '../abstracts/variables' as var;
-@use '../abstracts/colors' as color;
+@use '../abstracts' as *;
 
 
 body { 
-  color: color.$black;
-  font-family: var.$font-regular, sans-serif;
+  color: $black;
+  font-family: $font-regular, sans-serif;
   font-size: 16px;
 }
 
 .title {
   margin: 10px 0;
-  display: flex;
-  align-items: center;
   font-size: 18px;
   line-height: 21px;
-  font-family: var.$font-bold;
-  color: color.$raven;
-
-  &--spacing {
-    margin-top: 50px;
-  }
-
-  &--card {
-    margin-right: 20px;
-    font-size: 20px;
-    line-height: 23px;
-    color: color.$black;
-  }
-}
-
-.desc {
-  min-height: 80px;
-
-  &:focus {
-    color: color.$clover-green;
-    outline: none;
-  }
-}
-
-.comments {
-  padding: 20px 17px;
-  font-family: var.$font-regular;
-  font-size: 14px;
-  line-height: 16px;
-  resize: none;
-  border: 1px solid color.$grey-goose;
-  border-radius: 5px;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.alert {
-  margin-left: 10px;
-  padding: 3px 6px;
-  border-radius: 4px;
-  color: color.$white;
-  background-color: color.$beer;
+  font-family: $font-bold;
+  color: $raven;
 }

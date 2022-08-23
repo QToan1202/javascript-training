@@ -1,4 +1,9 @@
-@use 'form';
-@use 'card';
-@use 'column';
-@use 'task';
+@forward 'alert';
+@forward 'button';
+@forward 'form';
+@forward 'card';
+@forward 'column';
+@forward 'task';
+@forward 'row';
+@forward 'comment';
+@forward 'description';

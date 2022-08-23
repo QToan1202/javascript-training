@@ -1,12 +1,11 @@
-@use '../abstracts/colors' as color;
+@use '../abstracts' as *;
 
 .header {
-  background-color: color.$white;
+  background-color: $white;
 
   &-container {
     padding: 10px 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
 
@@ -22,9 +21,9 @@
   }
 
   &__title {
+    text-transform: uppercase;
     line-height: 29px;
     font-size: 25px;
-    text-transform: uppercase;
-    color: color.$dark-sky-blue;
+    color: $dark-sky-blue;
   }
 }

@@ -1,14 +1,15 @@
-@use '../abstracts/colors' as color;
+@use '../abstracts' as *;
 
 .task {
-  box-shadow: 0 4px 8px 0 color.$box-shadow;
-  max-width: 500px;
-  background: color.$white;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px 0 $box-shadow;
+  width: 100%;
+  background: $white;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    background-color: color.$grey-goose;
+    background-color: $grey-goose;
   }
 
   &-content {
@@ -18,12 +19,6 @@
     &__title {
       line-height: 19px;
       font-size: 16px;
-    }
-
-    &--row {
-      padding: 8px 0;
-      display: flex;
-      justify-content: space-between;
     }
   }
 }
