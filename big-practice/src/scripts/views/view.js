@@ -86,12 +86,9 @@ export default class View {
    * @param {Function} handler
    */
   bindGetTaskDetail(handler) {
-    this.todoColumn.addEventListener('click', (event) => {
+    this.columns.map((col) => col.addEventListener('click', (event) => {
       if (event.target.closest('.task')) handler(event.target.closest('.task').id);
-    });
-    this.inProgressColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.doneColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.archivedColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+    }));
   }
 
   /**
@@ -109,7 +106,7 @@ export default class View {
    * Add event data for draggable element
    */
   dragTask() {
-    this.columns.map((task) => task.addEventListener('dragstart', (event) => {
+    this.columns.map((tasks) => tasks.addEventListener('dragstart', (event) => {
       event.dataTransfer.setData('application/x-moz-node', event.target.id);
       event.dataTransfer.dragEffect = 'move';
     }));
@@ -140,13 +137,12 @@ export default class View {
    * @param {Function} handler
    */
   bindDeleteTask(handler) {
-    const allTasks = this.columns.map((tasks) => [...tasks.children].filter((task) => task.className === 'task'));
-    allTasks.map((task) => task.map((smallTask) => smallTask.addEventListener('click', (event) => {
+    this.columns.map((tasks) => tasks.addEventListener('click', (event) => {
+      event.stopImmediatePropagation();
       if (event.target.id === 'delete') {
         handler(event.target.closest('.task').id);
-        event.stopPropagation();
       }
-    })));
+    }));
   }
 
   /**
