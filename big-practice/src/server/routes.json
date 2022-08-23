@@ -1,0 +1,4 @@
+{
+  "/api/*": "/$1",
+  "/tasks/:id": "/tasks/:id?_embed=comments"
+}

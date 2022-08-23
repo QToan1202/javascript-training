@@ -7,6 +7,7 @@
   <title>Task Management</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='styles/main.scss'>
+  <script type="module" src='./scripts/index.js' defer></script>
 </head>
 
 <body>
@@ -28,8 +29,8 @@
     <div class="container">
       <div class="col">
         <h2 class="col__title  col__title--todo">Todo</h2>
-        <div class="col__task">
-          <form class="form  form--add" action="#" method="get">
+        <div class="col__task" id="js-todo">
+          <form class="form  form--add">
             <input class="form__input  form__input--add" type="text" id="js-add-task-input" />
             <p>Enter to create a new task</p>
           </form>
@@ -38,17 +39,17 @@
 
       <div class="col">
         <h2 class="col__title  col__title--in-progress">In progress</h2>
-        <div class="col__task"></div>
+        <div class="col__task" id="js-in-progress"></div>
       </div>
 
       <div class="col">
         <h2 class="col__title  col__title--done">Done</h2>
-        <div class="col__task"></div>
+        <div class="col__task" id="js-done"></div>
       </div>
 
       <div class="col">
         <h2 class="col__title  col__title--archived">Archived</h2>
-        <div class="col__task"></div>
+        <div class="col__task" id="js-archivied"></div>
       </div>
     </div>
   </section>
