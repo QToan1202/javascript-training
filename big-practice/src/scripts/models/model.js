@@ -61,4 +61,17 @@ export default class Model {
       throw new Error('Error occurred in uppdate process');
     }
   }
+
+  /**
+   * Update task description
+   * @param {Number} id
+   * @returns Number
+   */
+  async deleteTask(id) {
+    try {
+      return await this.APITask.deleteTask(id);
+    } catch (error) {
+      throw new Error('Error occurred in delete process');
+    }
+  }
 }

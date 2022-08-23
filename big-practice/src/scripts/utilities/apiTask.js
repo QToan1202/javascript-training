@@ -7,7 +7,7 @@ export default class APITask {
    * @param {*} data
    * @returns Object
    */
-  requestOptions(method, data, contentType) {
+  requestOptions(method, data = null, contentType = 'application/json') {
     return {
       method,
       body: data,
@@ -77,6 +77,20 @@ export default class APITask {
     try {
       const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('PATCH', formData.join('&'), 'application/x-www-form-urlencoded'));
       return response.ok;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Calling API to delete a task with the ID
+   * @param {Number} id
+   * @returns Number
+   */
+  async deleteTask(id) {
+    try {
+      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('DELETE'));
+      return response.status;
     } catch (error) {
       throw new Error(error);
     }

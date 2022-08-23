@@ -3,10 +3,18 @@ export default class Controller {
     this.view = view;
     this.model = model;
 
-    this.view.bindAddTask(this.handlerAddTask);
-    this.renderList();
-    this.view.bindGetTaskDetail(this.handlerGetDetailTask);
+    this.init();
   }
+
+  init = async () => {
+    this.view.bindAddTask(this.handlerAddTask);
+    await this.renderList();
+    this.view.bindGetTaskDetail(this.handlerGetDetailTask);
+
+    this.view.dragTask();
+    this.view.dropTask();
+    this.view.bindDeleteTask(this.handlerDeleteTask);
+  };
 
   /**
    * Get the task list from model
@@ -15,8 +23,6 @@ export default class Controller {
   renderList = async () => {
     const tasks = await this.model.getTasks();
     this.view.renderTaskList(tasks);
-    this.view.dragTask();
-    this.view.dropTask();
   };
 
   /**
@@ -49,5 +55,14 @@ export default class Controller {
    */
   handlerUpdateTask = async (id, description) => {
     const isOk = await this.model.updateTask(id, description);
+  };
+
+  /**
+   * Delete a task
+   * @param {Number} id
+   */
+  handlerDeleteTask = async (id) => {
+    const status = await this.model.deleteTask(id);
+    if (status === 200) this.view.deleteTask(id);
   };
 }
