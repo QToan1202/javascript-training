@@ -138,11 +138,10 @@ export default class View {
    */
   bindDeleteTask(handler) {
     this.columns.map((tasks) => tasks.addEventListener('click', (event) => {
-      event.stopImmediatePropagation();
       if (event.target.id === 'delete') {
         handler(event.target.closest('.task').id);
       }
-    }));
+    }, true));
   }
 
   /**
