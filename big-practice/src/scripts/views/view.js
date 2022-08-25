@@ -152,8 +152,4 @@ export default class View {
     const deleteTask = document.getElementById(id);
     deleteTask.remove();
   }
-
-  bindLoginUser(handler) {
-    handler('Toan', 'Testing123');
-  }
 }
