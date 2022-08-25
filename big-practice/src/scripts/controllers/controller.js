@@ -7,6 +7,8 @@ export default class Controller {
   }
 
   init = async () => {
+    this.view.bindLoginUser(this.handlerLoginUser);
+
     this.view.bindAddTask(this.handlerAddTask);
     await this.renderList();
     this.view.bindGetTaskDetail(this.handlerGetDetailTask);
@@ -64,5 +66,10 @@ export default class Controller {
   handlerDeleteTask = async (id) => {
     const status = await this.model.deleteTask(id);
     if (status === 200) this.view.deleteTask(id);
+  };
+
+  handlerLoginUser = async (userName, password) => {
+    const hasLogin = await this.model.loginUser(userName, password);
+    console.log(hasLogin);
   };
 }

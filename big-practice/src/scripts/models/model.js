@@ -1,9 +1,11 @@
 import Task from './task';
 import APITask from '../utilities/apiTask';
+import APIUser from '../utilities/apiUser';
 
 export default class Model {
   constructor() {
     this.APITask = new APITask();
+    this.APIUser = new APIUser();
   }
 
   /**
@@ -72,6 +74,20 @@ export default class Model {
       return await this.APITask.deleteTask(id);
     } catch (error) {
       throw new Error('Error occurred in delete process');
+    }
+  }
+
+  /**
+   * Get all existed users
+   * Then find user account
+   * @returns Boolean
+   */
+  async loginUser(userName, password) {
+    try {
+      const users = await this.APIUser.getAllUser();
+      return users.some((user) => user.userName === userName && user.password === password);
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

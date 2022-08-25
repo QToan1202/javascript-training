@@ -1,17 +1,17 @@
 {
   "users": [
     {
-      "username": "hello",
+      "userName": "hello",
       "password": "123444444",
       "id": 1
     },
     {
-      "username": "test",
+      "userName": "test",
       "password": "12222222",
       "id": 2
     },
     {
-      "username": "Toan",
+      "userName": "Toan",
       "password": "Testing123",
       "id": 3
     }
