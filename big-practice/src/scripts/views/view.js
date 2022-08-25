@@ -139,7 +139,8 @@ export default class View {
   bindDeleteTask(handler) {
     this.columns.map((tasks) => tasks.addEventListener('click', (event) => {
       if (event.target.id === 'delete') {
-        handler(event.target.closest('.task').id);
+        if (confirm('Delete this task?')) handler(event.target.closest('.task').id);
+        event.stopImmediatePropagation();
       }
     }, true));
   }
