@@ -47,13 +47,15 @@ export default class View {
    * Display a task with all information
    * @param {Object} task
    */
-  renderDetailInformation({ id, taskName, dueDate, description }) {
+  renderDetailInformation({ id, taskName, dueDate, description, state: { name } }) {
     const existDetailCard = document.getElementsByClassName('card');
     if (existDetailCard.length) existDetailCard[0].remove();
 
     const element = document.createElement('template');
     element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
     document.body.appendChild(element.content.firstElementChild);
+    const select = document.getElementById('js-state');
+    select.value = name;
     this.closeDetailTaskBtn();
   }
 
