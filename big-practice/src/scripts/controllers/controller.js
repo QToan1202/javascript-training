@@ -7,6 +7,9 @@ export default class Controller {
   }
 
   init = async () => {
+    this.view.redirectToLogin(this.model.hasLogin);
+    this.view.logOutUser();
+
     this.view.bindAddTask(this.handlerAddTask);
     await this.renderList();
     this.view.bindGetTaskDetail(this.handlerGetDetailTask);

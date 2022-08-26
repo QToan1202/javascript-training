@@ -4,6 +4,7 @@ import APITask from '../utilities/apiTask';
 export default class Model {
   constructor() {
     this.APITask = new APITask();
+    this.hasLogin = JSON.parse(sessionStorage.getItem('hasLogin')) || false;
   }
 
   /**

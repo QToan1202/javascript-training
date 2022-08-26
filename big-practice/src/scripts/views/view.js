@@ -1,4 +1,5 @@
 import Task from '../templates/task';
+import constant from '../utilities/constant';
 
 export default class View {
   constructor() {
@@ -151,5 +152,24 @@ export default class View {
   deleteTask(id) {
     const deleteTask = document.getElementById(id);
     deleteTask.remove();
+  }
+
+
+  /**
+   * Redirect user to login page if they don't login before
+   * @param {Boolean} hasLogin
+   */
+  redirectToLogin(hasLogin) {
+    if (!hasLogin) window.location.replace(`${constant.BASE_URL}/login.html`);
+  }
+
+  logOutUser() {
+    const userAvatar = document.getElementById('js-user-avatar');
+    userAvatar.addEventListener('click', () => {
+      if (confirm('Are you sure wanna log out?')) {
+        sessionStorage.clear('hasLogin');
+        window.location.reload();
+      }
+    });
   }
 }
