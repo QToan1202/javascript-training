@@ -1,0 +1,14 @@
+@use '../abstracts' as *;
+
+.avatar {
+  margin-left: 15px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.name {
+  font-family: $font-bold;
+  line-height: 32px;
+}
