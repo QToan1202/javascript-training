@@ -36,11 +36,11 @@ export default class View {
    * Display all task in database
    * @param {Array} tasks
    */
-  renderTaskList([todoTask, inProgressTask, doneTask, archivedTask]) {
-    if (todoTask.length) todoTask.map((task) => this.displayTask(this.todoColumn, task));
-    if (inProgressTask.length) inProgressTask.map((task) => this.displayTask(this.inProgressColumn, task));
-    if (doneTask.length) doneTask.map((task) => this.displayTask(this.doneColumn, task));
-    if (archivedTask.length) archivedTask.map((task) => this.displayTask(this.archivedColumn, task));
+  renderTaskList([todoTasks, inProgressTasks, doneTasks, archivedTasks]) {
+    if (todoTasks.length) todoTasks.map((task) => this.displayTask(this.todoColumn, task));
+    if (inProgressTasks.length) inProgressTasks.map((task) => this.displayTask(this.inProgressColumn, task));
+    if (doneTasks.length) doneTasks.map((task) => this.displayTask(this.doneColumn, task));
+    if (archivedTasks.length) archivedTasks.map((task) => this.displayTask(this.archivedColumn, task));
   }
 
   /**
