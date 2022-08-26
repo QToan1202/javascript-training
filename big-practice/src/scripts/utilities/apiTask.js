@@ -70,12 +70,11 @@ export default class APITask {
    * @returns Boolean
    */
   async updateTask(id, description) {
-    const formData = [];
-    const key = encodeURIComponent('description');
-    const value = encodeURIComponent(description);
-    formData.push(`${key}=${value}`);
+    const updateValue = {
+      description,
+    };
     try {
-      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('PATCH', formData.join('&'), 'application/x-www-form-urlencoded'));
+      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('PATCH', JSON.stringify(updateValue), 'application/json'));
       return response.ok;
     } catch (error) {
       throw new Error(error);
