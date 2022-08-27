@@ -17,13 +17,30 @@ export default class View {
   }
 
   /**
-   * Add a new task to TODO column
+   * Add a new task to a specify column
+   * @param {Element} column
    * @param {Object} task
    */
-  displayNewTask({ id, taskName, createdDate, dueDate }) {
+  displayTask(column, {
+    id,
+    taskName,
+    createdDate,
+    dueDate,
+  }) {
     const element = document.createElement('template');
     element.innerHTML = Task.renderWorkItem(id, taskName, createdDate, dueDate);
-    this.todoColumn.appendChild(element.content.firstElementChild);
+    column.appendChild(element.content.firstElementChild);
+  }
+
+  /**
+   * Display all task in database
+   * @param {Array} tasks
+   */
+  renderTaskList([todoTasks, inProgressTasks, doneTasks, archivedTasks]) {
+    if (todoTasks.length) todoTasks.map((task) => this.displayTask(this.todoColumn, task));
+    if (inProgressTasks.length) inProgressTasks.map((task) => this.displayTask(this.inProgressColumn, task));
+    if (doneTasks.length) doneTasks.map((task) => this.displayTask(this.doneColumn, task));
+    if (archivedTasks.length) archivedTasks.map((task) => this.displayTask(this.archivedColumn, task));
   }
 
   /**

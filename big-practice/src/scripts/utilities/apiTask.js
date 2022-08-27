@@ -1,22 +1,6 @@
-import constant from './constant';
+import APIHelper from './api-helpers';
 
 export default class APITask {
-  /**
-   * Create options object for request
-   * @param {String} method
-   * @param {*} data
-   * @returns Object
-   */
-  requestOptions(method, data) {
-    return {
-      method,
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-  }
-
   /**
    * Calling API to add new task
    * @param {String} taskName
@@ -24,8 +8,26 @@ export default class APITask {
    */
   async addTask(taskName) {
     try {
-      const response = await fetch(`${constant.API_URL}/tasks`, this.requestOptions('POST', taskName));
+      const response = await fetch(APIHelper.apiEndpoint('/tasks'), APIHelper.requestOptions('POST', taskName));
       return await response.json();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Get task form 4 API each have different state
+   * @returns Array
+   */
+  async getTaskList() {
+    try {
+      const response = await Promise.all([
+        fetch(APIHelper.apiEndpoint('/tasks-todo')),
+        fetch(APIHelper.apiEndpoint('/tasks-in-progress')),
+        fetch(APIHelper.apiEndpoint('/tasks-done')),
+        fetch(APIHelper.apiEndpoint('/tasks-archived')),
+      ]);
+      return await Promise.all(response.map((r) => r.json()));
     } catch (error) {
       throw new Error(error);
     }

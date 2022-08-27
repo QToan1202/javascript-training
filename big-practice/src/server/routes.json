@@ -1,4 +1,8 @@
 {
   "/api/*": "/$1",
-  "/tasks/:id": "/tasks/:id?_embed=comments"
+  "/tasks/:id": "/tasks/:id?_embed=comments",
+  "/tasks-todo": "/tasks?stateId_like=1",
+  "/tasks-in-progress": "/tasks?stateId_like=2",
+  "/tasks-done": "/tasks?stateId_like=3",
+  "/tasks-archived": "/tasks?stateId_like=4"
 }
