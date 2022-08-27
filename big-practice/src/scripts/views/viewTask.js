@@ -167,7 +167,7 @@ export default class View {
     const userAvatar = document.getElementById('js-user-avatar');
     userAvatar.addEventListener('click', () => {
       if (confirm('Are you sure wanna log out?')) {
-        sessionStorage.clear('hasLogin');
+        sessionStorage.clear();
         window.location.reload();
       }
     });
