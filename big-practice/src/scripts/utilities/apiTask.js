@@ -2,15 +2,13 @@ import APIHelper from './api-helpers';
 
 export default class APITask {
   /**
-=======
->>>>>>> develop
    * Calling API to add new task
    * @param {String} taskName
    * @return Object
    */
   async addTask(taskName) {
     try {
-      const response = await fetch(APIHelper.apiEndpoint('/tasks'), APIHelper.requestOptions('POST', taskName, 'application/json'));
+      const response = await fetch(APIHelper.apiEndpoint('/tasks'), APIHelper.requestOptions('POST', taskName));
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -60,7 +58,9 @@ export default class APITask {
       description,
     };
     try {
-      const response = await fetch(APIHelper.apiEndpoint(`/tasks/${id}`), APIHelper.requestOptions('PATCH', JSON.stringify(updateValue), 'application/json'));
+      const response = await 
+        fetch(APIHelper.apiEndpoint(`/tasks/${id}`), 
+        APIHelper.requestOptions('PATCH', JSON.stringify(updateValue)));
       return response.ok;
     } catch (error) {
       throw new Error(error);
