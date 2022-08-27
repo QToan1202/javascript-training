@@ -1,8 +1,7 @@
-@use '../abstracts/colors' as color;
-@use '../abstracts/variables' as var;
+@use '../abstracts' as *;
 
 .card {
-  background-color: color.$white;
+  background-color: $white;
   max-width: 700px;
   border-radius: 4px;
 
@@ -10,15 +9,23 @@
     padding: 20px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid color.$lavender-pinocchio;
+    border-bottom: 1px solid $lavender-pinocchio;
 
     &__state {
       padding: 6px 15px;
       border-radius: 4px;
       outline: none;
     }
-
   }
+
+  &__title {
+    margin-right: 20px;
+    font-family: $font-bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: $black;
+  }
+
   &-content {
     padding: 20px;
   }
@@ -27,7 +34,7 @@
     display: none;
   }
 
-  &--background {
-    background-image: linear-gradient(45deg, color.$butterfly-blue, color.$clover-green);
+  &--bg {
+    background-image: linear-gradient(45deg, $butterfly-blue, $clover-green);
   }
 }

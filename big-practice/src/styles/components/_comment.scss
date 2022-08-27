@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+.comments {
+  padding: 20px 17px;
+  font-family: $font-regular;
+  font-size: 14px;
+  line-height: 16px;
+  border: 1px solid $grey-goose;
+  border-radius: 5px;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+}

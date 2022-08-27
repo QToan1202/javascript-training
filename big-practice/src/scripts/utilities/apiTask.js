@@ -1,30 +1,16 @@
-import constant from './constant';
+import APIHelper from './api-helpers';
 
 export default class APITask {
   /**
-   * Create options object for request
-   * @param {String} method
-   * @param {*} data
-   * @returns Object
-   */
-  requestOptions(method, data, contentType) {
-    return {
-      method,
-      body: data,
-      headers: {
-        'Content-Type': contentType,
-      },
-    };
-  }
-
-  /**
+=======
+>>>>>>> develop
    * Calling API to add new task
    * @param {String} taskName
    * @return Object
    */
   async addTask(taskName) {
     try {
-      const response = await fetch(this.apiEndpoint('/tasks'), this.requestOptions('POST', JSON.stringify(taskName), 'application/json'));
+      const response = await fetch(APIHelper.apiEndpoint('/tasks'), APIHelper.requestOptions('POST', taskName, 'application/json'));
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -38,10 +24,10 @@ export default class APITask {
   async getTaskList() {
     try {
       const response = await Promise.all([
-        fetch(this.apiEndpoint('/tasks-todo')),
-        fetch(this.apiEndpoint('/tasks-in-progress')),
-        fetch(this.apiEndpoint('/tasks-done')),
-        fetch(this.apiEndpoint('/tasks-archived')),
+        fetch(APIHelper.apiEndpoint('/tasks-todo')),
+        fetch(APIHelper.apiEndpoint('/tasks-in-progress')),
+        fetch(APIHelper.apiEndpoint('/tasks-done')),
+        fetch(APIHelper.apiEndpoint('/tasks-archived')),
       ]);
       return await Promise.all(response.map((r) => r.json()));
     } catch (error) {
@@ -56,7 +42,7 @@ export default class APITask {
    */
   async getDetailTask(id) {
     try {
-      const response = await fetch(this.apiEndpoint(`/tasks/${id}`));
+      const response = await fetch(APIHelper.apiEndpoint(`/tasks/${id}`));
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -74,19 +60,10 @@ export default class APITask {
       description,
     };
     try {
-      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('PATCH', JSON.stringify(updateValue), 'application/json'));
+      const response = await fetch(APIHelper.apiEndpoint(`/tasks/${id}`), APIHelper.requestOptions('PATCH', JSON.stringify(updateValue), 'application/json'));
       return response.ok;
     } catch (error) {
       throw new Error(error);
     }
-  }
-
-  /**
-   * Get the full path of API endpoint
-   * @param {String} url
-   * @returns String
-   */
-  apiEndpoint(url) {
-    return `${constant.API_URL}${url}`;
   }
 }
