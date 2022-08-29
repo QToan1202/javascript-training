@@ -41,7 +41,7 @@ export default class Controller {
   };
 
   /**
-   * Update the task description
+   * Update the task
    * @param {Number} id
    * @param {String} description
    */

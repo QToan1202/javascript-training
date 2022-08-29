@@ -48,7 +48,7 @@ export default class APITask {
   }
 
   /**
-   * Update task description base on ID
+   * Update task base on ID
    * @param {Number} id
    * @param {String} description
    * @returns Boolean

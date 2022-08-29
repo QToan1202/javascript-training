@@ -49,7 +49,7 @@ export default class Model {
   }
 
   /**
-   * Update task description
+   * Update task
    * @param {Number} id
    * @param {String} description
    * @returns Boolean
