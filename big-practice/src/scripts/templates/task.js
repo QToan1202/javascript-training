@@ -34,10 +34,10 @@ export default class Task {
       <div class="card-header">
         <h2 class="card__title">${taskName}</h2>
         <select id="js-state" class="card-header__state">
-          <option value="Todo">Todo</option>
-          <option value="In progress">In progress</option>
-          <option value="Done">Done</option>
-          <option value="Archived">Archived</option>
+          <option value="1">Todo</option>
+          <option value="2">In progress</option>
+          <option value="3">Done</option>
+          <option value="4">Archived</option>
         </select>
         <button class="btn  offset-left" id="js-close-btn">&times;</button>
       </div>
