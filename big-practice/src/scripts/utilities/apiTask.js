@@ -53,14 +53,15 @@ export default class APITask {
    * @param {String} description
    * @returns Boolean
    */
-  async updateTask(id, description) {
+  async updateTask(id, description, stateId) {
     const updateValue = {
       description,
+      stateId,
     };
     try {
       const response = await 
         fetch(APIHelper.apiEndpoint(`/tasks/${id}`), 
-        APIHelper.requestOptions('PATCH', JSON.stringify(updateValue)));
+        APIHelper.requestOptions('PATCH', updateValue));
       return response.ok;
     } catch (error) {
       throw new Error(error);
