@@ -3,8 +3,13 @@ export default class ControllerLogin {
     this.model = model;
     this.view = view;
 
-    this.view.bindLoginUser(this.handlerLoginUser);
+    this.init();
   }
+
+  init = async () => {
+    this.view.bindLoginUser(this.handlerLoginUser);
+    await this.model.getUsers();
+  };
 
   handlerLoginUser = async (userName, password) => {
     const hasLogin = await this.model.loginUser(userName, password);

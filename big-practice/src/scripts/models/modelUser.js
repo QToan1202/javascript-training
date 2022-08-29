@@ -3,17 +3,33 @@ import APIUser from '../utilities/apiUser';
 export default class ModelUser {
   constructor() {
     this.APIUser = new APIUser();
+    this.users = [];
   }
 
   /**
    * Get all existed users
-   * Then find user account
+   */
+  async getUsers() {
+    try {
+      this.users = await this.APIUser.getAllUser();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Find user account
    * @returns Boolean
    */
-  async loginUser(userName, password) {
+  loginUser(userName, password) {
     try {
-      const users = await this.APIUser.getAllUser();
-      return users.some((user) => user.userName === userName && user.password === password);
+      const loginUser = this.users.find((user) => user.userName === userName && user.password === password);
+      if (loginUser) {
+        sessionStorage.setItem('user', JSON.stringify(loginUser));
+        return true;
+      }
+
+      return false;
     } catch (error) {
       throw new Error(error);
     }
