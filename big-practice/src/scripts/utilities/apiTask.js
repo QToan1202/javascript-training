@@ -51,6 +51,7 @@ export default class APITask {
    * Update task base on ID
    * @param {Number} id
    * @param {String} description
+   * @param {Number} stateId
    * @returns Boolean
    */
   async updateTask(id, description, stateId) {
