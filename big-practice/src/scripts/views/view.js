@@ -63,10 +63,10 @@ export default class View {
    * Add event for closing button in the information card
    */
   closeDetailTaskBtn() {
-    const btnClose = document.querySelectorAll('#js-close-btn');
-    [...btnClose].map((btn) => btn.addEventListener('click', () => {
-      btn.closest('.card').remove();
-    }));
+    const btnClose = document.getElementById('js-close-btn');
+    btnClose.addEventListener('click', () => {
+      btnClose.closest('.card').remove();
+    });
   }
 
   /**
