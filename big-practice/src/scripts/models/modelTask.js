@@ -10,12 +10,13 @@ export default class Model {
   /**
    * Add a new task with taskName
    * @param {String} taskName
+   * @param {Number} userId
    * @return Object
    */
-  async addTask(taskName) {
+  async addTask(taskName, userId) {
     // Check if taskName is empty or not
     if (!taskName.trim()) throw new Error('Name is empty');
-    const task = new Task(taskName);
+    const task = new Task(taskName, userId);
     try {
       // Calling API addTask form APITask
       return await this.APITask.addTask(task);
