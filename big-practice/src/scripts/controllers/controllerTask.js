@@ -8,6 +8,7 @@ export default class Controller {
 
   init = async () => {
     this.view.redirectToLogin(this.model.hasLogin);
+    this.view.setUserInformation();
     this.view.logOutUser();
 
     this.view.bindAddTask(this.handlerAddTask);
@@ -33,9 +34,10 @@ export default class Controller {
    * Then receive a object to render a new task
    * Finally reset form
    * @param {String} taskName
+   * @param {Number} userId
    */
-  handlerAddTask = async (taskName) => {
-    const task = await this.model.addTask(taskName);
+  handlerAddTask = async (taskName, userId) => {
+    const task = await this.model.addTask(taskName, userId);
     this.view.displayTask(this.view.todoColumn, task);
     this.view.resetForm();
   };

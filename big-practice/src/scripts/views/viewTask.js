@@ -11,6 +11,14 @@ export default class View {
     this.columns = [this.todoColumn, this.inProgressColumn, this.doneColumn, this.archivedColumn];
   }
 
+  setUserInformation() {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const userAvatar = document.getElementById('js-user-avatar');
+    const userName = document.getElementById('js-user-name');
+    userAvatar.src = user.avatar;
+    userName.textContent = user.userName;
+  }
+
   /**
    * Reset adding form
    */
@@ -77,7 +85,7 @@ export default class View {
     this.taskName.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
-        handler(this.taskName.value);
+        handler(this.taskName.value, JSON.parse(sessionStorage.getItem('user')).id);
       }
     });
   }
