@@ -47,7 +47,7 @@ export default class View {
    * Display a task with all information
    * @param {Object} task
    */
-  renderDetailInformation({ id, taskName, dueDate, description, state: { name } }) {
+  renderDetailInformation({ id, taskName, dueDate, description, state: { id: stateId } }) {
     const existDetailCard = document.getElementsByClassName('card');
     if (existDetailCard.length) existDetailCard[0].remove();
 
@@ -55,7 +55,7 @@ export default class View {
     element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
     document.body.appendChild(element.content.firstElementChild);
     const select = document.getElementById('js-state');
-    select.value = name;
+    select.value = stateId;
     this.closeDetailTaskBtn();
   }
 
@@ -94,13 +94,27 @@ export default class View {
   }
 
   /**
-   * Add event when change the description
+   * Add event to update task
    * @param {Function} handler
    */
   bindUpdateTask(handler) {
     const desc = document.getElementById('js-desc');
+    const state = document.getElementById('js-state');
+
+    // Add event to update description
     desc.addEventListener('focusout', () => {
-      handler(desc.closest('.card').id, desc.textContent);
+      handler(desc.closest('.card').id, desc.textContent, undefined);
     });
+
+    // Add event to update state
+    state.addEventListener('change', (event) => {
+      const idTask = event.currentTarget.closest('.card').id;
+      const selectedTask = document.getElementById(idTask);
+      if (event.target.value === '1') this.todoColumn.appendChild(selectedTask);
+      if (event.target.value === '2') this.inProgressColumn.appendChild(selectedTask);
+      if (event.target.value === '3') this.doneColumn.appendChild(selectedTask);
+      if (event.target.value === '4') this.archivedColumn.appendChild(selectedTask);
+      handler(idTask, undefined, Number(event.target.value));
+    })
   }
 }
