@@ -54,9 +54,9 @@ export default class Model {
    * @param {String} description
    * @returns Boolean
    */
-  async updateTask(id, description) {
+  async updateTask(id, description, stateId) {
     try {
-      return await this.APITask.updateTask(id, description);
+      return await this.APITask.updateTask(id, description, stateId);
     } catch (error) {
       throw new Error('Error occurred in uppdate process');
     }

@@ -45,7 +45,7 @@ export default class Controller {
    * @param {Number} id
    * @param {String} description
    */
-  handlerUpdateTask = async (id, description) => {
-    const isOk = await this.model.updateTask(id, description);
+  handlerUpdateTask = async (id, description, stateId) => {
+    const isOk = await this.model.updateTask(id, description, stateId);
   };
 }
