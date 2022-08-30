@@ -129,6 +129,7 @@ export default class View {
       const receiveData = event.dataTransfer.getData('application/x-moz-node');
       let attachColumn = [...event.target.children].find((child) => child.className === 'col__task');
       if (event.target.className !== 'col') attachColumn = event.target.closest('.col__task');
+      if (event.target.nextElementSibling.className === 'col__task') attachColumn = event.target.nextElementSibling;
       attachColumn.appendChild(document.getElementById(receiveData));
     }));
   }
