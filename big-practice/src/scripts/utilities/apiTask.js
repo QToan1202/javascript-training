@@ -104,4 +104,32 @@ export default class APITask {
   apiEndpoint(url) {
     return `${constant.API_URL}${url}`;
   }
+
+  /**
+   * Get comments belong to task
+   * @param {Number} id
+   * @returns Array
+   */
+  async getTaskComments(id) {
+    try {
+      const response = await fetch(this.apiEndpoint(`/comments/${id}`));
+      return await response.json();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Get comments belong to task
+   * @param {Object} comment
+   * @returns Object
+   */
+  async addComment(comment) {
+    try {
+      const response = await fetch(this.apiEndpoint('/comments'), this.requestOptions('POST', JSON.stringify(comment), 'application/json'));
+      return await response.json();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

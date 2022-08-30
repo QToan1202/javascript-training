@@ -51,6 +51,8 @@ export default class Controller {
     const task = await this.model.getDetailTask(id);
     this.view.renderDetailInformation(task);
     this.view.bindUpdateTask(this.handlerUpdateTask);
+    this.view.attachComments(await this.model.getComments(id));
+    this.view.bindAddComment(this.handlerAddComment);
   };
 
   /**
@@ -69,5 +71,9 @@ export default class Controller {
   handlerDeleteTask = async (id) => {
     const status = await this.model.deleteTask(id);
     if (status === 200) this.view.deleteTask(id);
+  };
+
+  handlerAddComment = async (content, taskId) => {
+    await this.model.addComment(content, taskId);
   };
 }

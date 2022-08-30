@@ -1,3 +1,4 @@
+import Comment from '../templates/comment';
 import Task from '../templates/task';
 import constant from '../utilities/constant';
 
@@ -65,6 +66,33 @@ export default class View {
     element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
     document.body.appendChild(element.content.firstElementChild);
     this.closeDetailTaskBtn();
+  }
+
+  /**
+   * Append all comment belong to that task to the bottom of detail card
+   * @param {Array} comments
+   */
+  attachComments(comments) {
+    const cardContent = document.getElementsByClassName('card-content')[0];
+    const comment = document.createElement('template');
+    comments.forEach((cmt) => {
+      comment.innerHTML = Comment.renderRegisterForm('https://picsum.photos/200', 1, cmt.content);
+      cardContent.appendChild(comment.content.firstElementChild);
+    });
+  }
+
+  bindAddComment(handler) {
+    const commentElement = document.getElementById('js-comment');
+    const cardContent = document.getElementsByClassName('card-content')[0];
+    const comment = document.createElement('template');
+    commentElement.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        handler(commentElement.textContent, Number(event.target.closest('.card').id));
+        comment.innerHTML = Comment.renderRegisterForm('https://picsum.photos/200', JSON.parse(sessionStorage.getItem('user')).userName, commentElement.textContent);
+        cardContent.appendChild(comment.content.firstElementChild);
+        commentElement.textContent = '';
+      }
+    });
   }
 
   /**
@@ -161,7 +189,6 @@ export default class View {
     const deleteTask = document.getElementById(id);
     deleteTask.remove();
   }
-
 
   /**
    * Redirect user to login page if they don't login before

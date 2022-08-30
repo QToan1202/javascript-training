@@ -1,5 +1,6 @@
 import Task from './task';
 import APITask from '../utilities/apiTask';
+import Comment from './comment';
 
 export default class Model {
   constructor() {
@@ -74,6 +75,35 @@ export default class Model {
       return await this.APITask.deleteTask(id);
     } catch (error) {
       throw new Error('Error occurred in delete process');
+    }
+  }
+
+  /**
+   * Get task comments
+   * @param {Number} id
+   * @returns Number
+   */
+  async getComments(id) {
+    try {
+      return await this.APITask.getTaskComments(id);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Add new comment
+   * @param {String} content
+   * @param {Number} taskId
+   * @returns Object
+   */
+  async addComment(content, taskId) {
+    if (!content.trim()) throw new Error('Comment is empty');
+    const comment = new Comment(content, taskId);
+    try {
+      return await await this.APITask.addComment(comment);
+    } catch (error) {
+      throw new Error('Error occurred in adding comment process');
     }
   }
 }
