@@ -6,6 +6,7 @@ export default class Model {
   constructor() {
     this.APITask = new APITask();
     this.hasLogin = JSON.parse(sessionStorage.getItem('hasLogin')) || false;
+    this.tasksList = [];
   }
 
   /**
@@ -32,7 +33,8 @@ export default class Model {
    */
   async getTasks() {
     try {
-      return await this.APITask.getTaskList();
+      this.tasksList = await this.APITask.getTaskList();
+      return this.tasksList;
     } catch (error) {
       throw new Error('Error occurred in getting process');
     }
@@ -105,5 +107,13 @@ export default class Model {
     } catch (error) {
       throw new Error('Error occurred in adding comment process');
     }
+  }
+
+  searchTasks(taskName) {
+    const searchReg = new RegExp(taskName, 'i');
+    const query = this.tasksList.map(
+      (tasks) => tasks.filter((task) => task.taskName.search(searchReg) !== -1)
+    );
+    console.log(query);
   }
 }
