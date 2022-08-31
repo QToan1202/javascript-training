@@ -4,6 +4,7 @@ import constant from '../utilities/constant';
 
 export default class View {
   constructor() {
+    this.searchTask = document.getElementById('js-search-task');
     this.taskName = document.getElementById('js-add-task-input');
     this.todoColumn = document.getElementById('js-todo');
     this.inProgressColumn = document.getElementById('js-in-progress');
@@ -205,6 +206,19 @@ export default class View {
         sessionStorage.clear();
         window.location.reload();
       }
+    });
+  }
+
+  bindsearchTasks(handler) {
+    const tasksList = this.columns.map((column) => [...column.children].filter((task) => task.className === 'task'));
+    console.log(tasksList);
+    this.searchTask.addEventListener('keyup', () => {
+      const searchReg = new RegExp(this.searchTask.value, 'i');
+      tasksList.map(
+        (col) => col.map((task) => {
+          if (task.taskName.search(searchReg) === -1) console.log(task);
+        })
+      );
     });
   }
 }
