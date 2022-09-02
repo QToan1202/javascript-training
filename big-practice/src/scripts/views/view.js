@@ -108,8 +108,9 @@ export default class View {
   dragTask() {
     const tasks = document.getElementsByClassName('task');
     [...tasks].map((task) => task.addEventListener('dragstart', (event) => {
-      event.dataTransfer.setData('application/x-moz-node', event.target.id);
-      event.dataTransfer.dragEffect = 'move';
+      event.target.style.backgroundColor = '#CEE5FF';
+      event.dataTransfer.setData('text/plain', event.target.id);
+      event.dataTransfer.effectAllowed = 'move';
     }));
   }
 
@@ -126,11 +127,13 @@ export default class View {
 
     [...columns].map((col) => col.addEventListener('drop', (event) => {
       event.preventDefault();
-      const receiveData = event.dataTransfer.getData('application/x-moz-node');
+      const receiveData = event.dataTransfer.getData('text/plain');
+      const dropTask = document.getElementById(receiveData);
+      dropTask.removeAttribute('style');
       let attachColumn = [...event.target.children].find((child) => child.className === 'col__task');
       if (event.target.className !== 'col') attachColumn = event.target.closest('.col__task');
-      if (event.target.nextElementSibling.className === 'col__task') attachColumn = event.target.nextElementSibling;
-      attachColumn.appendChild(document.getElementById(receiveData));
+      if (event.target.className.search('col__title') !== -1) attachColumn = event.target.nextElementSibling;
+      attachColumn.appendChild(dropTask);
     }));
   }
 }
