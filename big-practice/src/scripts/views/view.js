@@ -47,25 +47,27 @@ export default class View {
    * Display a task with all information
    * @param {Object} task
    */
-  renderDetailInformation({ id, taskName, dueDate, description, state: { id: stateId } }) {
-    const existDetailCard = document.getElementsByClassName('card');
-    if (existDetailCard.length) existDetailCard[0].remove();
-
-    const element = document.createElement('template');
-    element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
-    document.body.appendChild(element.content.firstElementChild);
-    const select = document.getElementById('js-state');
-    select.value = stateId;
-    this.closeDetailTaskBtn();
+  renderDetailInformation({ id, taskName, dueDate, description, stateId }) {
+    const element = document.createElement('div');
+    
+    element.innerHTML = Task.renderDetailModal(id, taskName, dueDate, description);
+    element.classList.add('overlay');
+    document.body.appendChild(element);
+    
+    const selectState = document.getElementById('js-state');
+    
+    selectState.value = stateId;
+    this.closeDetailModal();
   }
 
   /**
    * Add event for closing button in the information card
    */
-  closeDetailTaskBtn() {
+  closeDetailModal() {
     const btnClose = document.getElementById('js-close-btn');
+
     btnClose.addEventListener('click', () => {
-      btnClose.closest('.card').remove();
+      btnClose.closest('.overlay').remove();
     });
   }
 
@@ -98,12 +100,30 @@ export default class View {
    * @param {Function} handler
    */
   bindUpdateTask(handler) {
-    const desc = document.getElementById('js-desc');
+    const title = document.getElementById('js-card-detail-title');
     const state = document.getElementById('js-state');
+    const oldTitle = title.textContent;
+    const desc = document.getElementById('js-desc');
+    const oldDesc = desc.textContent;
+
+    // Add event to update title
+    title.addEventListener('focusin', () => {
+      title.classList.add('editing');
+    });
+
+    title.addEventListener('focusout', () => {
+      if (title.textContent !== oldTitle) handler(title.closest('.card').id, undefined, undefined, title.textContent);
+      title.classList.toggle('editing');
+    });
 
     // Add event to update description
+    desc.addEventListener('focusin', () => {
+      desc.classList.add('editing');
+    });
+
     desc.addEventListener('focusout', () => {
-      handler(desc.closest('.card').id, desc.textContent, undefined);
+      if (desc.textContent !== oldDesc) handler(desc.closest('.card').id, desc.textContent, undefined, undefined);
+      desc.classList.toggle('editing');
     });
 
     // Add event to update state
@@ -114,7 +134,7 @@ export default class View {
       if (event.target.value === '2') this.inProgressColumn.appendChild(selectedTask);
       if (event.target.value === '3') this.doneColumn.appendChild(selectedTask);
       if (event.target.value === '4') this.archivedColumn.appendChild(selectedTask);
-      handler(idTask, undefined, Number(event.target.value));
+      handler(idTask, undefined, Number(event.target.value), undefined);
     })
   }
 }
