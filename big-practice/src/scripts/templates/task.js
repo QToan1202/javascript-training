@@ -24,7 +24,7 @@ export default class Task {
     </div>`
   );
 
-  static renderDetailTask = (
+  static renderDetailModal = (
     id,
     taskName,
     dueDate,
@@ -32,7 +32,7 @@ export default class Task {
   ) => (
     `<div class="card" id="${id}">
       <div class="card-header">
-        <h2 class="card__title">${taskName}</h2>
+        <h2 class="card__title" id="js-card-detail-title" contenteditable="true">${taskName}</h2>
         <select id="js-state" class="card-header__state">
           <option value="1">Todo</option>
           <option value="2">In progress</option>
