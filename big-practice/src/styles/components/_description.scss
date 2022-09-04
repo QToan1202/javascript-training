@@ -1,7 +1,8 @@
 @use '../abstracts' as *;
 
 .desc {
-  min-height: 80px;
+  min-height: 50px;
+  cursor: pointer;
 
   &:focus {
     color: $clover-green;
