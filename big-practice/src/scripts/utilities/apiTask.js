@@ -54,10 +54,11 @@ export default class APITask {
    * @param {Number} stateId
    * @returns Boolean
    */
-  async updateTask(id, description, stateId) {
+  async updateTask(id, description, stateId, taskName) {
     const updateValue = {
       description,
       stateId,
+      taskName,
     };
     try {
       const response = await 
