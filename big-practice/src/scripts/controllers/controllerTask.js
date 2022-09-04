@@ -19,7 +19,7 @@ export default class Controller {
     this.view.dropTask();
     this.view.bindDeleteTask(this.handlerDeleteTask);
 
-    this.view.bindsearchTasks(this.handlerSearchTasks);
+    this.view.bindsearchTasks();
   };
 
   /**
@@ -77,9 +77,5 @@ export default class Controller {
 
   handlerAddComment = async (content, taskId) => {
     await this.model.addComment(content, taskId);
-  };
-
-  handlerSearchTasks = (taskName) => {
-    this.model.searchTasks(taskName);
   };
 }

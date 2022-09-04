@@ -5,6 +5,7 @@ import constant from '../utilities/constant';
 export default class View {
   constructor() {
     this.searchTask = document.getElementById('js-search-task');
+    this.clearBtn = document.getElementById('js-clear-button');
     this.taskName = document.getElementById('js-add-task-input');
     this.todoColumn = document.getElementById('js-todo');
     this.inProgressColumn = document.getElementById('js-in-progress');
@@ -209,16 +210,20 @@ export default class View {
     });
   }
 
-  bindsearchTasks(handler) {
-    const tasksList = this.columns.map((column) => [...column.children].filter((task) => task.className === 'task'));
-    console.log(tasksList);
-    this.searchTask.addEventListener('keyup', () => {
+  bindsearchTasks() {
+    const allTasks = document.getElementsByClassName('task');
+    const tasksName = document.getElementsByClassName('task-content__title');
+
+    this.searchTask.addEventListener('keyup', (event) => {
+      event.preventDefault();
       const searchReg = new RegExp(this.searchTask.value, 'i');
-      tasksList.map(
-        (col) => col.map((task) => {
-          if (task.taskName.search(searchReg) === -1) console.log(task);
-        })
-      );
+      const findedTask = [...tasksName].filter((taskName) => taskName.textContent.search(searchReg) === -1);
+      const tasks = [...findedTask].map((task) => task.closest('.task'));
+
+      [...allTasks].map((task) => task.removeAttribute('style'));
+      tasks.map((task) => task.style.display = 'none');
     });
+
+    this.clearBtn.addEventListener('click', () => [...allTasks].map((task) => task.removeAttribute('style')));
   }
 }

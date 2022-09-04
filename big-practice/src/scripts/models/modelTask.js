@@ -108,12 +108,4 @@ export default class Model {
       throw new Error('Error occurred in adding comment process');
     }
   }
-
-  searchTasks(taskName) {
-    const searchReg = new RegExp(taskName, 'i');
-    const query = this.tasksList.map(
-      (tasks) => tasks.filter((task) => task.taskName.search(searchReg) !== -1)
-    );
-    console.log(query);
-  }
 }
