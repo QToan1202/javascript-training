@@ -220,10 +220,10 @@ export default class View {
       const findedTask = [...tasksName].filter((taskName) => taskName.textContent.search(searchReg) === -1);
       const tasks = [...findedTask].map((task) => task.closest('.task'));
 
-      [...allTasks].map((task) => task.removeAttribute('style'));
-      tasks.map((task) => task.style.display = 'none');
+      [...allTasks].map((task) => task.classList.remove('card--hidden'));
+      tasks.map((task) => task.classList.add('card--hidden'));
     });
 
-    this.clearBtn.addEventListener('click', () => [...allTasks].map((task) => task.removeAttribute('style')));
+    this.clearBtn.addEventListener('click', () => [...allTasks].map((task) => task.classList.remove('card--hidden')));
   }
 }
