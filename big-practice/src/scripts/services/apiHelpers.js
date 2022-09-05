@@ -1,4 +1,4 @@
-import constant from './constant';
+import constant from '../utilities/constant';
 
 export default class APIHelper {
   /**

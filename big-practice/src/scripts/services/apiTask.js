@@ -1,4 +1,4 @@
-import APIHelper from './api-helpers';
+import APIHelper from './apiHelpers';
 
 export default class APITask {
   /**
@@ -51,13 +51,14 @@ export default class APITask {
    * Update task base on ID
    * @param {Number} id
    * @param {String} description
-   * @param {Number} stateId
+   * @param {String} state
+   * @param {String} taskName
    * @returns Boolean
    */
-  async updateTask(id, description, stateId, taskName) {
+  async updateTask(id, description, state, taskName) {
     const updateValue = {
       description,
-      stateId,
+      state,
       taskName,
     };
     try {
