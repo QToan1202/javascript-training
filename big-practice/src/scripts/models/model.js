@@ -1,5 +1,5 @@
 import Task from './task';
-import APITask from '../utilities/apiTask';
+import APITask from '../services/apiTask';
 
 export default class Model {
   constructor() {
@@ -52,13 +52,13 @@ export default class Model {
    * Update task
    * @param {Number} id
    * @param {String} description
-   * @param {Number} stateId
+   * @param {String} state
    * @param {String} taskName
    * @returns Boolean
    */
-  async updateTask(id, description, stateId, taskName) {
+  async updateTask(id, description, state, taskName) {
     try {
-      return await this.APITask.updateTask(id, description, stateId, taskName);
+      return await this.APITask.updateTask(id, description, state, taskName);
     } catch (error) {
       throw new Error('Error occurred in uppdate process');
     }
