@@ -1,7 +1,7 @@
 import RegisterForm from '../templates/registerForm';
 import constant from '../utilities/constant';
 
-export default class ViewLogin {
+export default class LoginView {
   constructor() {
     this.form = document.querySelector('form');
     this.userName = document.getElementById('js-user-name');
@@ -20,6 +20,9 @@ export default class ViewLogin {
     if (hasLogin) {
       window.location.replace(constant.BASE_URL);
       sessionStorage.setItem('hasLogin', JSON.stringify(hasLogin));
+      return;
     }
+
+    alert('Wrong username or password');
   }
 }
