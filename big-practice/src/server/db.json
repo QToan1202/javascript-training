@@ -16,31 +16,13 @@
       "id": 3
     }
   ],
-  "states": [
-    {
-      "name": "Todo",
-      "id": 1
-    },
-    {
-      "name": "In progress",
-      "id": 2
-    },
-    {
-      "name": "Done",
-      "id": 3
-    },
-    {
-      "name": "Archived",
-      "id": 4
-    }
-  ],
   "tasks": [
     {
-      "taskName": "Hello world",
+      "taskName": "Hello world 2",
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "stateId": 2,
+      "state": "in-progress",
       "userId": 1,
       "id": 1
     },
@@ -49,9 +31,17 @@
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "stateId": 1,
+      "state": "todo",
       "userId": 1,
       "id": 2
+    },
+    {
+      "taskName": "Lorem ipsum",
+      "description": "",
+      "dueDate": "4/10/2022",
+      "createdDate": "4/9/2022",
+      "state": "archived",
+      "id": 3
     }
   ],
   "comments": [
