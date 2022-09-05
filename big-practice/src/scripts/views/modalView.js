@@ -11,6 +11,7 @@ export default class ModalView {
 
   /**
    * Add event for closing button in the information card
+   * Also closing when click outside the card
    */
   closeDetailModal() {
     const btnClose = document.getElementById('js-close-btn');
