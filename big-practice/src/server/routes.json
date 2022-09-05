@@ -1,8 +1,8 @@
 {
   "/api/*": "/$1",
-  "/tasks/:id": "/tasks/:id?_embed=comments&_expand=state",
-  "/tasks-todo": "/tasks?stateId_like=1",
-  "/tasks-in-progress": "/tasks?stateId_like=2",
-  "/tasks-done": "/tasks?stateId_like=3",
-  "/tasks-archived": "/tasks?stateId_like=4"
+  "/tasks/:id": "/tasks/:id?_embed=comments",
+  "/tasks-todo": "/tasks?state_like=todo",
+  "/tasks-in-progress": "/tasks?state_like=in-progress",
+  "/tasks-done": "/tasks?state_like=done",
+  "/tasks-archived": "/tasks?state_like=archived"
 }
