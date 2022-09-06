@@ -1,6 +1,6 @@
 import Controller from './controllers/controller';
 import Model from './models/model';
-import ModalView from './views/modalView';
+import ModalDetail from './views/modalDetail';
 import TaskView from './views/taskView';
 
-const app = new Controller(new Model(), new TaskView(), new ModalView);
+const app = new Controller(new Model(), new TaskView(), new ModalDetail());

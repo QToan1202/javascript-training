@@ -1,8 +1,8 @@
 export default class Controller {
-  constructor(model, taskView, modalView) {
+  constructor(model, taskView, modalDetail) {
     this.model = model;
     this.taskView = taskView;
-    this.modalView = modalView;
+    this.modalDetail = modalDetail;
 
     this.taskView.bindAddTask(this.handlerAddTask);
     this.renderList();
@@ -37,8 +37,8 @@ export default class Controller {
    */
   handlerGetDetailTask = async (id) => {
     const task = await this.model.getDetailTask(id);
-    this.modalView.renderDetailModal(task);
-    this.modalView.bindUpdateTask(this.handlerUpdateTask);
+    this.modalDetail.renderDetailModal(task);
+    this.modalDetail.bindUpdateTask(this.handlerUpdateTask);
   };
 
   /**
