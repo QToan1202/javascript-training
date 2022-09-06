@@ -5,5 +5,5 @@
   "/tasks-in-progress": "/tasks?stateId_like=2",
   "/tasks-done": "/tasks?stateId_like=3",
   "/tasks-archived": "/tasks?stateId_like=4",
-  "/comments/:id": "/comments?taskId_like=:id&_expand=task&_expand=user"
+  "/task-comments/:id": "/comments?taskId_like=:id&_expand=task&_expand=user"
 }

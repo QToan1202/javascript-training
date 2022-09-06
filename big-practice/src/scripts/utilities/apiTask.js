@@ -112,7 +112,7 @@ export default class APITask {
    */
   async getTaskComments(id) {
     try {
-      const response = await fetch(this.apiEndpoint(`/comments/${id}`));
+      const response = await fetch(this.apiEndpoint(`/task-comments/${id}`));
       return await response.json();
     } catch (error) {
       throw new Error(error);
