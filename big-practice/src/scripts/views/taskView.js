@@ -51,7 +51,13 @@ export default class TaskView {
     this.taskName.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
-        handler(this.taskName.value);
+
+        if (this.taskName.value.trim()) {
+          handler(this.taskName.value.trim());
+          return;
+        };
+
+        alert('Task name is empty');
       }
     });
   }
