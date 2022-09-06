@@ -7,21 +7,20 @@ export default class ModalView {
     this.inProgressColumn = document.getElementById('js-in-progress');
     this.doneColumn = document.getElementById('js-done');
     this.archivedColumn = document.getElementById('js-archivied');
+    this.updateData = {};
   }
 
   /**
    * Add event for closing button in the information card
    * Also closing when click outside the card
    */
-  closeDetailModal() {
+  closeDetailModal(handler) {
+    const cardId = document.getElementsByClassName('card')[0].id;
     const btnClose = document.getElementById('js-close-btn');
 
     btnClose.addEventListener('click', () => {
       btnClose.closest('.overlay').remove();
-    });
-
-    document.addEventListener('click', (event) => {
-      if (event.target.className === 'overlay') event.target.remove();
+      handler(cardId, this.updateData);
     });
   }
 
@@ -29,24 +28,23 @@ export default class ModalView {
    * Display a task with all information
    * @param {Object} task
    */
-   renderDetailModal({ id, taskName, dueDate, description, state }) {
+  renderDetailModal({ id, taskName, dueDate, description, state }, handler) {
     const element = document.createElement('div');
-    
+
     element.innerHTML = Task.renderDetailModal(id, taskName, dueDate, description);
     element.classList.add('overlay');
     document.body.appendChild(element);
-    
+
     const selectState = document.getElementById('js-state');
-    
+
     selectState.value = state;
-    this.closeDetailModal();
+    this.closeDetailModal(handler);
   }
 
   /**
    * Add event to update task
-   * @param {Function} handler
    */
-  bindUpdateTask(handler) {
+  bindUpdateTask() {
     const title = document.getElementById('js-card-detail-title');
     const state = document.getElementById('js-state');
     const oldTitle = title.textContent;
@@ -65,11 +63,11 @@ export default class ModalView {
 
       // Update only new content was enter
       if (title.textContent !== oldTitle) {
-        handler(title.closest('.card').id, undefined, undefined, title.textContent);
+        this.updateData.taskName = title.textContent;
         selectedTaskName.textContent = title.textContent;
-      };
+      }
 
-      title.classList.toggle('editing');
+      title.classList.remove('editing');
     });
 
     // Add event to update description
@@ -78,8 +76,11 @@ export default class ModalView {
     });
 
     desc.addEventListener('focusout', () => {
-      if (desc.textContent !== oldDesc) handler(desc.closest('.card').id, desc.textContent, undefined, undefined);
-      desc.classList.toggle('editing');
+      if (desc.textContent !== oldDesc) {
+        this.updateData.description = desc.textContent;
+      }
+
+      desc.classList.remove('editing');
     });
 
     // Add event to update state

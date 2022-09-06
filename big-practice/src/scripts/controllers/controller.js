@@ -37,18 +37,16 @@ export default class Controller {
    */
   handlerGetDetailTask = async (id) => {
     const task = await this.model.getDetailTask(id);
-    this.modalDetail.renderDetailModal(task);
-    this.modalDetail.bindUpdateTask(this.handlerUpdateTask);
+    this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
+    this.modalDetail.bindUpdateTask();
   };
 
   /**
    * Update the task
    * @param {Number} id
-   * @param {String} description
-   * @param {String} state
-   * @param {String} taskName
+   * @param {Object} updateData
    */
-  handlerUpdateTask = async (id, description, state, taskName) => {
-    await this.model.updateTask(id, description, state, taskName);
+  handlerUpdateTask = async (id, updateData) => {
+    await this.model.updateTask(id, updateData);
   };
 }
