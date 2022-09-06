@@ -12,8 +12,6 @@ export default class Model {
    * @return Object
    */
   async addTask(taskName) {
-    // Check if taskName is empty or not
-    if (!taskName.trim()) throw new Error('Name is empty');
     const task = new Task(taskName);
     try {
       // Calling API addTask form APITask
