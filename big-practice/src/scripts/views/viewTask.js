@@ -10,14 +10,15 @@ export default class View {
     this.doneColumn = document.getElementById('js-done');
     this.archivedColumn = document.getElementById('js-archivied');
     this.columns = [this.todoColumn, this.inProgressColumn, this.doneColumn, this.archivedColumn];
+    this.user = JSON.parse(sessionStorage.getItem('user'));
   }
 
   setUserInformation() {
-    const user = JSON.parse(sessionStorage.getItem('user'));
     const userAvatar = document.getElementById('js-user-avatar');
     const userName = document.getElementById('js-user-name');
-    userAvatar.src = user.avatar;
-    userName.textContent = user.userName;
+
+    userAvatar.src = this.user.avatar;
+    userName.textContent = this.user.userName;
   }
 
   /**
@@ -68,31 +69,35 @@ export default class View {
     this.closeDetailTaskBtn();
   }
 
+  renderComment({ content, id }) {
+    const cardContent = document.getElementsByClassName('card-content')[0];
+    const comment = document.createElement('template');
+
+    comment.innerHTML = Comment.renderComment('https://picsum.photos/200', this.user.userName, content, id);
+    cardContent.appendChild(comment.content.firstElementChild);
+  }
+
   /**
    * Append all comment belong to that task to the bottom of detail card
    * @param {Array} comments
    */
-  attachComments(comments) {
-    const cardContent = document.getElementsByClassName('card-content')[0];
-    const comment = document.createElement('template');
-    comments.forEach((cmt) => {
-      comment.innerHTML = Comment.renderRegisterForm('https://picsum.photos/200', 1, cmt.content);
-      cardContent.appendChild(comment.content.firstElementChild);
-    });
+  renderCommentList(comments) {
+    comments.map((comment) => this.renderComment(comment));
   }
 
   bindAddComment(handler) {
     const commentElement = document.getElementById('js-comment');
-    const cardContent = document.getElementsByClassName('card-content')[0];
-    const comment = document.createElement('template');
+
     commentElement.addEventListener('keyup', (event) => {
       if (event.key === 'Enter') {
-        handler(commentElement.textContent, Number(event.target.closest('.card').id));
-        comment.innerHTML = Comment.renderRegisterForm('https://picsum.photos/200', JSON.parse(sessionStorage.getItem('user')).userName, commentElement.textContent);
-        cardContent.appendChild(comment.content.firstElementChild);
-        commentElement.textContent = '';
+        handler(commentElement.value, Number(event.target.closest('.card').id));
+        commentElement.value = '';
       }
     });
+  }
+
+  bindDeleteComment(handler) {
+    
   }
 
   /**

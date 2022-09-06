@@ -132,4 +132,18 @@ export default class APITask {
       throw new Error(error);
     }
   }
+
+  /**
+   * Delete comment in the task detail
+   * @param {Number} id
+   * @returns Number
+   */
+  async deleteComment(id) {
+    try {
+      const response = await fetch(this.apiEndpoint(`/comments/${id}`), this.requestOptions('DELETE'));
+      return response.status;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

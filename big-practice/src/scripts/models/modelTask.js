@@ -101,9 +101,22 @@ export default class Model {
     if (!content.trim()) throw new Error('Comment is empty');
     const comment = new Comment(content, taskId);
     try {
-      return await await this.APITask.addComment(comment);
+      return await this.APITask.addComment(comment);
     } catch (error) {
       throw new Error('Error occurred in adding comment process');
+    }
+  }
+
+  /**
+   * Delete comment
+   * @param {Number} taskId
+   * @returns Number
+   */
+  async deteleComment(id) {
+    try {
+      return await this.APITask.deleteComment(id);
+    } catch (error) {
+      throw new Error('Error occurred in deleting comment process');
     }
   }
 }

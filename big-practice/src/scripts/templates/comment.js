@@ -1,14 +1,14 @@
 import deleteIcon from '../../assets/images/delete-icon.svg';
 
 export default class Comment {
-  static renderRegisterForm = (avatar, userName, comment) => (
+  static renderComment = (avatar, userName, content, id) => (
     `<div class="row  row--center">
         <img class="avatar" src="${avatar}" alt="avatar" />
         <div class="row row--direction">
           <h3 class="name">${userName}</h3>
-          <p>${comment}</p>
+          <p>${content}</p>
         </div>
-        <img class="offset-left" src="${deleteIcon}" alt="delete-icon" />
+        <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete-${id}" />
     </div>`
   );
 }
