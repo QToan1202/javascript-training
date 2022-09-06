@@ -8,7 +8,7 @@ export default class Comment {
           <h3 class="name">${userName}</h3>
           <p>${content}</p>
         </div>
-        <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete-${id}" />
+        <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="comment-${id}" />
     </div>`
   );
 }
