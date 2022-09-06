@@ -9,6 +9,7 @@
 
 .col {
   margin: 0 10px;
+  height: calc(100vh - 100px);
   flex: 1;
   border: 1px solid color.$lavender-pinocchio;
   background-color: color.$desert-storm;
