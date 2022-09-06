@@ -12,11 +12,11 @@ export default class Task {
   <div class="task-content">
     <div class="row  row--task">
       <h2 class="task-content__title">${taskName}</h2>
-      <img class="push" src="${deleteIcon}" alt="delete-icon" id="delete" draggable="false" />
+      <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete" draggable="false" />
     </div>
     <div class="row  row--task">
       <p>${createdDate}</p>
-      <img class="push" src="${clockIcon}" alt="clock-icon" draggable="false" />
+      <img class="offset-left" src="${clockIcon}" alt="clock-icon" draggable="false" />
       <p> ${dueDate} </p>
     </div>
   </div>
@@ -29,21 +29,21 @@ export default class Task {
     description,
   ) => `<div class="card" id="${id}">
   <div class="card-header">
-    <h2 class="title  title--card">${taskName}</h2>
+    <h2 class="card__title">${taskName}</h2>
     <select id="js-state" class="card-header__state">
       <option value="todo">Todo</option>
       <option value="in-progress">In progress</option>
       <option value="done">Done</option>
       <option value="archived">Archived</option>
     </select>
-    <button class="btn  push" id="js-close-btn">&times;</button>
+    <button class="btn  offset-left" id="js-close-btn">&times;</button>
   </div>
 
   <div class="card-content">
     <div class="row  row--direction">
-      <div class="title">
+      <div class="row  row--center  title">
         <h3>Description</h3>
-        <img width="20" height="20" src="${editIcon}" alt="edit-icon" />
+        <img src="${editIcon}" alt="edit-icon" />
       </div>
       <p id="js-desc" class="desc" contenteditable="true">${description}</p>
     </div>
@@ -57,7 +57,7 @@ export default class Task {
     </div>
 
     <div class="row  row--direction">
-      <h3 class="title  title--spacing">Comments</h3>
+      <h3 class="title  spacing-top">Comments</h3>
       <textarea class="comments" id="js-comment" placeholder="Enter new comment..." rows="1"></textarea>
     </div>
   </div>

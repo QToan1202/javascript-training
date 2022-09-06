@@ -1,9 +1,9 @@
 export default class RegisterForm {
   static renderRegisterForm = () => (
-    `<div class='card  card--background  card--hidden'>
+    `<div class='card  card--bg  card--hidden'>
       <div class='row'>
-        <h1 class='title  title--login'>Register</h1>
-        <button class='btn  push'>&times;</button>
+        <h1 class='card__title'>Register</h1>
+        <button class='btn  offset-left'>&times;</button>
       </div>
       <form class='form  form--login' action='#' method='post'>
         <label>User name</label>
