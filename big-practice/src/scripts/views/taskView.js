@@ -67,9 +67,10 @@ export default class TaskView {
    * @param {Function} handler
    */
   bindGetTaskDetail(handler) {
-    this.todoColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.inProgressColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.doneColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.archivedColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+    const columns = document.getElementsByClassName('col');
+
+    [...columns].map((col) => col.addEventListener('click', (event) => {
+      if (event.target.closest('.task')) handler(event.target.closest('.task').id);
+    }));
   }
 }
