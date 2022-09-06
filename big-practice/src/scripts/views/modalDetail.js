@@ -88,11 +88,30 @@ export default class ModalView {
       const selectedTask = document.getElementById(idTask);
 
       // For each different states will be attached to the corresponding column
-      if (event.target.value === 'todo') this.todoColumn.appendChild(selectedTask);
-      if (event.target.value === 'in-progress') this.inProgressColumn.appendChild(selectedTask);
-      if (event.target.value === 'done') this.doneColumn.appendChild(selectedTask);
-      if (event.target.value === 'archived') this.archivedColumn.appendChild(selectedTask);
-      handler(idTask, undefined, event.target.value, undefined);
-    })
+      switch (event.target.value) {
+        case 'todo':
+          this.updateData.state = 'todo';
+          this.todoColumn.appendChild(selectedTask);
+          break;
+
+        case 'in-progress':
+          this.updateData.state = 'in-progress';
+          this.inProgressColumn.appendChild(selectedTask);
+          break;
+
+        case 'done':
+          this.updateData.state = 'done';
+          this.doneColumn.appendChild(selectedTask);
+          break;
+
+        case 'archived':
+          this.updateData.state = 'archived';
+          this.archivedColumn.appendChild(selectedTask);
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }
