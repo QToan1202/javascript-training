@@ -106,8 +106,9 @@ export default class View {
    * Add event data for draggable element
    */
   dragTask() {
-    const tasks = document.getElementsByClassName('task');
-    [...tasks].map((task) => task.addEventListener('dragstart', (event) => {
+    const columns = document.getElementsByClassName('col');
+
+    [...columns].map((col) => col.addEventListener('dragstart', (event) => {
       event.target.style.backgroundColor = '#CEE5FF';
       event.dataTransfer.setData('text/plain', event.target.id);
       event.dataTransfer.effectAllowed = 'move';
@@ -129,6 +130,7 @@ export default class View {
       event.preventDefault();
       const receiveData = event.dataTransfer.getData('text/plain');
       const dropTask = document.getElementById(receiveData);
+
       dropTask.removeAttribute('style');
       let attachColumn = [...event.target.children].find((child) => child.className === 'col__task');
       if (event.target.className !== 'col') attachColumn = event.target.closest('.col__task');
