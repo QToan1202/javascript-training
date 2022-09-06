@@ -53,6 +53,7 @@ export default class Controller {
     this.view.bindUpdateTask(this.handlerUpdateTask);
     this.view.renderCommentList(await this.model.getComments(id));
     this.view.bindAddComment(this.handlerAddComment);
+    this.view.bindDeleteComment(this.handlerDeleteComment);
   };
 
   /**
@@ -76,5 +77,9 @@ export default class Controller {
   handlerAddComment = async (content, taskId) => {
     const comment = await this.model.addComment(content, taskId);
     this.view.renderComment(comment);
+  };
+
+  handlerDeleteComment = async (id) => {
+    await this.model.deteleComment(id);
   };
 }

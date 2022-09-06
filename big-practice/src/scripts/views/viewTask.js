@@ -97,7 +97,16 @@ export default class View {
   }
 
   bindDeleteComment(handler) {
-    
+    const deleteComment = document.querySelectorAll('[id^=\'comment-\']');
+
+    [...deleteComment].map((comment) => comment.addEventListener('click', (event) => {
+      const commentId = event.target.id.split('comment-')[1];
+      if (confirm('Delete comment?')) {
+        handler(commentId);
+        event.target.parentElement.remove();
+        console.log('Deleted');
+      }
+    }));
   }
 
   /**
