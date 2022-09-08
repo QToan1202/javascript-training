@@ -1,4 +1,5 @@
 import APIHelper from './api-helpers';
+import constant from './constant';
 
 export default class APITask {
   /**
@@ -59,7 +60,7 @@ export default class APITask {
     const value = encodeURIComponent(description);
     formData.push(`${key}=${value}`);
     try {
-      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('PATCH', formData.join('&'), 'application/x-www-form-urlencoded'));
+      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), APIHelper.requestOptions('PATCH', formData.join('&'), 'application/x-www-form-urlencoded'));
       return response.ok;
     } catch (error) {
       throw new Error(error);
@@ -73,7 +74,7 @@ export default class APITask {
    */
   async deleteTask(id) {
     try {
-      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), this.requestOptions('DELETE'));
+      const response = await fetch(this.apiEndpoint(`/tasks/${id}`), APIHelper.requestOptions('DELETE'));
       return response.status;
     } catch (error) {
       throw new Error(error);
@@ -110,7 +111,7 @@ export default class APITask {
    */
   async addComment(comment) {
     try {
-      const response = await fetch(this.apiEndpoint('/comments'), this.requestOptions('POST', JSON.stringify(comment), 'application/json'));
+      const response = await fetch(APIHelper.apiEndpoint('/comments'), APIHelper.requestOptions('POST', JSON.stringify(comment), 'application/json'));
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -124,7 +125,7 @@ export default class APITask {
    */
   async deleteComment(id) {
     try {
-      const response = await fetch(this.apiEndpoint(`/comments/${id}`), this.requestOptions('DELETE'));
+      const response = await fetch(APIHelper.apiEndpoint(`/comments/${id}`), APIHelper.requestOptions('DELETE'));
       return response.status;
     } catch (error) {
       throw new Error(error);
