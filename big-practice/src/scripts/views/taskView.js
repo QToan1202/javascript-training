@@ -10,6 +10,14 @@ export default class TaskView {
   }
 
   /**
+   * Get a task name
+   * @returns String
+   */
+  getTaskName() {
+    return this.taskName.value.trim();
+  }
+
+  /**
    * Reset adding form
    */
   resetForm() {
@@ -52,8 +60,8 @@ export default class TaskView {
       if (event.key === 'Enter') {
         event.preventDefault();
 
-        if (this.taskName.value.trim()) {
-          handler(this.taskName.value.trim());
+        if (this.getTaskName()) {
+          handler(this.getTaskName());
           return;
         };
 
