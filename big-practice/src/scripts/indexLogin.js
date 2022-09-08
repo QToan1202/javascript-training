@@ -1,5 +1,5 @@
-import ControllerLogin from './controllers/controllerLogin';
+import LoginController from './controllers/loginController';
 import ModelUser from './models/modelUser';
 import LoginView from './views/loginView';
 
-const app = new ControllerLogin(new ModelUser(), new LoginView());
+const app = new LoginController(new ModelUser(), new LoginView());
