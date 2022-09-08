@@ -1,4 +1,4 @@
-import APIHelper from './api-helpers';
+import APIHelper from './apiHelpers';
 import constant from './constant';
 
 export default class APITask {
