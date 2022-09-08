@@ -34,4 +34,16 @@ export default class ModelUser {
       throw new Error(error);
     }
   }
+
+  async createAccount(userName, password) {
+    const duplicateName = this.users.some((user) => user.userName === userName);
+    if (duplicateName) return false;
+    try {
+      const response = await this.APIUser.createAccount(userName, password);
+      sessionStorage.setItem('user', JSON.stringify(response));
+      return true;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
