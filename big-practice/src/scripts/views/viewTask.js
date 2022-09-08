@@ -1,6 +1,7 @@
 import Comment from '../templates/comment';
 import Task from '../templates/task';
 import constant from '../utilities/constant';
+import date from '../utilities/date';
 
 export default class View {
   constructor() {
@@ -66,6 +67,18 @@ export default class View {
     const element = document.createElement('template');
     element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
     document.body.appendChild(element.content.firstElementChild);
+
+    const alert = document.createElement('p');
+    const dueDateElement = document.getElementById('js-due-date');
+
+    alert.classList.add('alert');
+    if (date.diffTime(dueDate)) {
+      if (date.diffTime(dueDate).split(' ')[0] <= 3) {
+        alert.textContent = date.diffTime(dueDate).replace('ago', 'left');
+        dueDateElement.parentElement.appendChild(alert);
+      }
+    };
+
     this.closeDetailTaskBtn();
   }
 

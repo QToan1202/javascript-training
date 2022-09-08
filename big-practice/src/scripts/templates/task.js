@@ -1,6 +1,7 @@
 import clockIcon from '../../assets/images/clock-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 import editIcon from '../../assets/images/edit-icon.svg';
+import date from '../utilities/date';
 
 export default class Task {
   static renderWorkItem = (
@@ -15,9 +16,9 @@ export default class Task {
       <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete" draggable="false" />
     </div>
     <div class="row  row--task">
-      <p>${createdDate}</p>
+      <p>${date.diffTime(createdDate)}</p>
       <img class="offset-left" src="${clockIcon}" alt="clock-icon" draggable="false" />
-      <p> ${dueDate} </p>
+      <p>${date.diffTime(dueDate).replace('ago', 'left')}</p>
     </div>
   </div>
   </div>`;
@@ -52,7 +53,6 @@ export default class Task {
       <h3 class="title">Due Date</h3>
       <div class="row  row--center">
         <p id="js-due-date">${dueDate}</p>
-        <p class="alert"></p>
       </div>
     </div>
 
