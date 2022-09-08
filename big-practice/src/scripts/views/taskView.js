@@ -78,7 +78,9 @@ export default class TaskView {
     const columns = document.getElementsByClassName('col');
 
     [...columns].map((col) => col.addEventListener('click', (event) => {
-      if (event.target.closest('.task')) handler(event.target.closest('.task').id);
+      const task = event.target.closest('.task');
+
+      if (task.hasAttributes('id')) handler(task.id);
     }));
   }
 }
