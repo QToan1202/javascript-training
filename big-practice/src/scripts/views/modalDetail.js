@@ -20,7 +20,10 @@ export default class ModalView {
 
     btnClose.addEventListener('click', () => {
       btnClose.closest('.overlay').remove();
-      handler(cardId, this.updateData);
+      if (Object.keys(this.updateData).length) {
+        handler(cardId, this.updateData);
+        this.updateData = {};
+      };
     });
   }
 
