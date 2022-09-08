@@ -16,13 +16,15 @@
   <div class="card  card--background">
     <div class="row">
       <h1 class="title  title--login">Welcome</h1>
-      <button class="btn  push">&times;</button>
     </div>
     <form class="form  form--login">
       <label>User name</label>
       <input class="input" type="text" id="js-user-name" />
       <label>Password</label>
       <input class="input" type="password" id="js-user-password" />
+      <label class="hidden" id="js-label-confirm-password">Confirm Password</label>
+      <input class="input  hidden" type="password" id="js-user-confirm-password" />
+      <a class="form__link" href="javascript:void(0)"  id="js-register-form">Create new account</a>
       <button class="btn  btn--form" type="submit">Login</button>
     </form>
   </div>
