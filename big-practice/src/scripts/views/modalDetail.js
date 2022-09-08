@@ -28,7 +28,10 @@ export default class ModalView {
    * Display a task with all information
    * @param {Object} task
    */
-  renderDetailModal({ id, taskName, dueDate, description, state }, handler) {
+  renderDetailModal(task, handler) {
+    if(!Object.keys(task).length) throw new Error('Empty content');
+
+    const { id, taskName, dueDate, description, state } = task;
     const element = document.createElement('div');
 
     element.innerHTML = Task.renderDetailModal(id, taskName, dueDate, description);
