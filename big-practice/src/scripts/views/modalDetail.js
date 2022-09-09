@@ -90,8 +90,10 @@ export default class ModalView {
       const selectedTask = document.getElementById(idTask);
 
       // When state changed it will find the column that match with the state value
-      const attachColumn = document.getElementById(`js-${event.target.value}`);
+      const selectState = event.target.value;
+      const attachColumn = document.getElementById(`js-${selectState}`);
 
+      this.updateData.state = selectState;
       attachColumn.appendChild(selectedTask);
     });
   }
