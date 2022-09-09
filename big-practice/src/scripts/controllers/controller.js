@@ -17,7 +17,7 @@ export default class Controller {
     const tasks = await this.model.getTasks();
     this.taskView.renderTaskList(tasks);
     this.taskView.dragTask();
-    this.taskView.dropTask();
+    this.taskView.dropTask(this.handlerUpdateTask);
   };
 
   /**
