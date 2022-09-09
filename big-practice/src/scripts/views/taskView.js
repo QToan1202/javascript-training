@@ -74,7 +74,7 @@ export default class TaskView {
     [...columns].map((col) => col.addEventListener('click', (event) => {
       const task = event.target.closest('.task');
 
-      if (task.hasAttributes('id')) handler(task.id);
+      if (task && task.hasAttributes('id')) handler(task.id);
     }));
   }
 
@@ -109,9 +109,16 @@ export default class TaskView {
       const dropTask = document.getElementById(receiveData);
 
       dropTask.removeAttribute('style');
+
+      // Default: when drop a task on an emtpy column
       let attachColumn = [...event.target.children].find((child) => child.className === 'col__task');
+
+      // Drop a task on another task
       if (event.target.className !== 'col') attachColumn = event.target.closest('.col__task');
+
+      // Drop a task when at the title of the column
       if (event.target.className.search('col__title') !== -1) attachColumn = event.target.nextElementSibling;
+
       attachColumn.appendChild(dropTask);
     }));
   }
