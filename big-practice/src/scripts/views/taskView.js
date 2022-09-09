@@ -6,7 +6,8 @@ export default class TaskView {
     this.todoColumn = document.getElementById('js-todo');
     this.inProgressColumn = document.getElementById('js-in-progress');
     this.doneColumn = document.getElementById('js-done');
-    this.archivedColumn = document.getElementById('js-archivied');
+    this.archivedColumn = document.getElementById('js-archived');
+    this.updateData = {};
   }
 
   /**
@@ -94,8 +95,9 @@ export default class TaskView {
 
   /**
    * Define drop zone for element
+   * @param {Function} handler
    */
-  dropTask() {
+  dropTask(handler) {
     const columns = document.getElementsByClassName('col');
 
     [...columns].map((col) => col.addEventListener('dragover', (event) => {
@@ -105,6 +107,8 @@ export default class TaskView {
 
     [...columns].map((col) => col.addEventListener('drop', (event) => {
       event.preventDefault();
+
+      // The ID of the task been dragging
       const receiveData = event.dataTransfer.getData('text/plain');
       const dropTask = document.getElementById(receiveData);
 
@@ -120,6 +124,13 @@ export default class TaskView {
       if (event.target.className.search('col__title') !== -1) attachColumn = event.target.nextElementSibling;
 
       attachColumn.appendChild(dropTask);
+      
+      // When finish drop a task update state match with the column
+      const newState = attachColumn.id.split('js-')[1];
+
+      this.updateData.state = newState;
+      handler(receiveData, this.updateData);
+      this.updateData = {};
     }));
   }
 }
