@@ -1,6 +1,6 @@
 import Task from '../templates/task';
 
-export default class View {
+export default class TaskView {
   constructor() {
     this.taskName = document.getElementById('js-add-task-input');
     this.todoColumn = document.getElementById('js-todo');
@@ -36,35 +36,11 @@ export default class View {
    * Display all task in database
    * @param {Array} tasks
    */
-  renderTaskList([todoTask, inProgressTask, doneTask, archivedTask]) {
-    if (todoTask.length) todoTask.map((task) => this.displayTask(this.todoColumn, task));
-    if (inProgressTask.length) inProgressTask.map((task) => this.displayTask(this.inProgressColumn, task));
-    if (doneTask.length) doneTask.map((task) => this.displayTask(this.doneColumn, task));
-    if (archivedTask.length) archivedTask.map((task) => this.displayTask(this.archivedColumn, task));
-  }
-
-  /**
-   * Display a task with all information
-   * @param {Object} task
-   */
-  renderDetailInformation({ id, taskName, dueDate, description }) {
-    const existDetailCard = document.getElementsByClassName('card');
-    if (existDetailCard.length) existDetailCard[0].remove();
-
-    const element = document.createElement('template');
-    element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
-    document.body.appendChild(element.content.firstElementChild);
-    this.closeDetailTaskBtn();
-  }
-
-  /**
-   * Add event for closing button in the information card
-   */
-  closeDetailTaskBtn() {
-    const btnClose = document.querySelectorAll('#js-close-btn');
-    [...btnClose].map((btn) => btn.addEventListener('click', () => {
-      btn.closest('.card').remove();
-    }));
+  renderTaskList([todoTasks, inProgressTasks, doneTasks, archivedTasks]) {
+    if (todoTasks.length) todoTasks.map((task) => this.displayTask(this.todoColumn, task));
+    if (inProgressTasks.length) inProgressTasks.map((task) => this.displayTask(this.inProgressColumn, task));
+    if (doneTasks.length) doneTasks.map((task) => this.displayTask(this.doneColumn, task));
+    if (archivedTasks.length) archivedTasks.map((task) => this.displayTask(this.archivedColumn, task));
   }
 
   /**
@@ -73,9 +49,17 @@ export default class View {
    */
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
+      const taskName = this.taskName.value.trim();
+
       if (event.key === 'Enter') {
         event.preventDefault();
-        handler(this.taskName.value);
+
+        if (taskName) {
+          handler(taskName);
+          return;
+        };
+
+        alert('Task name is empty');
       }
     });
   }
@@ -85,27 +69,20 @@ export default class View {
    * @param {Function} handler
    */
   bindGetTaskDetail(handler) {
-    this.todoColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.inProgressColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.doneColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
-    this.archivedColumn.addEventListener('click', (event) => handler(event.target.closest('.task').id));
+    const columns = document.getElementsByClassName('col');
+
+    [...columns].map((col) => col.addEventListener('click', (event) => {
+      const task = event.target.closest('.task');
+
+      if (task.hasAttributes('id')) handler(task.id);
+    }));
   }
 
-  /**
-   * Add event when change the description
-   * @param {Function} handler
-   */
-  bindUpdateTask(handler) {
-    const desc = document.getElementById('js-desc');
-    desc.addEventListener('focusout', () => {
-      handler(desc.closest('.card').id, desc.textContent);
-    });
-  }
-
+  
   /**
    * Add event data for draggable element
    */
-  dragTask() {
+   dragTask() {
     const columns = document.getElementsByClassName('col');
 
     [...columns].map((col) => col.addEventListener('dragstart', (event) => {

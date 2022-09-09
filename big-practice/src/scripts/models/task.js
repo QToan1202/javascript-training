@@ -6,6 +6,6 @@ export default class Task {
     this.description = '';
     this.dueDate = date.getTemporaryDueDate();
     this.createdDate = date.getCurrentDate();
-    this.stateId = 1;
+    this.state = "todo";
   }
 }

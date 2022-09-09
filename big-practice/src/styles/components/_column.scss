@@ -1,5 +1,4 @@
-@use '../abstracts/colors' as color;
-@use '../abstracts/variables' as var;
+@use '../abstracts' as *;
 
 .container {
   margin: 20px 10px;
@@ -10,8 +9,8 @@
 .col {
   margin: 0 10px;
   flex: 1;
-  border: 1px solid color.$lavender-pinocchio;
-  background-color: color.$desert-storm;
+  border: 1px solid $lavender-pinocchio;
+  background-color: $desert-storm;
   border-radius: 4px;
 
   &__title {
@@ -19,24 +18,24 @@
     font-size: 18px;
     line-height: 21px;
     text-transform: uppercase;
-    font-family: var.$font-bold;
+    font-family: $font-bold;
 
     &--todo {
-      color: color.$white;
-      background-color: color.$butterfly-blue;
+      color: $white;
+      background-color: $butterfly-blue;
     }
   
     &--in-progress {
-      background-color: color.$beer;
+      background-color: $beer;
     }
   
     &--done {
-      color: color.$white;
-      background-color: color.$clover-green;
+      color: $white;
+      background-color: $clover-green;
     }
   
     &--archived {
-      background-color: color.$lavender-pinocchio;
+      background-color: $lavender-pinocchio;
     }
   }
 

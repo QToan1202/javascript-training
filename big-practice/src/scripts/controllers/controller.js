@@ -1,11 +1,12 @@
 export default class Controller {
-  constructor(model, view) {
-    this.view = view;
+  constructor(model, taskView, modalDetail) {
     this.model = model;
+    this.taskView = taskView;
+    this.modalDetail = modalDetail;
 
-    this.view.bindAddTask(this.handlerAddTask);
+    this.taskView.bindAddTask(this.handlerAddTask);
     this.renderList();
-    this.view.bindGetTaskDetail(this.handlerGetDetailTask);
+    this.taskView.bindGetTaskDetail(this.handlerGetDetailTask);
   }
 
   /**
@@ -14,9 +15,9 @@ export default class Controller {
    */
   renderList = async () => {
     const tasks = await this.model.getTasks();
-    this.view.renderTaskList(tasks);
-    this.view.dragTask();
-    this.view.dropTask();
+    this.taskView.renderTaskList(tasks);
+    this.taskView.dragTask();
+    this.taskView.dropTask();
   };
 
   /**
@@ -27,8 +28,8 @@ export default class Controller {
    */
   handlerAddTask = async (taskName) => {
     const task = await this.model.addTask(taskName);
-    this.view.displayTask(this.view.todoColumn, task);
-    this.view.resetForm();
+    this.taskView.displayTask(this.taskView.todoColumn, task);
+    this.taskView.resetForm();
   };
 
   /**
@@ -38,16 +39,16 @@ export default class Controller {
    */
   handlerGetDetailTask = async (id) => {
     const task = await this.model.getDetailTask(id);
-    this.view.renderDetailInformation(task);
-    this.view.bindUpdateTask(this.handlerUpdateTask);
+    this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
+    this.modalDetail.bindUpdateTask();
   };
 
   /**
-   * Update the task description
+   * Update the task
    * @param {Number} id
-   * @param {String} description
+   * @param {Object} updateData
    */
-  handlerUpdateTask = async (id, description) => {
-    const isOk = await this.model.updateTask(id, description);
+  handlerUpdateTask = async (id, updateData) => {
+    await this.model.updateTask(id, updateData);
   };
 }
