@@ -1,4 +1,4 @@
-import constant from './constant';
+import constant from '../utilities/constant';
 
 export default class APIHelper {
   /**
@@ -7,12 +7,12 @@ export default class APIHelper {
    * @param {*} data
    * @returns Object
    */
-  static requestOptions(method, data) {
+  static requestOptions(method, data, contentType = 'application/json') {
     return {
       method,
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': contentType,
       },
     };
   }

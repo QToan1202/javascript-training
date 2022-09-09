@@ -1,5 +1,5 @@
 import Task from './task';
-import APITask from '../utilities/apiTask';
+import APITask from '../services/apiTask';
 
 export default class Model {
   constructor() {
@@ -12,8 +12,6 @@ export default class Model {
    * @return Object
    */
   async addTask(taskName) {
-    // Check if taskName is empty or not
-    if (!taskName) throw new Error('Name is empty');
     const task = new Task(taskName);
     try {
       // Calling API addTask form APITask
@@ -32,6 +30,33 @@ export default class Model {
       return await this.APITask.getTaskList();
     } catch (error) {
       throw new Error('Error occurred in getting process');
+    }
+  }
+
+  /**
+   * Get the task information with ID
+   * @param {Number} id
+   * @returns Object
+   */
+  async getDetailTask(id) {
+    try {
+      return await this.APITask.getDetailTask(id);
+    } catch (error) {
+      throw new Error('Error occurred in getting process');
+    }
+  }
+
+  /**
+   * Update task
+   * @param {Number} id
+   * @param {Object} updateData
+   * @returns Boolean
+   */
+  async updateTask(id, updateData) {
+    try {
+      return await this.APITask.updateTask(id, updateData);
+    } catch (error) {
+      throw new Error('Error occurred in uppdate process');
     }
   }
 }

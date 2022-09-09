@@ -1,6 +1,6 @@
 import Task from '../templates/task';
 
-export default class View {
+export default class TaskView {
   constructor() {
     this.taskName = document.getElementById('js-add-task-input');
     this.todoColumn = document.getElementById('js-todo');
@@ -45,14 +45,36 @@ export default class View {
 
   /**
    * Event for input to add a new task when pressing Enter
-   * @param {String} handler
+   * @param {Function} handler
    */
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
+      const taskName = this.taskName.value.trim();
+
       if (event.key === 'Enter') {
         event.preventDefault();
-        handler(this.taskName.value);
+
+        if (taskName) {
+          handler(taskName);
+          return;
+        };
+
+        alert('Task name is empty');
       }
     });
+  }
+
+  /**
+   * Add event for column to get task ID to show detail information
+   * @param {Function} handler
+   */
+  bindGetTaskDetail(handler) {
+    const columns = document.getElementsByClassName('col');
+
+    [...columns].map((col) => col.addEventListener('click', (event) => {
+      const task = event.target.closest('.task');
+
+      if (task.hasAttributes('id')) handler(task.id);
+    }));
   }
 }
