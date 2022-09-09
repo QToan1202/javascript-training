@@ -10,14 +10,6 @@ export default class TaskView {
   }
 
   /**
-   * Get a task name
-   * @returns String
-   */
-  getTaskName() {
-    return this.taskName.value.trim();
-  }
-
-  /**
    * Reset adding form
    */
   resetForm() {
@@ -57,11 +49,13 @@ export default class TaskView {
    */
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
+      const taskName = this.taskName.value.trim();
+
       if (event.key === 'Enter') {
         event.preventDefault();
 
-        if (this.getTaskName()) {
-          handler(this.getTaskName());
+        if (taskName) {
+          handler(taskName);
           return;
         };
 
