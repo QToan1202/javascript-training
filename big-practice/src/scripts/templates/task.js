@@ -1,6 +1,7 @@
 import clockIcon from '../../assets/images/clock-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 import editIcon from '../../assets/images/edit-icon.svg';
+import Capitalize from '../utilities/capitalize';
 import constant from '../utilities/constant';
 
 export default class Task {
@@ -36,16 +37,16 @@ export default class Task {
         <h2 class="card__title" id="js-card-detail-title" contenteditable="true">${taskName}</h2>
         <select id="js-state" class="card-header__state">
           <option value="${constant.STATE[0]}">
-            ${(constant.STATE[0][0].toUpperCase() + constant.STATE[0].substring(1)).replace('-', ' ')}
+            ${Capitalize(constant.STATE[0])}
           </option>
           <option value="${constant.STATE[1]}">
-            ${(constant.STATE[1][0].toUpperCase() + constant.STATE[1].substring(1)).replace('-', ' ')}
+            ${Capitalize(constant.STATE[1])}
           </option>
           <option value="${constant.STATE[2]}">
-            ${(constant.STATE[2][0].toUpperCase() + constant.STATE[2].substring(1)).replace('-', ' ')}
+            ${Capitalize(constant.STATE[2])}
           </option>
           <option value="${constant.STATE[3]}">
-            ${(constant.STATE[3][0].toUpperCase() + constant.STATE[3].substring(1)).replace('-', ' ')}
+            ${Capitalize(constant.STATE[3])}
           </option>
         </select>
         <button class="btn  offset-left" id="js-close-btn">&times;</button>
