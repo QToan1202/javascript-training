@@ -6,7 +6,7 @@ export default class ModalView {
     this.todoColumn = document.getElementById('js-todo');
     this.inProgressColumn = document.getElementById('js-in-progress');
     this.doneColumn = document.getElementById('js-done');
-    this.archivedColumn = document.getElementById('js-archivied');
+    this.archivedColumn = document.getElementById('js-archived');
     this.updateData = {};
   }
 
