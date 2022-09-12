@@ -1,5 +1,9 @@
 import Task from '../templates/task';
-import constant from '../utilities/constant';
+import {
+  DRAG_TASK_BG,
+  EFFECT_ALLOWED,
+  DROP_EFFECT,
+} from '../utilities/constant';
 
 export default class TaskView {
   constructor() {
@@ -90,9 +94,9 @@ export default class TaskView {
     [...columns].map((col) => col.addEventListener('dragstart', (event) => {
       const targetElement = event.target;
 
-      targetElement.style.backgroundColor = constant.DRAG_TASK_BG;
+      targetElement.style.backgroundColor = DRAG_TASK_BG;
       event.dataTransfer.setData('text/plain', targetElement.id);
-      event.dataTransfer.effectAllowed =  constant.EFFECT_ALLOWED;
+      event.dataTransfer.effectAllowed = EFFECT_ALLOWED;
     }));
   }
 
@@ -104,7 +108,7 @@ export default class TaskView {
 
     [...columns].map((col) => col.addEventListener('dragover', (event) => {
       event.preventDefault();
-      event.dataTransfer.dropEffect = constant.DROP_EFFECT;
+      event.dataTransfer.dropEffect = DROP_EFFECT;
     }));
   }
 
@@ -141,9 +145,15 @@ export default class TaskView {
     }));
   }
 
+  /**
+   * When finish drop a task update state match with the column
+   * @param {Function} handler 
+   * @param {Number} taskId 
+   * @param {String} attachColumn have the Id pattern js-[state]
+   */
   updateAfterDrop(handler, taskId, attachColumn) {
-    // When finish drop a task update state match with the column
-    const newState = attachColumn.id.split('js-')[1];
+    // When split state out I have array ['', state]
+    const [ , newState] = attachColumn.id.split('js-');
 
     this.updateData.state = newState;
     handler(taskId, this.updateData);
