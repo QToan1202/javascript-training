@@ -1,5 +1,5 @@
 import APIHelper from './apiHelpers';
-import Constant from '../utilities/constant'
+import { API_TASKS } from '../utilities/constant'
 
 export default class APITask {
   /**
@@ -9,7 +9,7 @@ export default class APITask {
    */
   async addTask(taskName) {
     try {
-      const response = await fetch(Constant.API_TASKS , APIHelper.requestOptions('POST', taskName));
+      const response = await fetch(API_TASKS , APIHelper.requestOptions('POST', taskName));
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -41,7 +41,7 @@ export default class APITask {
    */
   async getDetailTask(id) {
     try {
-      const response = await fetch(`${Constant.API_TASKS}/${id}`);
+      const response = await fetch(`${API_TASKS}/${id}`);
       return await response.json();
     } catch (error) {
       throw new Error(error);
@@ -57,7 +57,7 @@ export default class APITask {
   async updateTask(id, updateData) {
     try {
       const response = await 
-        fetch(`${Constant.API_TASKS}/${id}`, 
+        fetch(`${API_TASKS}/${id}`, 
         APIHelper.requestOptions('PATCH', updateData));
       return response.ok;
     } catch (error) {

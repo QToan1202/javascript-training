@@ -2,7 +2,7 @@ import clockIcon from '../../assets/images/clock-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 import editIcon from '../../assets/images/edit-icon.svg';
 import capitalize from '../utilities/capitalize';
-import constant from '../utilities/constant';
+import { STATE } from '../utilities/constant';
 
 export default class Task {
   static renderWorkItem = (
@@ -36,17 +36,17 @@ export default class Task {
       <div class="card-header">
         <h2 class="card__title" id="js-card-detail-title" contenteditable="true">${taskName}</h2>
         <select id="js-state" class="card-header__state">
-          <option value="${constant.STATE[0]}">
-            ${capitalize(constant.STATE[0])}
+          <option value="${STATE.newCreate}">
+            ${capitalize(STATE.newCreate)}
           </option>
-          <option value="${constant.STATE[1]}">
-            ${capitalize(constant.STATE[1])}
+          <option value="${STATE.doing}">
+            ${capitalize(STATE.doing)}
           </option>
-          <option value="${constant.STATE[2]}">
-            ${capitalize(constant.STATE[2])}
+          <option value="${STATE.finished}">
+            ${capitalize(STATE.finished)}
           </option>
-          <option value="${constant.STATE[3]}">
-            ${capitalize(constant.STATE[3])}
+          <option value="${STATE.stored}">
+            ${capitalize(STATE.stored)}
           </option>
         </select>
         <button class="btn  offset-left" id="js-close-btn">&times;</button>

@@ -1,4 +1,4 @@
-import constant from '../utilities/constant';
+import { API_URL } from '../utilities/constant';
 
 export default class APIHelper {
   /**
@@ -23,6 +23,6 @@ export default class APIHelper {
    * @returns String
    */
   static apiEndpoint(url) {
-    return `${constant.API_URL}${url}`;
+    return `${API_URL}${url}`;
   }
 }
