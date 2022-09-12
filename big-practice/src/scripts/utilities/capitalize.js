@@ -4,8 +4,8 @@
  * @returns String
  */
 export default function capitalize(state) {
-  const capitalizeString = state[0].toUpperCase() + state.substring(1).toLowerCase();
-  const removeDashString = capitalizeString.replace('-', ' ');
+  const lower = state.toLowerCase();
+  const capital = state.charAt(0).toUpperCase() + lower.slice(1);
 
-  return removeDashString;
+  return capital.replace('-', ' ');
 }
