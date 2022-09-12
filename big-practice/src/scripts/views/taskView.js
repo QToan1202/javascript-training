@@ -132,13 +132,13 @@ export default class TaskView {
       dropTask.removeAttribute('style');
 
       // Default: when drop a task on an emtpy column
-      let attachColumn = [...targetElement.children].find((child) => child.className === 'js-col__task');
+      let attachColumn = targetElement.querySelector('.js-col-task');
 
       // Drop a task on another task
-      if (targetElement.className !== 'js-col') attachColumn = targetElement.closest('.js-col__task');
+      if (!targetElement.classList.contains('js-col')) attachColumn = targetElement.closest('.js-col-task');
 
       // Drop a task when at the title of the column
-      if (targetElement.className.search('js-col__title') !== -1) attachColumn = targetElement.nextElementSibling;
+      if (targetElement.classList.contains('js-col-title')) attachColumn = targetElement.nextElementSibling;
 
       attachColumn.appendChild(dropTask);
       this.updateAfterDrop(handler, taskId, attachColumn)
