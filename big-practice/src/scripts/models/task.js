@@ -8,6 +8,6 @@ export default class Task {
     this.description = '';
     this.dueDate = date.getTemporaryDueDate();
     this.createdDate = date.getCurrentDate();
-    this.state = STATE.newCreate;
+    this.state = STATE.NEW_CREATE;
   }
 }

@@ -36,17 +36,17 @@ export default class Task {
       <div class="card-header">
         <h2 class="card__title" id="js-card-detail-title" contenteditable="true">${taskName}</h2>
         <select id="js-state" class="card-header__state">
-          <option value="${STATE.newCreate}">
-            ${capitalize(STATE.newCreate)}
+          <option value="${STATE.NEW_CREATE}">
+            ${capitalize(STATE.NEW_CREATE)}
           </option>
-          <option value="${STATE.doing}">
-            ${capitalize(STATE.doing)}
+          <option value="${STATE.DOING}">
+            ${capitalize(STATE.DOING)}
           </option>
-          <option value="${STATE.finished}">
-            ${capitalize(STATE.finished)}
+          <option value="${STATE.FINISHED}">
+            ${capitalize(STATE.FINISHED)}
           </option>
-          <option value="${STATE.stored}">
-            ${capitalize(STATE.stored)}
+          <option value="${STATE.STORED}">
+            ${capitalize(STATE.STORED)}
           </option>
         </select>
         <button class="btn  offset-left" id="js-close-btn">&times;</button>
