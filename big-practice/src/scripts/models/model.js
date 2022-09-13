@@ -1,5 +1,5 @@
 import Task from './task';
-import APITask from '../utilities/apiTask';
+import APITask from '../services/apiTask';
 
 export default class Model {
   constructor() {
@@ -12,8 +12,6 @@ export default class Model {
    * @return Object
    */
   async addTask(taskName) {
-    // Check if taskName is empty or not
-    if (!taskName.trim()) throw new Error('Name is empty');
     const task = new Task(taskName);
     try {
       // Calling API addTask form APITask
@@ -49,21 +47,21 @@ export default class Model {
   }
 
   /**
-   * Update task description
+   * Update task
    * @param {Number} id
-   * @param {String} description
+   * @param {Object} updateData
    * @returns Boolean
    */
-  async updateTask(id, description) {
+  async updateTask(id, updateData) {
     try {
-      return await this.APITask.updateTask(id, description);
+      return await this.APITask.updateTask(id, updateData);
     } catch (error) {
       throw new Error('Error occurred in uppdate process');
     }
   }
 
   /**
-   * Update task description
+   * Delete task description
    * @param {Number} id
    * @returns Number
    */

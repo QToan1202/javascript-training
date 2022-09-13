@@ -1,5 +1,5 @@
-@use '../abstracts/colors' as color;
+@use '../abstracts' as *;
 
 body {
-  background-color: color.$mercury;
+  background-color: $mercury;
 }
