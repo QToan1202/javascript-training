@@ -165,7 +165,11 @@ export default class TaskView {
       if (event.target.id === 'delete') {
         const taskId = event.target.closest('.task').id;
 
-        if (!taskId) throw new Error('Selected task don\'t have ID');
+        if (!taskId) {
+          alert('Selected task don\'t have ID');
+          return;
+        }
+
         if (confirm('Delete this task?')) handler(taskId);
         event.stopImmediatePropagation();
       }
@@ -177,7 +181,7 @@ export default class TaskView {
    */
   deleteTask(id) {
     const task = document.getElementById(id);
-    
+
     task.remove();
   }
 }
