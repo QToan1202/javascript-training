@@ -12,6 +12,7 @@ export default class TaskView {
     this.inProgressColumn = document.getElementById('js-in-progress');
     this.doneColumn = document.getElementById('js-done');
     this.archivedColumn = document.getElementById('js-archived');
+    this.columns = document.getElementsByClassName('js-col');
     this.updateData = {};
   }
 
@@ -75,12 +76,11 @@ export default class TaskView {
    * @param {Function} handler
    */
   bindGetTaskDetail(handler) {
-    const columns = document.getElementsByClassName('js-col');
 
-    [...columns].map((col) => col.addEventListener('click', (event) => {
+    [...this.columns].map((col) => col.addEventListener('click', (event) => {
       const task = event.target.closest('.task');
 
-      if (task && task.hasAttributes('id')) handler(task.id);
+      if (task && task.hasAttribute('id')) handler(task.id);
     }));
   }
 
@@ -89,9 +89,7 @@ export default class TaskView {
    * Add event data for draggable element
    */
    dragTask() {
-    const columns = document.getElementsByClassName('js-col');
-
-    [...columns].map((col) => col.addEventListener('dragstart', (event) => {
+    [...this.columns].map((col) => col.addEventListener('dragstart', (event) => {
       const targetElement = event.target;
 
       targetElement.style.backgroundColor = DRAG_TASK_BG;
@@ -104,9 +102,8 @@ export default class TaskView {
    * Define drop zone for element
    */
   dropZone() {
-    const columns = document.getElementsByClassName('js-col');
 
-    [...columns].map((col) => col.addEventListener('dragover', (event) => {
+    [...this.columns].map((col) => col.addEventListener('dragover', (event) => {
       event.preventDefault();
       event.dataTransfer.dropEffect = DROP_EFFECT;
     }));
@@ -119,9 +116,7 @@ export default class TaskView {
   dropTask(handler) {
     this.dropZone();
 
-    const columns = document.getElementsByClassName('js-col');
-
-    [...columns].map((col) => col.addEventListener('drop', (event) => {
+    [...this.columns].map((col) => col.addEventListener('drop', (event) => {
       event.preventDefault();
 
       // The ID of the task been dragging
@@ -158,5 +153,35 @@ export default class TaskView {
     this.updateData.state = newState;
     handler(taskId, this.updateData);
     this.updateData = {};
+  }
+
+  
+  /**
+   * Add event for detele button to delete task base on ID
+   * @param {Function} handler
+   */
+   bindDeleteTask(handler) {
+    [...this.columns].map((tasks) => tasks.addEventListener('click', (event) => {
+      if (event.target.id === 'delete') {
+        const taskId = event.target.closest('.task').id;
+
+        if (!taskId) {
+          alert('Selected task don\'t have ID');
+          return;
+        }
+
+        if (confirm('Delete this task?')) handler(taskId);
+        event.stopImmediatePropagation();
+      }
+    }, true));
+  }
+
+  /**
+   * Delete a task
+   */
+  deleteTask(id) {
+    const task = document.getElementById(id);
+
+    task.remove();
   }
 }

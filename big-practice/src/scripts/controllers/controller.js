@@ -4,10 +4,18 @@ export default class Controller {
     this.taskView = taskView;
     this.modalDetail = modalDetail;
 
+    this.init();
+  }
+
+  init = () => {
     this.taskView.bindAddTask(this.handlerAddTask);
     this.renderList();
     this.taskView.bindGetTaskDetail(this.handlerGetDetailTask);
-  }
+
+    this.taskView.dragTask();
+    this.taskView.dropTask(this.handlerUpdateTask);
+    this.taskView.bindDeleteTask(this.handlerDeleteTask);
+  };
 
   /**
    * Get the task list from model
@@ -16,8 +24,6 @@ export default class Controller {
   renderList = async () => {
     const tasks = await this.model.getTasks();
     this.taskView.renderTaskList(tasks);
-    this.taskView.dragTask();
-    this.taskView.dropTask(this.handlerUpdateTask);
   };
 
   /**
@@ -50,5 +56,14 @@ export default class Controller {
    */
   handlerUpdateTask = async (id, updateData) => {
     await this.model.updateTask(id, updateData);
+  };
+
+  /**
+   * Delete a task
+   * @param {Number} id
+   */
+  handlerDeleteTask = async (id) => {
+    const status = await this.model.deleteTask(id);
+    if (status === 200) this.taskView.deleteTask(id);
   };
 }

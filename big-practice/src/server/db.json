@@ -22,7 +22,7 @@
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "state": "in-progress",
+      "state": "done",
       "userId": 1,
       "id": 1
     },
@@ -31,7 +31,7 @@
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "state": "todo",
+      "state": "archived",
       "userId": 1,
       "id": 2
     },
@@ -40,7 +40,7 @@
       "description": "",
       "dueDate": "4/10/2022",
       "createdDate": "4/9/2022",
-      "state": "archived",
+      "state": "done",
       "id": 3
     }
   ],

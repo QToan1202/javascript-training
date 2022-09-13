@@ -64,4 +64,18 @@ export default class APITask {
       throw new Error(error);
     }
   }
+
+  /**
+   * Calling API to delete a task with the ID
+   * @param {Number} id
+   * @returns Number
+   */
+   async deleteTask(id) {
+    try {
+      const response = await fetch(`${API_TASKS}/${id}`, APIHelper.requestOptions('DELETE'));
+      return response.status;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
