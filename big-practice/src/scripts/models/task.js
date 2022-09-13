@@ -1,4 +1,6 @@
+import { STATES } from '../utilities/constant';
 import date from '../utilities/date';
+
 
 export default class Task {
   constructor(taskName) {
@@ -6,6 +8,6 @@ export default class Task {
     this.description = '';
     this.dueDate = date.getTemporaryDueDate();
     this.createdDate = date.getCurrentDate();
-    this.stateId = 1;
+    this.state = STATES.NEW_CREATE;
   }
 }

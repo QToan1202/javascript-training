@@ -1,6 +1,8 @@
 import clockIcon from '../../assets/images/clock-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 import editIcon from '../../assets/images/edit-icon.svg';
+import capitalize from '../utilities/capitalize';
+import { STATES } from '../utilities/constant';
 
 export default class Task {
   static renderWorkItem = (
@@ -9,15 +11,15 @@ export default class Task {
     createdDate,
     dueDate,
   ) => (
-    `<div class="task" id="${id}">
+    `<div class="task" id="${id}" draggable="true">
       <div class="task-content">
         <div class="row  row--task">
           <h2 class="task-content__title">${taskName}</h2>
-          <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete" />
+          <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete" draggable="false" />
         </div>
         <div class="row  row--task">
           <p>${createdDate}</p>
-          <img class="offset-left" src="${clockIcon}" alt="clock-icon" />
+          <img class="offset-left" src="${clockIcon}" alt="clock-icon" draggable="false" />
           <p> ${dueDate} </p>
         </div>
       </div>
@@ -34,10 +36,11 @@ export default class Task {
       <div class="card-header">
         <h2 class="card__title" id="js-card-detail-title" contenteditable="true">${taskName}</h2>
         <select id="js-state" class="card-header__state">
-          <option value="todo">Todo</option>
-          <option value="in-progress">In progress</option>
-          <option value="done">Done</option>
-          <option value="archived">Archived</option>
+          ${Object.values(STATES).map((state) => (
+            `<option value="${state}">
+              ${capitalize(state)}
+            </option>`
+          ))}
         </select>
         <button class="btn  offset-left" id="js-close-btn">&times;</button>
       </div>

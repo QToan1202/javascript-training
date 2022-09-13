@@ -1,4 +1,9 @@
 import Task from '../templates/task';
+import {
+  DRAG_TASK_BG,
+  EFFECT_ALLOWED,
+  DROP_EFFECT,
+} from '../utilities/constant';
 
 export default class TaskView {
   constructor() {
@@ -6,7 +11,8 @@ export default class TaskView {
     this.todoColumn = document.getElementById('js-todo');
     this.inProgressColumn = document.getElementById('js-in-progress');
     this.doneColumn = document.getElementById('js-done');
-    this.archivedColumn = document.getElementById('js-archivied');
+    this.archivedColumn = document.getElementById('js-archived');
+    this.updateData = {};
   }
 
   /**
@@ -69,12 +75,88 @@ export default class TaskView {
    * @param {Function} handler
    */
   bindGetTaskDetail(handler) {
-    const columns = document.getElementsByClassName('col');
+    const columns = document.getElementsByClassName('js-col');
 
     [...columns].map((col) => col.addEventListener('click', (event) => {
       const task = event.target.closest('.task');
 
-      if (task.hasAttributes('id')) handler(task.id);
+      if (task && task.hasAttributes('id')) handler(task.id);
     }));
+  }
+
+  
+  /**
+   * Add event data for draggable element
+   */
+   dragTask() {
+    const columns = document.getElementsByClassName('js-col');
+
+    [...columns].map((col) => col.addEventListener('dragstart', (event) => {
+      const targetElement = event.target;
+
+      targetElement.style.backgroundColor = DRAG_TASK_BG;
+      event.dataTransfer.setData('text/plain', targetElement.id);
+      event.dataTransfer.effectAllowed = EFFECT_ALLOWED;
+    }));
+  }
+
+  /**
+   * Define drop zone for element
+   */
+  dropZone() {
+    const columns = document.getElementsByClassName('js-col');
+
+    [...columns].map((col) => col.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = DROP_EFFECT;
+    }));
+  }
+
+  /**
+   * Handler event when drop a task
+   * @param {Function} handler
+   */
+  dropTask(handler) {
+    this.dropZone();
+
+    const columns = document.getElementsByClassName('js-col');
+
+    [...columns].map((col) => col.addEventListener('drop', (event) => {
+      event.preventDefault();
+
+      // The ID of the task been dragging
+      const taskId = event.dataTransfer.getData('text/plain');
+      const dropTask = document.getElementById(taskId);
+      const targetElement = event.target;
+
+      dropTask.removeAttribute('style');
+
+      // Default: when drop a task on an emtpy column
+      let attachColumn = targetElement.querySelector('.js-col-task');
+
+      // Drop a task on another task
+      if (!targetElement.classList.contains('js-col')) attachColumn = targetElement.closest('.js-col-task');
+
+      // Drop a task when at the title of the column
+      if (targetElement.classList.contains('js-col-title')) attachColumn = targetElement.nextElementSibling;
+
+      attachColumn.appendChild(dropTask);
+      this.updateAfterDrop(handler, taskId, attachColumn)
+    }));
+  }
+
+  /**
+   * When finish drop a task update state match with the column
+   * @param {Function} handler 
+   * @param {Number} taskId 
+   * @param {String} attachColumn have the Id pattern js-[state]
+   */
+  updateAfterDrop(handler, taskId, attachColumn) {
+    // When split state out I have array ['', state]
+    const [ , newState] = attachColumn.id.split('js-');
+
+    this.updateData.state = newState;
+    handler(taskId, this.updateData);
+    this.updateData = {};
   }
 }

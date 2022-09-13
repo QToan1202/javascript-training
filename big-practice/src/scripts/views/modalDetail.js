@@ -2,11 +2,6 @@ import Task from '../templates/task';
 
 export default class ModalView {
   constructor() {
-    this.taskName = document.getElementById('js-add-task-input');
-    this.todoColumn = document.getElementById('js-todo');
-    this.inProgressColumn = document.getElementById('js-in-progress');
-    this.doneColumn = document.getElementById('js-done');
-    this.archivedColumn = document.getElementById('js-archivied');
     this.updateData = {};
   }
 
@@ -94,31 +89,12 @@ export default class ModalView {
       const idTask = event.currentTarget.closest('.card').id;
       const selectedTask = document.getElementById(idTask);
 
-      // For each different states will be attached to the corresponding column
-      switch (event.target.value) {
-        case 'todo':
-          this.updateData.state = 'todo';
-          this.todoColumn.appendChild(selectedTask);
-          break;
+      // When state changed it will find the column that match with the state value
+      const selectState = event.target.value;
+      const attachColumn = document.getElementById(`js-${selectState}`);
 
-        case 'in-progress':
-          this.updateData.state = 'in-progress';
-          this.inProgressColumn.appendChild(selectedTask);
-          break;
-
-        case 'done':
-          this.updateData.state = 'done';
-          this.doneColumn.appendChild(selectedTask);
-          break;
-
-        case 'archived':
-          this.updateData.state = 'archived';
-          this.archivedColumn.appendChild(selectedTask);
-          break;
-
-        default:
-          break;
-      }
+      this.updateData.state = selectState;
+      attachColumn.appendChild(selectedTask);
     });
   }
 }
