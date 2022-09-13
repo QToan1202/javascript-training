@@ -1,4 +1,4 @@
-@use "../abstracts/colors" as color;
+@use '../abstracts' as *;
 
 .btn {
   font-size: 30px;
@@ -16,7 +16,7 @@
     width: 90%;
     border-radius: 5px;
     font-size: 18px;
-    color: color.$white;
-    background-color: color.$clover-green;
+    color: $white;
+    background-color: $clover-green;
   }
 }

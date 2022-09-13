@@ -1,6 +1,6 @@
-import APIUser from '../utilities/apiUser';
+import APIUser from '../services/apiUser';
 
-export default class ModelUser {
+export default class UserModel {
   constructor() {
     this.APIUser = new APIUser();
     this.users = [];

@@ -1,4 +1,4 @@
-import constant from '../utilities/constant';
+import { BASE_URL } from '../utilities/constant';
 
 export default class LoginView {
   constructor() {
@@ -38,7 +38,7 @@ export default class LoginView {
 
   redirectToHome(hasLogin) {
     if (hasLogin) {
-      window.location.replace(constant.BASE_URL);
+      window.location.replace(BASE_URL);
       sessionStorage.setItem('hasLogin', JSON.stringify(hasLogin));
       return;
     }

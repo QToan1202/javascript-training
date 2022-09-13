@@ -1,0 +1,100 @@
+import Task from '../templates/task';
+
+export default class ModalView {
+  constructor() {
+    this.updateData = {};
+  }
+
+  /**
+   * Add event for closing button in the information card
+   * Also closing when click outside the card
+   */
+  closeDetailModal(handler) {
+    const cardId = document.getElementsByClassName('card')[0].id;
+    const btnClose = document.getElementById('js-close-btn');
+
+    btnClose.addEventListener('click', () => {
+      btnClose.closest('.overlay').remove();
+      if (Object.keys(this.updateData).length) {
+        handler(cardId, this.updateData);
+        this.updateData = {};
+      };
+    });
+  }
+
+  /**
+   * Display a task with all information
+   * @param {Object} task
+   */
+  renderDetailModal(task, handler) {
+    if(!Object.keys(task).length) throw new Error('Empty content');
+
+    const { id, taskName, dueDate, description, state } = task;
+    const element = document.createElement('div');
+
+    element.innerHTML = Task.renderDetailModal(id, taskName, dueDate, description);
+    element.classList.add('overlay');
+    document.body.appendChild(element);
+
+    const selectState = document.getElementById('js-state');
+
+    selectState.value = state;
+    this.closeDetailModal(handler);
+  }
+
+  /**
+   * Add event to update task
+   */
+  bindUpdateTask() {
+    const title = document.getElementById('js-card-detail-title');
+    const state = document.getElementById('js-state');
+    const oldTitle = title.textContent;
+    const desc = document.getElementById('js-desc');
+    const oldDesc = desc.textContent;
+
+    // Add event to update title
+    title.addEventListener('focusin', () => {
+      title.classList.add('editing');
+    });
+
+    title.addEventListener('focusout', (event) => {
+      const idTask = event.currentTarget.closest('.card').id;
+      const tasks = document.getElementsByClassName('task');
+      const selectedTaskName = [...tasks].find((task) => task.id === idTask).querySelector('.task-content__title');
+
+      // Update only new content was enter
+      if (title.textContent !== oldTitle) {
+        this.updateData.taskName = title.textContent;
+        selectedTaskName.textContent = title.textContent;
+      }
+
+      title.classList.remove('editing');
+    });
+
+    // Add event to update description
+    desc.addEventListener('focusin', () => {
+      desc.classList.add('editing');
+    });
+
+    desc.addEventListener('focusout', () => {
+      if (desc.textContent !== oldDesc) {
+        this.updateData.description = desc.textContent;
+      }
+
+      desc.classList.remove('editing');
+    });
+
+    // Add event to update state
+    state.addEventListener('change', (event) => {
+      const idTask = event.currentTarget.closest('.card').id;
+      const selectedTask = document.getElementById(idTask);
+
+      // When state changed it will find the column that match with the state value
+      const selectState = event.target.value;
+      const attachColumn = document.getElementById(`js-${selectState}`);
+
+      this.updateData.state = selectState;
+      attachColumn.appendChild(selectedTask);
+    });
+  }
+}
