@@ -24,6 +24,7 @@ export default class UserModel {
   loginUser(userName, password) {
     try {
       const loginUser = this.users.find((user) => user.userName === userName && user.password === password);
+
       if (loginUser) {
         sessionStorage.setItem('user', JSON.stringify(loginUser));
         return true;
@@ -35,11 +36,19 @@ export default class UserModel {
     }
   }
 
+  /**
+   * Create a new user if that userName not created before
+   * @param {String} userName
+   * @param {String} password
+   * @returns Boolean
+   */
   async createAccount(userName, password) {
     const duplicateName = this.users.some((user) => user.userName === userName);
+
     if (duplicateName) return false;
     try {
       const response = await this.APIUser.createAccount(userName, password);
+      
       sessionStorage.setItem('user', JSON.stringify(response));
       return true;
     } catch (error) {

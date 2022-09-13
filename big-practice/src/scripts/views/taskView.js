@@ -3,7 +3,7 @@ import {
   DRAG_TASK_BG,
   EFFECT_ALLOWED,
   DROP_EFFECT,
-  BASE_URL,
+  LOGIN_PAGE,
 } from '../utilities/constant';
 
 export default class TaskView {
@@ -200,9 +200,12 @@ export default class TaskView {
    * @param {Boolean} hasLogin
    */
    redirectToLogin(hasLogin) {
-    if (!hasLogin) window.location.replace(`${BASE_URL}/login.html`);
+    if (!hasLogin) window.location.replace(LOGIN_PAGE);
   }
 
+  /**
+   * Add event when user click avatar they can log out the system
+   */
   logOutUser() {
     const userAvatar = document.getElementById('js-user-avatar');
     

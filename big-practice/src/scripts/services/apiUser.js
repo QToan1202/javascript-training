@@ -16,6 +16,12 @@ export default class APIUser {
     }
   }
 
+  /**
+   * Create new account
+   * @param {String} userName 
+   * @param {String} password 
+   * @returns Object
+   */
   async createAccount(userName, password) {
     const newAccount = new User(userName, password);
     try {
