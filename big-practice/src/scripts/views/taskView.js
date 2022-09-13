@@ -80,7 +80,7 @@ export default class TaskView {
     [...this.columns].map((col) => col.addEventListener('click', (event) => {
       const task = event.target.closest('.task');
 
-      if (task && task.hasAttributes('id')) handler(task.id);
+      if (task && task.hasAttribute('id')) handler(task.id);
     }));
   }
 
@@ -163,7 +163,10 @@ export default class TaskView {
    bindDeleteTask(handler) {
     [...this.columns].map((tasks) => tasks.addEventListener('click', (event) => {
       if (event.target.id === 'delete') {
-        if (confirm('Delete this task?')) handler(event.target.closest('.task').id);
+        const taskId = event.target.closest('.task').id;
+
+        if (!taskId) throw new Error('Selected task don\'t have ID');
+        if (confirm('Delete this task?')) handler(taskId);
         event.stopImmediatePropagation();
       }
     }, true));
