@@ -176,7 +176,8 @@ export default class TaskView {
    * Delete a task
    */
   deleteTask(id) {
-    const deleteTask = document.getElementById(id);
-    deleteTask.remove();
+    const task = document.getElementById(id);
+    
+    task.remove();
   }
 }
