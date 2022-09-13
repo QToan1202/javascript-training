@@ -2,7 +2,7 @@ import clockIcon from '../../assets/images/clock-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 import editIcon from '../../assets/images/edit-icon.svg';
 import capitalize from '../utilities/capitalize';
-import { STATE } from '../utilities/constant';
+import { STATES } from '../utilities/constant';
 
 export default class Task {
   static renderWorkItem = (
@@ -36,7 +36,7 @@ export default class Task {
       <div class="card-header">
         <h2 class="card__title" id="js-card-detail-title" contenteditable="true">${taskName}</h2>
         <select id="js-state" class="card-header__state">
-          ${Object.values(STATE).map((state) => (
+          ${Object.values(STATES).map((state) => (
             `<option value="${state}">
               ${capitalize(state)}
             </option>`
