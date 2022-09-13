@@ -7,9 +7,9 @@ export default class Controller {
     this.init();
   }
 
-  init = async () => {
+  init = () => {
     this.taskView.bindAddTask(this.handlerAddTask);
-    await this.renderList();
+    this.renderList();
     this.taskView.bindGetTaskDetail(this.handlerGetDetailTask);
 
     this.taskView.dragTask();
