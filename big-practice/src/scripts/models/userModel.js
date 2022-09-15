@@ -1,4 +1,5 @@
 import APIUser from '../services/apiUser';
+import User from './user';
 
 export default class UserModel {
   constructor() {
@@ -47,9 +48,11 @@ export default class UserModel {
 
     if (duplicateName) return false;
     try {
-      const response = await this.APIUser.createAccount(userName, password);
+      const newAccount = new User(userName, password);
+      const response = await this.APIUser.createAccount(newAccount);
+      const responseJson = JSON.stringify(response);
       
-      sessionStorage.setItem('user', JSON.stringify(response));
+      sessionStorage.setItem('user', responseJson);
       return true;
     } catch (error) {
       throw new Error(error);
