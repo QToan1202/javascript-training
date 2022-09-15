@@ -1,4 +1,3 @@
-import User from '../models/user';
 import { API_USERS } from '../utilities/constant';
 import APIHelper from './apiHelpers';
 
@@ -18,14 +17,12 @@ export default class APIUser {
 
   /**
    * Create new account
-   * @param {String} userName 
-   * @param {String} password 
+   * @param {Object} account 
    * @returns Object
    */
-  async createAccount(userName, password) {
-    const newAccount = new User(userName, password);
+  async createAccount(account) {
     try {
-      const response = await fetch(API_USERS, APIHelper.requestOptions('POST', JSON.stringify(newAccount)));
+      const response = await fetch(API_USERS, APIHelper.requestOptions('POST', account));
       return await response.json();
     } catch (error) {
       throw new Error(error);
