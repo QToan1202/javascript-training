@@ -4,6 +4,7 @@ export const LOGIN_PAGE = `${BASE_URL}/login.html`;
 export const API_USERS = `${API_URL}/users`;
 export const API_TASKS = `${API_URL}/tasks`;
 export const API_COMMENTS = `${API_URL}/comments`;
+export const AVATAR_URL = 'https://picsum.photos/id';
 export const STATES = { 
   NEW_CREATE: 'todo',
   DOING: 'in-progress',
