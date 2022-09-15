@@ -22,7 +22,7 @@ export default class ControllerLogin {
   handlerCreateAccount = async (userName, password) => {
    const isSuccess = await this.userModel.createAccount(userName, password);
 
-   this.loginView.alertError(isSuccess);
+   this.loginView.existUser(isSuccess);
    this.loginView.redirectToHome(isSuccess);
   };
 }
