@@ -13,3 +13,13 @@ export const STATES = {
 export const DRAG_TASK_BG = '#CEE5FF';
 export const EFFECT_ALLOWED = 'move';
 export const DROP_EFFECT = 'move';
+export const MESSAGES = {
+  LOGIN_FAIL: 'Wrong username or password',
+  PASSWORD: 'Password don\'t match',
+  EMPTY_PASSWORD: 'Password is required!',
+  LOGOUT: 'Are you sure wanna log out?',
+  DELETE: 'Delete this task?',
+  MISS_ID: 'Selected task don\'t have ID',
+  EMPTY_NAME: 'Task name is empty',
+  REQUIRED: 'All field are required'
+}

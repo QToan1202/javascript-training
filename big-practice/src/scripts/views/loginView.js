@@ -1,4 +1,4 @@
-import { BASE_URL } from '../utilities/constant';
+import { BASE_URL, MESSAGES } from '../utilities/constant';
 
 export default class LoginView {
   constructor() {
@@ -18,6 +18,12 @@ export default class LoginView {
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();
 
+      // Check if all field have been entered
+      if (!this.userName.value || !this.password.value) {
+        alert(MESSAGES.REQUIRED);
+        return;
+      }
+
       // Not in register mode
       if (this.confirmPassword.classList.contains('hidden')) handler(this.userName.value, this.password.value);
     });
@@ -33,8 +39,16 @@ export default class LoginView {
 
       // In register mode
       if (!this.confirmPassword.classList.contains('hidden')) {
+
+        // Check empty password
+        if (!this.password.value) {
+          alert(MESSAGES.EMPTY_PASSWORD);
+          return;
+        }
+
+        // Check password and confirm password matched
         if (this.confirmPassword.value !== this.password.value) {
-          alert('Password don\'t match');
+          alert(MESSAGES.PASSWORD);
           this.confirmPassword.value = '';
           return;
         }
@@ -46,10 +60,10 @@ export default class LoginView {
 
   /**
    * Alert when register with the same existed userName
-   * @param {Boolean} hasError 
+   * @param {Boolean} hasUser 
    */
-  alertError(hasError) {
-    if (!hasError) alert(`Users ${this.userName.value} has registered before`);
+  existUser(hasUser) {
+    if (!hasUser) alert(`Users ${this.userName.value} has registered before`);
   }
 
   /**
@@ -64,7 +78,7 @@ export default class LoginView {
     }
 
     // Login mode: When login what show the alert
-    if (this.confirmPassword.classList.contains('hidden')) alert('Wrong username or password');
+    if (this.confirmPassword.classList.contains('hidden')) alert(MESSAGES.LOGIN_FAIL);
     this.password.value = '';
   }
 

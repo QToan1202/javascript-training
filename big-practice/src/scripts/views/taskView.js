@@ -4,6 +4,7 @@ import {
   EFFECT_ALLOWED,
   DROP_EFFECT,
   LOGIN_PAGE,
+  MESSAGES,
 } from '../utilities/constant';
 
 export default class TaskView {
@@ -21,6 +22,7 @@ export default class TaskView {
     const user = JSON.parse(sessionStorage.getItem('user'));
     const userAvatar = document.getElementById('js-user-avatar');
     const userName = document.getElementById('js-user-name');
+
     userAvatar.src = user.avatar;
     userName.textContent = user.userName;
   }
@@ -66,16 +68,17 @@ export default class TaskView {
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
       const taskName = this.taskName.value.trim();
+      const user = JSON.parse(sessionStorage.getItem('user'));
 
       if (event.key === 'Enter') {
         event.preventDefault();
 
         if (taskName) {
-          handler(taskName, JSON.parse(sessionStorage.getItem('user')).id);
+          handler(taskName, user.id);
           return;
         };
 
-        alert('Task name is empty');
+        alert(MESSAGES.EMPTY_NAME);
       }
     });
   }
@@ -175,11 +178,11 @@ export default class TaskView {
         const taskId = event.target.closest('.task').id;
 
         if (!taskId) {
-          alert('Selected task don\'t have ID');
+          alert(MESSAGES.MISS_ID);
           return;
         }
 
-        if (confirm('Delete this task?')) handler(taskId);
+        if (confirm(MESSAGES.DELETE)) handler(taskId);
         event.stopImmediatePropagation();
       }
     }, true));
@@ -210,7 +213,7 @@ export default class TaskView {
     const userAvatar = document.getElementById('js-user-avatar');
     
     userAvatar.addEventListener('click', () => {
-      if (confirm('Are you sure wanna log out?')) {
+      if (confirm(MESSAGES.LOGOUT)) {
         sessionStorage.clear();
         window.location.reload();
       }
