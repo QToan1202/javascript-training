@@ -22,5 +22,6 @@ export const MESSAGES = {
   DELETE: 'Delete this task?',
   MISS_ID: 'Selected task don\'t have ID',
   EMPTY_NAME: 'Task name is empty',
-  REQUIRED: 'All field are required'
+  REQUIRED: 'All field are required',
+  EXIST_USER: 'user name has registered before',
 }

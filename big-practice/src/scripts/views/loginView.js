@@ -39,7 +39,6 @@ export default class LoginView {
 
       // In register mode
       if (!this.confirmPassword.classList.contains('hidden')) {
-
         // Check empty password
         if (!this.password.value) {
           alert(MESSAGES.EMPTY_PASSWORD);
@@ -60,10 +59,10 @@ export default class LoginView {
 
   /**
    * Alert when register with the same existed userName
-   * @param {Boolean} hasUser 
+   * @param {Boolean} hasUser
    */
   existUser(hasUser) {
-    if (!hasUser) alert(`Users ${this.userName.value} has registered before`);
+    if (!hasUser) alert(`${this.userName.value} ${MESSAGES.EXIST_USER}`);
   }
 
   /**
