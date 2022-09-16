@@ -6,7 +6,7 @@ import {
   LOGIN_PAGE,
   MESSAGES,
 } from '../utilities/constant';
-import Session from '../utilities/sessionHelper';
+import Session from '../utilities/storageHelper';
 
 export default class TaskView {
   constructor() {

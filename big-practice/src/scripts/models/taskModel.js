@@ -1,6 +1,6 @@
 import Task from './task';
 import APITask from '../services/apiTask';
-import Session from '../utilities/sessionHelper';
+import Session from '../utilities/storageHelper';
 
 export default class TaskModel {
   constructor() {

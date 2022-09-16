@@ -1,5 +1,5 @@
 import { BASE_URL, MESSAGES } from '../utilities/constant';
-import Session from '../utilities/sessionHelper';
+import Storage from '../utilities/storageHelper';
 
 export default class LoginView {
   constructor() {
@@ -8,7 +8,7 @@ export default class LoginView {
     this.password = document.getElementById('js-user-password');
     this.confirmPassLabel = document.getElementById('js-label-confirm-password');
     this.confirmPassword = document.getElementById('js-user-confirm-password');
-    this.hasLogin = Session.getData('hasLogin') || false;
+    this.hasLogin = Storage.getData('hasLogin') || false;
   }
 
   /**
@@ -63,7 +63,7 @@ export default class LoginView {
    * @param {Boolean} hasUser
    */
   existUser(hasUser) {
-    if (!hasUser) alert(`${this.userName.value} ${MESSAGES.EXIST_USER}`);
+    if (!hasUser) alert(`Users ${this.userName.value} has registered before`);
   }
 
   /**
@@ -73,7 +73,7 @@ export default class LoginView {
   redirectToHome(loginSuccess) {
     if (loginSuccess) {
       window.location.replace(BASE_URL);
-      Session.setData('hasLogin', loginSuccess)
+      Storage.setData('hasLogin', loginSuccess)
       return;
     }
 
