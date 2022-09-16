@@ -215,7 +215,7 @@ export default class TaskView {
     
     userAvatar.addEventListener('click', () => {
       if (confirm(MESSAGES.LOGOUT)) {
-        Session.clear();
+        Session.clearData();
         window.location.reload();
       }
     });
