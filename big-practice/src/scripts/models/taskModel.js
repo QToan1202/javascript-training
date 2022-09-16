@@ -1,10 +1,11 @@
 import Task from './task';
 import APITask from '../services/apiTask';
+import Session from '../utilities/sessionHelper';
 
 export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
-    this.hasLogin = JSON.parse(sessionStorage.getItem('hasLogin')) || false;
+    this.hasLogin = Session.getData('hasLogin') || false;
   }
 
   /**
