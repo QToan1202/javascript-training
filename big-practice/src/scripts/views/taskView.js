@@ -6,6 +6,7 @@ import {
   LOGIN_PAGE,
   MESSAGES,
 } from '../utilities/constant';
+import Session from '../utilities/sessionHelper';
 
 export default class TaskView {
   constructor() {
@@ -19,7 +20,7 @@ export default class TaskView {
   }
 
   setUserInformation() {
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const user = Session.getData('user');
     const userAvatar = document.getElementById('js-user-avatar');
     const userName = document.getElementById('js-user-name');
 
@@ -68,7 +69,7 @@ export default class TaskView {
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
       const taskName = this.taskName.value.trim();
-      const user = JSON.parse(sessionStorage.getItem('user'));
+      const user = Session.getData('user');
 
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -214,7 +215,7 @@ export default class TaskView {
     
     userAvatar.addEventListener('click', () => {
       if (confirm(MESSAGES.LOGOUT)) {
-        sessionStorage.clear();
+        Session.clear();
         window.location.reload();
       }
     });

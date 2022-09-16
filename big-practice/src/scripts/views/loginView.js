@@ -1,4 +1,5 @@
 import { BASE_URL, MESSAGES } from '../utilities/constant';
+import Session from '../utilities/sessionHelper';
 
 export default class LoginView {
   constructor() {
@@ -7,7 +8,7 @@ export default class LoginView {
     this.password = document.getElementById('js-user-password');
     this.confirmPassLabel = document.getElementById('js-label-confirm-password');
     this.confirmPassword = document.getElementById('js-user-confirm-password');
-    this.hasLogin = sessionStorage.getItem('hasLogin') || false;
+    this.hasLogin = Session.getData('hasLogin') || false;
   }
 
   /**
@@ -72,7 +73,7 @@ export default class LoginView {
   redirectToHome(loginSuccess) {
     if (loginSuccess) {
       window.location.replace(BASE_URL);
-      sessionStorage.setItem('hasLogin', JSON.stringify(loginSuccess));
+      Session.setData('hasLogin', loginSuccess)
       return;
     }
 

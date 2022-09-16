@@ -1,4 +1,5 @@
 import APIUser from '../services/apiUser';
+import Session from '../utilities/sessionHelper';
 import User from './user';
 
 export default class UserModel {
@@ -27,7 +28,7 @@ export default class UserModel {
       const loginUser = this.users.find((user) => user.userName === userName && user.password === password);
 
       if (loginUser) {
-        sessionStorage.setItem('user', JSON.stringify(loginUser));
+        Session.setData('user', loginUser);
         return true;
       }
 
@@ -50,9 +51,8 @@ export default class UserModel {
     try {
       const newAccount = new User(userName, password);
       const response = await this.APIUser.createAccount(newAccount);
-      const responseJson = JSON.stringify(response);
-      
-      sessionStorage.setItem('user', responseJson);
+
+      Session.setData('user', response);
       return true;
     } catch (error) {
       throw new Error(error);
