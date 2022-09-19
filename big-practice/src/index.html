@@ -16,23 +16,23 @@
     <div class="header-container">
       <a href="#" class="header-link">
         <img class="header__logo" src="./assets/images/logo-icon.svg" alt="logo-icon" />
-        <h1 class="title  title--header">task management</h1>
+        <h1 class="header__title">task management</h1>
       </a>
-      <form class="form  push" action="#" method="get">
-        <img width="25" height="25" class="form__search-icon" src="./assets/images/search-icon.svg" alt="search-icon" />
+      <form class="form  offset-left" action="#" method="get">
+        <img class="form__search-icon" src="./assets/images/search-icon.svg" alt="search-icon" />
         <input class="form__input" type="text" placeholder="Search for tasks" id="js-search-task" autocomplete="off" />
         <button type="reset" class="btn  btn--clear" id="js-clear-button">&times;</button>
       </form>
       <img class="avatar" alt="user-avatar" id="js-user-avatar" />
-      <p class="name" id="js-user-name">Lorem, ipsum.</p>
+      <p class="name" id="js-user-name"></p>
     </div>
   </header>
 
   <section>
     <div class="container">
-      <div class="col">
-        <h2 class="col__title  col__title--todo">Todo</h2>
-        <div class="col__task" id="js-todo">
+      <div class="col  js-col">
+        <h2 class="col__title  col__title--todo  js-col-title">Todo</h2>
+        <div class="col__task  js-col-task" id="js-todo">
           <form class="form  form--add">
             <input class="form__input  form__input--add" type="text" id="js-add-task-input" />
             <p>Enter to create a new task</p>
@@ -40,19 +40,19 @@
         </div>
       </div>
 
-      <div class="col">
-        <h2 class="col__title  col__title--in-progress">In progress</h2>
-        <div class="col__task" id="js-in-progress"></div>
+      <div class="col  js-col">
+        <h2 class="col__title  col__title--in-progress  js-col-title">In progress</h2>
+        <div class="col__task  js-col-task" id="js-in-progress"></div>
       </div>
 
-      <div class="col">
-        <h2 class="col__title  col__title--done">Done</h2>
-        <div class="col__task" id="js-done"></div>
+      <div class="col  js-col">
+        <h2 class="col__title  col__title--done  js-col-title">Done</h2>
+        <div class="col__task  js-col-task" id="js-done"></div>
       </div>
 
-      <div class="col">
-        <h2 class="col__title  col__title--archived">Archived</h2>
-        <div class="col__task" id="js-archivied"></div>
+      <div class="col  js-col">
+        <h2 class="col__title  col__title--archived  js-col-title">Archived</h2>
+        <div class="col__task  js-col-task" id="js-archived"></div>
       </div>
     </div>
   </section>

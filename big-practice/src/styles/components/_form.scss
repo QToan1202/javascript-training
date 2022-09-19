@@ -1,9 +1,9 @@
-@use "../abstracts/colors" as color;
+@use '../abstracts' as *;
 
 .form {
   display: flex;
   align-items: center;
-  border: 1px solid color.$grey-goose;
+  border: 1px solid $grey-goose;
   border-radius: 4px;
 
   &--add {
@@ -25,24 +25,34 @@
     border: none;
     outline: none;
     line-height: 19px;
-    border-bottom: 0.5px solid color.$black;
+    border-bottom: 0.5px solid $black;
 
     &--add {
       box-sizing: border-box;
       width: 100%;
       margin: 0 0 10px 0;
       background-color: transparent;
-      border-bottom: 0.5px solid color.$black;
+      border-bottom: 0.5px solid $black;
     }
   }
 
   &__input::placeholder {
-    color: color.$raven;
+    color: $raven;
+  }
+
+  &__link {
+    align-self: center;
+    text-decoration: none;
+    color: $white;
+
+    &:hover {
+      color: $beer;
+    }
   }
 }
 
 .input {
-  border: 1px solid color.$black;
+  border: 1px solid $black;
   border-radius: 4px;
   margin-bottom: 10px;
   background-color: transparent;
@@ -51,7 +61,7 @@
   width: 100%;
 
   &:focus {
-    border: 1px solid color.$white;
+    border: 1px solid $white;
     transition: 0.3s ease;
     outline: none;
   }

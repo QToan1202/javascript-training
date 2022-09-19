@@ -3,44 +3,29 @@
     {
       "userName": "hello",
       "password": "123444444",
+      "avatar": "https://picsum.photos/id/1/200",
       "id": 1
     },
     {
       "userName": "test",
       "password": "12222222",
+      "avatar": "https://picsum.photos/id/2/200",
       "id": 2
     },
     {
       "userName": "Toan",
       "password": "Testing123",
+      "avatar": "https://picsum.photos/id/3/200",
       "id": 3
-    }
-  ],
-  "states": [
-    {
-      "name": "Todo",
-      "id": 1
-    },
-    {
-      "name": "In progress",
-      "id": 2
-    },
-    {
-      "name": "Done",
-      "id": 3
-    },
-    {
-      "name": "Archived",
-      "id": 4
     }
   ],
   "tasks": [
     {
-      "taskName": "Hello world",
+      "taskName": "Hello world 2",
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "stateId": 2,
+      "state": "todo",
       "userId": 1,
       "id": 1
     },
@@ -49,25 +34,19 @@
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "stateId": 1,
+      "state": "done",
       "userId": 1,
       "id": 2
-    }
-  ],
-  "comments": [
-    {
-      "content": "Lorem",
-      "createdDate": "20/10/2022",
-      "taskId": 2,
-      "userId": 1,
-      "id": 1
     },
     {
-      "content": "Set up db",
-      "createdDate": "05/08/2022",
-      "taskId": 1,
-      "userId": 2,
-      "id": 2
+      "taskName": "ta",
+      "description": "",
+      "dueDate": "13/10/2022",
+      "createdDate": "13/9/2022",
+      "state": "todo",
+      "userId": 3,
+      "id": 3
     }
-  ]
+  ],
+  "comments": []
 }
