@@ -52,6 +52,9 @@ export default class Controller {
     const task = await this.taskModel.getDetailTask(id);
     this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
     this.modalDetail.bindUpdateTask();
+    this.modalDetail.renderCommentList(await this.taskModel.getComments(id));
+    this.modalDetail.bindAddComment(this.handlerAddComment);
+    this.modalDetail.bindDeleteComment(this.handlerDeleteComment);
   };
 
   /**
@@ -70,5 +73,14 @@ export default class Controller {
   handlerDeleteTask = async (id) => {
     const status = await this.taskModel.deleteTask(id);
     if (status === 200) this.taskView.deleteTask(id);
+  };
+
+  handlerAddComment = async (content, taskId) => {
+    const comment = await this.taskModel.addComment(content, taskId);
+    this.modalDetail.renderComment(comment);
+  };
+
+  handlerDeleteComment = async (id) => {
+    await this.taskModel.deteleComment(id);
   };
 }

@@ -1,11 +1,14 @@
 import Task from './task';
 import APITask from '../services/apiTask';
-import Session from '../utilities/storageHelper';
+import APIComments from '../services/apiComment';
+import Storage from '../utilities/storageHelper';
+import Comment from './comment';
 
 export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
-    this.hasLogin = Session.getData('hasLogin') || false;
+    this.APIComments = new APIComments();
+    this.hasLogin = Storage.getData('hasLogin') || false;
   }
 
   /**
@@ -73,6 +76,47 @@ export default class TaskModel {
       return await this.APITask.deleteTask(id);
     } catch (error) {
       throw new Error('Error occurred in delete process');
+    }
+  }
+
+  /**
+   * Get task comments
+   * @param {Number} id
+   * @returns Number
+   */
+  async getComments(id) {
+    try {
+      return await this.APIComments.getTaskComments(id);
+    } catch (error) {
+      throw new Error('Error occurred in getting comments process');
+    }
+  }
+
+  /**
+   * Add new comment
+   * @param {String} content
+   * @param {Number} taskId
+   * @returns Object
+   */
+  async addComment(content, taskId) {
+    const comment = new Comment(content, taskId);
+    try {
+      return await this.APIComments.addComment(comment);
+    } catch (error) {
+      throw new Error('Error occurred in adding comment process');
+    }
+  }
+
+  /**
+   * Delete comment
+   * @param {Number} taskId
+   * @returns Number
+   */
+  async deteleComment(id) {
+    try {
+      return await this.APIComments.deleteComment(id);
+    } catch (error) {
+      throw new Error('Error occurred in deleting comment process');
     }
   }
 }
