@@ -12,10 +12,10 @@ export default class Task {
     createdDate,
     dueDate,
   ) => (
-    `<div class="task" id="${id}" draggable="true">
+    `<div class="task  js-task" id="${id}" draggable="true">
       <div class="task-content">
         <div class="row  row--task">
-          <h2 class="task-content__title">${taskName}</h2>
+          <h2 class="task-content__title  js-task-title">${taskName}</h2>
           <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="delete" draggable="false" />
         </div>
         <div class="row  row--task">
