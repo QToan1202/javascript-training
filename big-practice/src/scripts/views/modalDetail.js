@@ -48,12 +48,15 @@ export default class ModalView {
     const dueDateElement = document.getElementById('js-due-date');
 
     alert.classList.add('alert');
-    if (date.diffTime(dueDate)) {
-      if (date.diffTime(dueDate).split(' ')[0] <= 3) {
-        alert.textContent = date.diffTime(dueDate).replace('ago', 'left');
-        dueDateElement.parentElement.appendChild(alert);
-      }
-    };
+
+    // Get the diff time at the beginner the string 
+    const [ diffDate ] = date.diffTime(dueDate).split(' ');
+
+    // Only show alert when time diff less than or equal 3 days
+    if (diffDate <= 3) {
+      alert.textContent = date.diffTime(dueDate);
+      dueDateElement.parentElement.appendChild(alert);
+    }
     this.closeDetailModal(handler);
   }
 
@@ -156,11 +159,11 @@ export default class ModalView {
    * @param {Function} handler 
    */
   bindDeleteComment(handler) {
-    // Get element match all ID starting with 'comment-'
-    const deleteComment = document.querySelectorAll('[id^=\'comment-\']');
+    // Get all element match ID starting with 'comment-'
+    const comments = document.querySelectorAll('[id^=\'comment-\']');
 
-    [...deleteComment].map((comment) => comment.addEventListener('click', (event) => {
-      // Split to get the ID of comment
+    [...comments].map((comment) => comment.addEventListener('click', (event) => {
+      // Split to get the ID of comment get the array ['', id]
       const [ , commentId] = event.target.id.split('comment-');
 
       if (confirm('Delete comment?')) {
