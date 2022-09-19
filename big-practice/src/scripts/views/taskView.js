@@ -3,7 +3,10 @@ import {
   DRAG_TASK_BG,
   EFFECT_ALLOWED,
   DROP_EFFECT,
+  LOGIN_PAGE,
+  MESSAGES,
 } from '../utilities/constant';
+import Session from '../utilities/storageHelper';
 
 export default class TaskView {
   constructor() {
@@ -14,6 +17,15 @@ export default class TaskView {
     this.archivedColumn = document.getElementById('js-archived');
     this.columns = document.getElementsByClassName('js-col');
     this.updateData = {};
+  }
+
+  setUserInformation() {
+    const user = Session.getData('user');
+    const userAvatar = document.getElementById('js-user-avatar');
+    const userName = document.getElementById('js-user-name');
+
+    userAvatar.src = user.avatar;
+    userName.textContent = user.userName;
   }
 
   /**
@@ -57,16 +69,17 @@ export default class TaskView {
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
       const taskName = this.taskName.value.trim();
+      const user = Session.getData('user');
 
       if (event.key === 'Enter') {
         event.preventDefault();
 
         if (taskName) {
-          handler(taskName);
+          handler(taskName, user.id);
           return;
         };
 
-        alert('Task name is empty');
+        alert(MESSAGES.EMPTY_NAME);
       }
     });
   }
@@ -166,11 +179,11 @@ export default class TaskView {
         const taskId = event.target.closest('.task').id;
 
         if (!taskId) {
-          alert('Selected task don\'t have ID');
+          alert(MESSAGES.MISS_ID);
           return;
         }
 
-        if (confirm('Delete this task?')) handler(taskId);
+        if (confirm(MESSAGES.DELETE)) handler(taskId);
         event.stopImmediatePropagation();
       }
     }, true));
@@ -183,5 +196,28 @@ export default class TaskView {
     const task = document.getElementById(id);
 
     task.remove();
+  }
+
+  
+  /**
+   * Redirect user to login page if they don't login before
+   * @param {Boolean} hasLogin
+   */
+   redirectToLogin(hasLogin) {
+    if (!hasLogin) window.location.replace(LOGIN_PAGE);
+  }
+
+  /**
+   * Add event when user click avatar they can log out the system
+   */
+  logOutUser() {
+    const userAvatar = document.getElementById('js-user-avatar');
+    
+    userAvatar.addEventListener('click', () => {
+      if (confirm(MESSAGES.LOGOUT)) {
+        Session.clearData();
+        window.location.reload();
+      }
+    });
   }
 }

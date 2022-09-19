@@ -39,6 +39,16 @@
   &__input::placeholder {
     color: $raven;
   }
+
+  &__link {
+    align-self: center;
+    text-decoration: none;
+    color: $white;
+
+    &:hover {
+      color: $beer;
+    }
+  }
 }
 
 .input {

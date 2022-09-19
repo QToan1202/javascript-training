@@ -1,18 +1,21 @@
 {
   "users": [
     {
-      "username": "hello",
+      "userName": "hello",
       "password": "123444444",
+      "avatar": "https://picsum.photos/id/1/200",
       "id": 1
     },
     {
-      "username": "test",
+      "userName": "test",
       "password": "12222222",
+      "avatar": "https://picsum.photos/id/2/200",
       "id": 2
     },
     {
-      "username": "Toan",
+      "userName": "Toan",
       "password": "Testing123",
+      "avatar": "https://picsum.photos/id/3/200",
       "id": 3
     }
   ],
@@ -22,7 +25,7 @@
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "state": "done",
+      "state": "todo",
       "userId": 1,
       "id": 1
     },
@@ -31,16 +34,17 @@
       "description": "Lorem",
       "dueDate": "12/12/2022",
       "createdDate": "20/10/2022",
-      "state": "archived",
+      "state": "done",
       "userId": 1,
       "id": 2
     },
     {
-      "taskName": "Lorem ipsum",
+      "taskName": "ta",
       "description": "",
-      "dueDate": "4/10/2022",
-      "createdDate": "4/9/2022",
-      "state": "done",
+      "dueDate": "13/10/2022",
+      "createdDate": "13/9/2022",
+      "state": "todo",
+      "userId": 3,
       "id": 3
     }
   ],

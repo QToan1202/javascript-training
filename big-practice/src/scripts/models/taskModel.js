@@ -1,18 +1,21 @@
 import Task from './task';
 import APITask from '../services/apiTask';
+import Session from '../utilities/storageHelper';
 
-export default class Model {
+export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
+    this.hasLogin = Session.getData('hasLogin') || false;
   }
 
   /**
    * Add a new task with taskName
    * @param {String} taskName
+   * @param {Number} userId
    * @return Object
    */
-  async addTask(taskName) {
-    const task = new Task(taskName);
+  async addTask(taskName, userId) {
+    const task = new Task(taskName, userId);
     try {
       // Calling API addTask form APITask
       return await this.APITask.addTask(task);

@@ -1,6 +1,6 @@
 export default class Controller {
-  constructor(model, taskView, modalDetail) {
-    this.model = model;
+  constructor(taskModel, taskView, modalDetail) {
+    this.taskModel = taskModel;
     this.taskView = taskView;
     this.modalDetail = modalDetail;
 
@@ -8,6 +8,10 @@ export default class Controller {
   }
 
   init = () => {
+    this.taskView.redirectToLogin(this.taskModel.hasLogin);
+    this.taskView.setUserInformation();
+    this.taskView.logOutUser();
+
     this.taskView.bindAddTask(this.handlerAddTask);
     this.renderList();
     this.taskView.bindGetTaskDetail(this.handlerGetDetailTask);
@@ -22,7 +26,7 @@ export default class Controller {
    * Then execute renderTaskList method in view
    */
   renderList = async () => {
-    const tasks = await this.model.getTasks();
+    const tasks = await this.taskModel.getTasks();
     this.taskView.renderTaskList(tasks);
   };
 
@@ -31,9 +35,10 @@ export default class Controller {
    * Then receive a object to render a new task
    * Finally reset form
    * @param {String} taskName
+   * @param {Number} userId
    */
-  handlerAddTask = async (taskName) => {
-    const task = await this.model.addTask(taskName);
+  handlerAddTask = async (taskName, userId) => {
+    const task = await this.taskModel.addTask(taskName, userId);
     this.taskView.displayTask(this.taskView.todoColumn, task);
     this.taskView.resetForm();
   };
@@ -44,7 +49,7 @@ export default class Controller {
    * @param {Number} id
    */
   handlerGetDetailTask = async (id) => {
-    const task = await this.model.getDetailTask(id);
+    const task = await this.taskModel.getDetailTask(id);
     this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
     this.modalDetail.bindUpdateTask();
   };
@@ -55,7 +60,7 @@ export default class Controller {
    * @param {Object} updateData
    */
   handlerUpdateTask = async (id, updateData) => {
-    await this.model.updateTask(id, updateData);
+    await this.taskModel.updateTask(id, updateData);
   };
 
   /**
@@ -63,7 +68,7 @@ export default class Controller {
    * @param {Number} id
    */
   handlerDeleteTask = async (id) => {
-    const status = await this.model.deleteTask(id);
+    const status = await this.taskModel.deleteTask(id);
     if (status === 200) this.taskView.deleteTask(id);
   };
 }
