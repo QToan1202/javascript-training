@@ -223,20 +223,30 @@ export default class TaskView {
     });
   }
 
+  /**
+   * Add event to search task 
+   */
   searchingTasks() {
-    const allTasks = document.getElementsByClassName('task');
-    const tasksName = document.getElementsByClassName('task-content__title');
+    const allTasks = document.getElementsByClassName('js-task');
+    const tasksName = document.getElementsByClassName('js-task-title');
 
-    this.searchTask.addEventListener('keyup', (event) => {
+    this.searchTask.addEventListener('input', (event) => {
       event.preventDefault();
-      const searchReg = new RegExp(this.searchTask.value, 'i');
-      const findedTask = [...tasksName].filter((taskName) => taskName.textContent.search(searchReg) === -1);
-      const tasks = [...findedTask].map((task) => task.closest('.task'));
-
       [...allTasks].map((task) => task.classList.remove('card--hidden'));
-      tasks.map((task) => task.classList.add('card--hidden'));
+
+      // Create a RegEx to search task with i flag (case insensitive)
+      const searchReg = new RegExp(this.searchTask.value, 'i');
+
+      // Search for all tasks that don't match RegEx
+      const findedTask = [...tasksName].filter((taskName) => taskName.textContent.search(searchReg) === -1);
+
+      // Get the parent element of task
+      const tasksParent = [...findedTask].map((task) => task.closest('.js-task'));
+
+      tasksParent.map((task) => task.classList.add('card--hidden'));
     });
 
+    // Add event for clear button to clear text
     this.clearBtn.addEventListener('click', () => [...allTasks].map((task) => task.classList.remove('card--hidden')));
   }
 }
