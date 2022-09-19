@@ -1,13 +1,21 @@
 function getCurrentDate() {
   const date = new Date();
+
+  /**
+   * getMonth() return from 0-11
+   * Plus 1 to getMonth() to get the current month
+   */
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
 
 function getTemporaryDueDate() {
   const date = new Date();
 
-  // Set the due date 1 month by create date
-  return `${date.getMonth() + 2}/${date.getDate()}/${date.getFullYear()}`;
+  /**
+   * date.getMonth() + 1 to get the current month
+   * Plus more 1 to set the due date next month
+   */
+  return `${date.getMonth() + 1 + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
 
 function diffTime(date) {
