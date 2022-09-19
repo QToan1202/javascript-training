@@ -1,14 +1,14 @@
 import Task from './task';
 import APITask from '../services/apiTask';
 import APIComments from '../services/apiComment';
-import Session from '../utilities/storageHelper';
+import Storage from '../utilities/storageHelper';
 import Comment from './comment';
 
 export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
     this.APIComments = new APIComments();
-    this.hasLogin = Session.getData('hasLogin') || false;
+    this.hasLogin = Storage.getData('hasLogin') || false;
   }
 
   /**
