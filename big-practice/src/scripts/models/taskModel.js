@@ -88,7 +88,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.getTaskComments(id);
     } catch (error) {
-      throw new Error(error);
+      throw new Error('Error occurred in getting comments process');
     }
   }
 
