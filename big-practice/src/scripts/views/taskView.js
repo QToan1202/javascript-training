@@ -1,25 +1,31 @@
-import Comment from '../templates/comment';
 import Task from '../templates/task';
-import constant from '../utilities/constant';
-import date from '../utilities/date';
+import {
+  DRAG_TASK_BG,
+  EFFECT_ALLOWED,
+  DROP_EFFECT,
+  LOGIN_PAGE,
+  MESSAGES,
+} from '../utilities/constant';
+import Session from '../utilities/storageHelper';
 
-export default class View {
+export default class TaskView {
   constructor() {
     this.taskName = document.getElementById('js-add-task-input');
     this.todoColumn = document.getElementById('js-todo');
     this.inProgressColumn = document.getElementById('js-in-progress');
     this.doneColumn = document.getElementById('js-done');
-    this.archivedColumn = document.getElementById('js-archivied');
-    this.columns = [this.todoColumn, this.inProgressColumn, this.doneColumn, this.archivedColumn];
-    this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.archivedColumn = document.getElementById('js-archived');
+    this.columns = document.getElementsByClassName('js-col');
+    this.updateData = {};
   }
 
   setUserInformation() {
+    const user = Session.getData('user');
     const userAvatar = document.getElementById('js-user-avatar');
     const userName = document.getElementById('js-user-name');
 
-    userAvatar.src = this.user.avatar;
-    userName.textContent = this.user.userName;
+    userAvatar.src = user.avatar;
+    userName.textContent = user.userName;
   }
 
   /**
@@ -57,90 +63,23 @@ export default class View {
   }
 
   /**
-   * Display a task with all information
-   * @param {Object} task
-   */
-  renderDetailInformation({ id, taskName, dueDate, description }) {
-    const existDetailCard = document.getElementsByClassName('card');
-    if (existDetailCard.length) existDetailCard[0].remove();
-
-    const element = document.createElement('template');
-    element.innerHTML = Task.renderDetailTask(id, taskName, dueDate, description);
-    document.body.appendChild(element.content.firstElementChild);
-
-    const alert = document.createElement('p');
-    const dueDateElement = document.getElementById('js-due-date');
-
-    alert.classList.add('alert');
-    if (date.diffTime(dueDate)) {
-      if (date.diffTime(dueDate).split(' ')[0] <= 3) {
-        alert.textContent = date.diffTime(dueDate).replace('ago', 'left');
-        dueDateElement.parentElement.appendChild(alert);
-      }
-    };
-
-    this.closeDetailTaskBtn();
-  }
-
-  renderComment({ content, id }) {
-    const cardContent = document.getElementsByClassName('card-content')[0];
-    const comment = document.createElement('template');
-
-    comment.innerHTML = Comment.renderComment('https://picsum.photos/200', this.user.userName, content, id);
-    cardContent.appendChild(comment.content.firstElementChild);
-  }
-
-  /**
-   * Append all comment belong to that task to the bottom of detail card
-   * @param {Array} comments
-   */
-  renderCommentList(comments) {
-    comments.map((comment) => this.renderComment(comment));
-  }
-
-  bindAddComment(handler) {
-    const commentElement = document.getElementById('js-comment');
-
-    commentElement.addEventListener('keyup', (event) => {
-      if (event.key === 'Enter') {
-        handler(commentElement.value, Number(event.target.closest('.card').id));
-        commentElement.value = '';
-      }
-    });
-  }
-
-  bindDeleteComment(handler) {
-    const deleteComment = document.querySelectorAll('[id^=\'comment-\']');
-
-    [...deleteComment].map((comment) => comment.addEventListener('click', (event) => {
-      const commentId = event.target.id.split('comment-')[1];
-      if (confirm('Delete comment?')) {
-        handler(commentId);
-        event.target.parentElement.remove();
-        console.log('Deleted');
-      }
-    }));
-  }
-
-  /**
-   * Add event for closing button in the information card
-   */
-  closeDetailTaskBtn() {
-    const btnClose = document.querySelectorAll('#js-close-btn');
-    [...btnClose].map((btn) => btn.addEventListener('click', () => {
-      btn.closest('.card').remove();
-    }));
-  }
-
-  /**
    * Event for input to add a new task when pressing Enter
    * @param {Function} handler
    */
   bindAddTask(handler) {
     this.taskName.addEventListener('keydown', (event) => {
+      const taskName = this.taskName.value.trim();
+      const user = Session.getData('user');
+
       if (event.key === 'Enter') {
         event.preventDefault();
-        handler(this.taskName.value, JSON.parse(sessionStorage.getItem('user')).id);
+
+        if (taskName) {
+          handler(taskName, user.id);
+          return;
+        };
+
+        alert(MESSAGES.EMPTY_NAME);
       }
     });
   }
@@ -150,60 +89,101 @@ export default class View {
    * @param {Function} handler
    */
   bindGetTaskDetail(handler) {
-    this.columns.map((col) => col.addEventListener('click', (event) => {
-      if (event.target.closest('.task')) handler(event.target.closest('.task').id);
+
+    [...this.columns].map((col) => col.addEventListener('click', (event) => {
+      const task = event.target.closest('.task');
+
+      if (task && task.hasAttribute('id')) handler(task.id);
     }));
   }
 
-  /**
-   * Add event when change the description
-   * @param {Function} handler
-   */
-  bindUpdateTask(handler) {
-    const desc = document.getElementById('js-desc');
-    desc.addEventListener('focusout', () => {
-      handler(desc.closest('.card').id, desc.textContent);
-    });
-  }
-
+  
   /**
    * Add event data for draggable element
    */
-  dragTask() {
-    this.columns.map((tasks) => tasks.addEventListener('dragstart', (event) => {
-      event.dataTransfer.setData('application/x-moz-node', event.target.id);
-      event.dataTransfer.dragEffect = 'move';
+   dragTask() {
+    [...this.columns].map((col) => col.addEventListener('dragstart', (event) => {
+      const targetElement = event.target;
+
+      targetElement.style.backgroundColor = DRAG_TASK_BG;
+      event.dataTransfer.setData('text/plain', targetElement.id);
+      event.dataTransfer.effectAllowed = EFFECT_ALLOWED;
     }));
   }
 
   /**
    * Define drop zone for element
    */
-  dropTask() {
-    const columns = document.getElementsByClassName('col');
+  dropZone() {
 
-    [...columns].map((col) => col.addEventListener('dragover', (event) => {
+    [...this.columns].map((col) => col.addEventListener('dragover', (event) => {
       event.preventDefault();
-      event.dataTransfer.dropEffect = 'move';
-    }));
-
-    [...columns].map((col) => col.addEventListener('drop', (event) => {
-      event.preventDefault();
-      const receiveData = event.dataTransfer.getData('application/x-moz-node');
-      let attachColumn = [...event.target.children].find((child) => child.className === 'col__task');
-      if (event.target.className !== 'col') attachColumn = event.target.closest('.col__task');
-      attachColumn.appendChild(document.getElementById(receiveData));
+      event.dataTransfer.dropEffect = DROP_EFFECT;
     }));
   }
 
   /**
+   * Handler event when drop a task
+   * @param {Function} handler
+   */
+  dropTask(handler) {
+    this.dropZone();
+
+    [...this.columns].map((col) => col.addEventListener('drop', (event) => {
+      event.preventDefault();
+
+      // The ID of the task been dragging
+      const taskId = event.dataTransfer.getData('text/plain');
+      const dropTask = document.getElementById(taskId);
+      const targetElement = event.target;
+
+      dropTask.removeAttribute('style');
+
+      // Default: when drop a task on an emtpy column
+      let attachColumn = targetElement.querySelector('.js-col-task');
+
+      // Drop a task on another task
+      if (!targetElement.classList.contains('js-col')) attachColumn = targetElement.closest('.js-col-task');
+
+      // Drop a task when at the title of the column
+      if (targetElement.classList.contains('js-col-title')) attachColumn = targetElement.nextElementSibling;
+
+      attachColumn.appendChild(dropTask);
+      this.updateAfterDrop(handler, taskId, attachColumn)
+    }));
+  }
+
+  /**
+   * When finish drop a task update state match with the column
+   * @param {Function} handler 
+   * @param {Number} taskId 
+   * @param {String} attachColumn have the Id pattern js-[state]
+   */
+  updateAfterDrop(handler, taskId, attachColumn) {
+    // When split state out I have array ['', state]
+    const [ , newState] = attachColumn.id.split('js-');
+
+    this.updateData.state = newState;
+    handler(taskId, this.updateData);
+    this.updateData = {};
+  }
+
+  
+  /**
    * Add event for detele button to delete task base on ID
    * @param {Function} handler
    */
-  bindDeleteTask(handler) {
-    this.columns.map((tasks) => tasks.addEventListener('click', (event) => {
+   bindDeleteTask(handler) {
+    [...this.columns].map((tasks) => tasks.addEventListener('click', (event) => {
       if (event.target.id === 'delete') {
-        if (confirm('Delete this task?')) handler(event.target.closest('.task').id);
+        const taskId = event.target.closest('.task').id;
+
+        if (!taskId) {
+          alert(MESSAGES.MISS_ID);
+          return;
+        }
+
+        if (confirm(MESSAGES.DELETE)) handler(taskId);
         event.stopImmediatePropagation();
       }
     }, true));
@@ -213,23 +193,29 @@ export default class View {
    * Delete a task
    */
   deleteTask(id) {
-    const deleteTask = document.getElementById(id);
-    deleteTask.remove();
+    const task = document.getElementById(id);
+
+    task.remove();
   }
 
+  
   /**
    * Redirect user to login page if they don't login before
    * @param {Boolean} hasLogin
    */
-  redirectToLogin(hasLogin) {
-    if (!hasLogin) window.location.replace(`${constant.BASE_URL}/login.html`);
+   redirectToLogin(hasLogin) {
+    if (!hasLogin) window.location.replace(LOGIN_PAGE);
   }
 
+  /**
+   * Add event when user click avatar they can log out the system
+   */
   logOutUser() {
     const userAvatar = document.getElementById('js-user-avatar');
+    
     userAvatar.addEventListener('click', () => {
-      if (confirm('Are you sure wanna log out?')) {
-        sessionStorage.clear();
+      if (confirm(MESSAGES.LOGOUT)) {
+        Session.clearData();
         window.location.reload();
       }
     });

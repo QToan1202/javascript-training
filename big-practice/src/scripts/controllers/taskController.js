@@ -1,23 +1,24 @@
 export default class Controller {
-  constructor(model, view) {
-    this.view = view;
-    this.model = model;
+  constructor(taskModel, taskView, modalDetail) {
+    this.taskModel = taskModel;
+    this.taskView = taskView;
+    this.modalDetail = modalDetail;
 
     this.init();
   }
 
-  init = async () => {
-    this.view.redirectToLogin(this.model.hasLogin);
-    this.view.setUserInformation();
-    this.view.logOutUser();
+  init = () => {
+    this.taskView.redirectToLogin(this.taskModel.hasLogin);
+    this.taskView.setUserInformation();
+    this.taskView.logOutUser();
 
-    this.view.bindAddTask(this.handlerAddTask);
-    await this.renderList();
-    this.view.bindGetTaskDetail(this.handlerGetDetailTask);
+    this.taskView.bindAddTask(this.handlerAddTask);
+    this.renderList();
+    this.taskView.bindGetTaskDetail(this.handlerGetDetailTask);
 
-    this.view.dragTask();
-    this.view.dropTask();
-    this.view.bindDeleteTask(this.handlerDeleteTask);
+    this.taskView.dragTask();
+    this.taskView.dropTask(this.handlerUpdateTask);
+    this.taskView.bindDeleteTask(this.handlerDeleteTask);
   };
 
   /**
@@ -25,8 +26,8 @@ export default class Controller {
    * Then execute renderTaskList method in view
    */
   renderList = async () => {
-    const tasks = await this.model.getTasks();
-    this.view.renderTaskList(tasks);
+    const tasks = await this.taskModel.getTasks();
+    this.taskView.renderTaskList(tasks);
   };
 
   /**
@@ -37,9 +38,9 @@ export default class Controller {
    * @param {Number} userId
    */
   handlerAddTask = async (taskName, userId) => {
-    const task = await this.model.addTask(taskName, userId);
-    this.view.displayTask(this.view.todoColumn, task);
-    this.view.resetForm();
+    const task = await this.taskModel.addTask(taskName, userId);
+    this.taskView.displayTask(this.taskView.todoColumn, task);
+    this.taskView.resetForm();
   };
 
   /**
@@ -48,21 +49,21 @@ export default class Controller {
    * @param {Number} id
    */
   handlerGetDetailTask = async (id) => {
-    const task = await this.model.getDetailTask(id);
-    this.view.renderDetailInformation(task);
-    this.view.bindUpdateTask(this.handlerUpdateTask);
-    this.view.renderCommentList(await this.model.getComments(id));
-    this.view.bindAddComment(this.handlerAddComment);
-    this.view.bindDeleteComment(this.handlerDeleteComment);
+    const task = await this.taskModel.getDetailTask(id);
+    this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
+    this.modalDetail.bindUpdateTask();
+    this.modalDetail.renderCommentList(await this.taskModel.getComments(id));
+    this.modalDetail.bindAddComment(this.handlerAddComment);
+    this.modalDetail.bindDeleteComment(this.handlerDeleteComment);
   };
 
   /**
-   * Update the task description
+   * Update the task
    * @param {Number} id
-   * @param {String} description
+   * @param {Object} updateData
    */
-  handlerUpdateTask = async (id, description) => {
-    await this.model.updateTask(id, description);
+  handlerUpdateTask = async (id, updateData) => {
+    await this.taskModel.updateTask(id, updateData);
   };
 
   /**
@@ -70,16 +71,16 @@ export default class Controller {
    * @param {Number} id
    */
   handlerDeleteTask = async (id) => {
-    const status = await this.model.deleteTask(id);
-    if (status === 200) this.view.deleteTask(id);
+    const status = await this.taskModel.deleteTask(id);
+    if (status === 200) this.taskView.deleteTask(id);
   };
 
   handlerAddComment = async (content, taskId) => {
-    const comment = await this.model.addComment(content, taskId);
-    this.view.renderComment(comment);
+    const comment = await this.taskModel.addComment(content, taskId);
+    this.modalDetail.renderComment(comment);
   };
 
   handlerDeleteComment = async (id) => {
-    await this.model.deteleComment(id);
+    await this.taskModel.deteleComment(id);
   };
 }

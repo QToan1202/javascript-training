@@ -1,11 +1,14 @@
 import Task from './task';
-import APITask from '../utilities/apiTask';
+import APITask from '../services/apiTask';
+import APIComments from '../services/apiComment';
+import Session from '../utilities/storageHelper';
 import Comment from './comment';
 
-export default class Model {
+export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
-    this.hasLogin = JSON.parse(sessionStorage.getItem('hasLogin')) || false;
+    this.APIComments = new APIComments();
+    this.hasLogin = Session.getData('hasLogin') || false;
   }
 
   /**
@@ -15,8 +18,6 @@ export default class Model {
    * @return Object
    */
   async addTask(taskName, userId) {
-    // Check if taskName is empty or not
-    if (!taskName.trim()) throw new Error('Name is empty');
     const task = new Task(taskName, userId);
     try {
       // Calling API addTask form APITask
@@ -52,21 +53,21 @@ export default class Model {
   }
 
   /**
-   * Update task description
+   * Update task
    * @param {Number} id
-   * @param {String} description
+   * @param {Object} updateData
    * @returns Boolean
    */
-  async updateTask(id, description) {
+  async updateTask(id, updateData) {
     try {
-      return await this.APITask.updateTask(id, description);
+      return await this.APITask.updateTask(id, updateData);
     } catch (error) {
       throw new Error('Error occurred in uppdate process');
     }
   }
 
   /**
-   * Update task description
+   * Delete task description
    * @param {Number} id
    * @returns Number
    */
@@ -85,7 +86,7 @@ export default class Model {
    */
   async getComments(id) {
     try {
-      return await this.APITask.getTaskComments(id);
+      return await this.APIComments.getTaskComments(id);
     } catch (error) {
       throw new Error(error);
     }
@@ -98,10 +99,9 @@ export default class Model {
    * @returns Object
    */
   async addComment(content, taskId) {
-    if (!content.trim()) throw new Error('Comment is empty');
     const comment = new Comment(content, taskId);
     try {
-      return await this.APITask.addComment(comment);
+      return await this.APIComments.addComment(comment);
     } catch (error) {
       throw new Error('Error occurred in adding comment process');
     }
@@ -114,7 +114,7 @@ export default class Model {
    */
   async deteleComment(id) {
     try {
-      return await this.APITask.deleteComment(id);
+      return await this.APIComments.deleteComment(id);
     } catch (error) {
       throw new Error('Error occurred in deleting comment process');
     }
