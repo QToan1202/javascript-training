@@ -1,8 +1,8 @@
 export default class Controller {
-  constructor(taskModel, taskView, modalDetail) {
+  constructor(taskModel, taskView, modalDetailView) {
     this.taskModel = taskModel;
     this.taskView = taskView;
-    this.modalDetail = modalDetail;
+    this.modalDetailView = modalDetailView;
 
     this.init();
   }
@@ -52,11 +52,12 @@ export default class Controller {
    */
   handlerGetDetailTask = async (id) => {
     const task = await this.taskModel.getDetailTask(id);
-    this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
-    this.modalDetail.bindUpdateTask();
-    this.modalDetail.renderCommentList(await this.taskModel.getComments(id));
-    this.modalDetail.bindAddComment(this.handlerAddComment);
-    this.modalDetail.bindDeleteComment(this.handlerDeleteComment);
+    this.modalDetailView.renderDetailModal(task, this.handlerUpdateTask);
+    this.modalDetailView.bindUpdateTask();
+
+    this.modalDetailView.renderCommentList(await this.taskModel.getComments(id));
+    this.modalDetailView.bindAddComment(this.handlerAddComment);
+    this.modalDetailView.bindDeleteComment(this.handlerDeleteComment);
   };
 
   /**
@@ -79,10 +80,10 @@ export default class Controller {
 
   handlerAddComment = async (content, taskId) => {
     const comment = await this.taskModel.addComment(content, taskId);
-    this.modalDetail.renderComment(comment);
+    this.modalDetailView.renderComment(comment);
   };
 
   handlerDeleteComment = async (id) => {
-    await this.taskModel.deteleComment(id);
+    await this.taskModel.deleteComment(id);
   };
 }
