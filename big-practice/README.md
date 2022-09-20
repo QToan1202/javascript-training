@@ -24,6 +24,8 @@ Building a task management website with fake API.
 
 * CSS3
 
+* SASS
+
 * Javascript (ES6 syntax)
 
 * DOM Manipulation
@@ -68,7 +70,13 @@ cd javascript-training/big-practice
 npm install
 ```
 
-**_Step 4:_** Run project
+**_Step 4:_** Run server
+
+```bash
+npm run server
+```
+
+**_Step 5:_** Run project
 
 ```bash
 npm start
