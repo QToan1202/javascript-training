@@ -121,11 +121,11 @@ export default class ModalView {
    * @param {Object} comment 
    */
   renderComment({ content, id }) {
-    const cardContent = document.getElementsByClassName('card-content')[0];
+    const commentContainer = document.getElementById('js-comment-container');
     const comment = document.createElement('template');
 
     comment.innerHTML = Comment.renderComment(this.user.avatar, this.user.userName, content, id);
-    cardContent.appendChild(comment.content.firstElementChild);
+    commentContainer.appendChild(comment.content.firstElementChild);
   }
 
   /**
@@ -159,17 +159,30 @@ export default class ModalView {
    * @param {Function} handler 
    */
   bindDeleteComment(handler) {
-    // Get all element match ID starting with 'comment-'
-    const comments = document.querySelectorAll('[id^=\'comment-\']');
+    // Create regEx
+    const regExComment = /^comment/i;
+    const commentContainer = document.getElementById('js-comment-container');
 
-    [...comments].map((comment) => comment.addEventListener('click', (event) => {
+    commentContainer.addEventListener('click', (event) => {
+      const elementId = event.target.id;
+
+      if (regExComment.test(elementId)) {
       // Split to get the ID of comment get the array ['', id]
-      const [ , commentId] = event.target.id.split('comment-');
+      const [ , commentId] = elementId.split('comment-');
 
-      if (confirm('Delete comment?')) {
-        handler(commentId);
-        event.target.parentElement.remove();
-      }
-    }));
+        if (confirm('Delete comment?')) handler(commentId);
+      };
+    });
+  }
+
+  /**
+   * Deleting comment only the delete request success
+   * @param {Number} id 
+   */
+  deleteComment(id) {
+    const deletedComment = document.querySelector(`[id='comment-${id}']`)
+    const parent = deletedComment.closest('.js-comment-field');
+
+    parent.remove();
   }
 }

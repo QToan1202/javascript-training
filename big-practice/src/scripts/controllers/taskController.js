@@ -84,6 +84,7 @@ export default class Controller {
   };
 
   handlerDeleteComment = async (id) => {
-    await this.taskModel.deleteComment(id);
+    const status = await this.taskModel.deleteComment(id);
+    if (status === 200) this.modalDetailView.deleteComment(id);
   };
 }
