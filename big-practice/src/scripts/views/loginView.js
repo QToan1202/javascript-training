@@ -8,7 +8,6 @@ export default class LoginView {
     this.password = document.getElementById('js-user-password');
     this.confirmPassLabel = document.getElementById('js-label-confirm-password');
     this.confirmPassword = document.getElementById('js-user-confirm-password');
-    this.hasLogin = Storage.getData('hasLogin') || false;
   }
 
   /**
@@ -31,7 +30,7 @@ export default class LoginView {
   }
 
   /**
-   * C
+   * Handling create account
    * @param {Function} handler
    */
   bindCreateAccount(handler) {

@@ -8,7 +8,7 @@ export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
     this.APIComments = new APIComments();
-    this.hasLogin = Storage.getData('hasLogin') || false;
+    this.hasLogin = Storage.getData('hasLogin');
   }
 
   /**
@@ -63,7 +63,7 @@ export default class TaskModel {
     try {
       return await this.APITask.updateTask(id, updateData);
     } catch (error) {
-      throw new Error('Error occurred in uppdate process');
+      throw new Error('Error occurred in update process');
     }
   }
 
@@ -113,7 +113,7 @@ export default class TaskModel {
    * @param {Number} taskId
    * @returns Number
    */
-  async deteleComment(id) {
+  async deleteComment(id) {
     try {
       return await this.APIComments.deleteComment(id);
     } catch (error) {

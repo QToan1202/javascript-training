@@ -141,7 +141,7 @@ export default class TaskView {
 
       dropTask.removeAttribute('style');
 
-      // Default: when drop a task on an emtpy column
+      // Default: when drop a task on an empty column
       let attachColumn = targetElement.querySelector('.js-col-task');
 
       // Drop a task on another task
@@ -172,7 +172,7 @@ export default class TaskView {
 
   
   /**
-   * Add event for detele button to delete task base on ID
+   * Add event for delete button to delete task base on ID
    * @param {Function} handler
    */
    bindDeleteTask(handler) {

@@ -1,4 +1,4 @@
-export default class ControllerLogin {
+export default class loginController {
   constructor(userModel, loginView) {
     this.userModel = userModel;
     this.loginView = loginView;
