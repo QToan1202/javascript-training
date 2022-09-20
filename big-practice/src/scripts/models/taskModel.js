@@ -33,7 +33,8 @@ export default class TaskModel {
    */
   async getTasks() {
     try {
-      return await this.APITask.getTaskList();
+      this.tasksList = await this.APITask.getTaskList();
+      return this.tasksList;
     } catch (error) {
       throw new Error('Error occurred in getting process');
     }

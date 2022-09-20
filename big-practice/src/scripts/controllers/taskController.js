@@ -19,6 +19,8 @@ export default class Controller {
     this.taskView.dragTask();
     this.taskView.dropTask(this.handlerUpdateTask);
     this.taskView.bindDeleteTask(this.handlerDeleteTask);
+
+    this.taskView.searchingTasks();
   };
 
   /**
