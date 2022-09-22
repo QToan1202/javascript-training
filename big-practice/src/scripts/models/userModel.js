@@ -8,6 +8,10 @@ export default class UserModel {
     this.users = [];
   }
 
+  bindErrorOccurred(callback) {
+    this.showError = callback;
+  }
+
   /**
    * Get all existed users
    */
@@ -15,7 +19,7 @@ export default class UserModel {
     try {
       this.users = await this.APIUser.getAllUser();
     } catch (error) {
-      throw new Error(error);
+      return this.showError(error);
     }
   }
 
@@ -34,7 +38,7 @@ export default class UserModel {
 
       return false;
     } catch (error) {
-      throw new Error(error);
+      return this.showError(error);
     }
   }
 
@@ -55,7 +59,7 @@ export default class UserModel {
       Storage.setData('user', response);
       return true;
     } catch (error) {
-      throw new Error(error);
+      return this.showError(error);
     }
   }
 }

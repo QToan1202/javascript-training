@@ -7,19 +7,25 @@ export default class loginController {
   }
 
   init = async () => {
-    this.loginView.bindLoginUser(this.handlerLoginUser);
+    this.userModel.bindErrorOccurred(this.onErrorOccurred);
+
+    this.loginView.bindLoginUser(this.handleLoginUser);
     this.loginView.renderForm();
-    this.loginView.bindCreateAccount(this.handlerCreateAccount);
+    this.loginView.bindCreateAccount(this.handleCreateAccount);
     await this.userModel.getUsers();
   };
 
-  handlerLoginUser = async (userName, password) => {
+  onErrorOccurred = (error) => {
+    this.loginView.showError(error);
+  }
+
+  handleLoginUser = async (userName, password) => {
     const hasLogin = await this.userModel.loginUser(userName, password);
     
     this.loginView.redirectToHome(hasLogin);
   };
 
-  handlerCreateAccount = async (userName, password) => {
+  handleCreateAccount = async (userName, password) => {
    const isSuccess = await this.userModel.createAccount(userName, password);
 
    this.loginView.existUser(isSuccess);

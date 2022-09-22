@@ -11,6 +11,10 @@ export default class TaskModel {
     this.hasLogin = Storage.getData('hasLogin');
   }
 
+  bindErrorOccurred(callback) {
+    this.showError = callback;
+  }
+
   /**
    * Add a new task with taskName
    * @param {String} taskName
@@ -23,7 +27,7 @@ export default class TaskModel {
       // Calling API addTask form APITask
       return await this.APITask.addTask(task);
     } catch (error) {
-      throw new Error('Error occurred in adding process');
+      return this.showError(error);
     }
   }
 
@@ -36,7 +40,7 @@ export default class TaskModel {
       this.tasksList = await this.APITask.getTaskList();
       return this.tasksList;
     } catch (error) {
-      throw new Error('Error occurred in getting process');
+      return this.showError(error);
     }
   }
 
@@ -49,7 +53,7 @@ export default class TaskModel {
     try {
       return await this.APITask.getDetailTask(id);
     } catch (error) {
-      throw new Error('Error occurred in getting process');
+      return this.showError(error);
     }
   }
 
@@ -63,7 +67,7 @@ export default class TaskModel {
     try {
       return await this.APITask.updateTask(id, updateData);
     } catch (error) {
-      throw new Error('Error occurred in update process');
+      return this.showError(error);
     }
   }
 
@@ -76,7 +80,7 @@ export default class TaskModel {
     try {
       return await this.APITask.deleteTask(id);
     } catch (error) {
-      throw new Error('Error occurred in delete process');
+      return this.showError(error);
     }
   }
 
@@ -89,7 +93,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.getTaskComments(id);
     } catch (error) {
-      throw new Error('Error occurred in getting comments process');
+      return this.showError(error);
     }
   }
 
@@ -97,14 +101,14 @@ export default class TaskModel {
    * Add new comment
    * @param {String} content
    * @param {Number} taskId
-   * @returns Object
+   * @returns Object or Flash Message
    */
   async addComment(content, taskId) {
     const comment = new Comment(content, taskId);
     try {
       return await this.APIComments.addComment(comment);
     } catch (error) {
-      throw new Error('Error occurred in adding comment process');
+      return this.showError(error);
     }
   }
 
@@ -117,7 +121,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.deleteComment(id);
     } catch (error) {
-      throw new Error('Error occurred in deleting comment process');
+      return this.showError(error);
     }
   }
 }

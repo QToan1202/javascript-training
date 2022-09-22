@@ -1,5 +1,6 @@
 import { BASE_URL, MESSAGES } from '../utilities/constant';
 import Storage from '../utilities/storageHelper';
+import FlashMessage from '../utilities/flashMessage';
 
 export default class LoginView {
   constructor() {
@@ -20,7 +21,7 @@ export default class LoginView {
 
       // Check if all field have been entered
       if (!this.userName.value || !this.password.value) {
-        alert(MESSAGES.REQUIRED);
+        this.showError(MESSAGES.REQUIRED);
         return;
       }
 
@@ -41,13 +42,13 @@ export default class LoginView {
       if (!this.confirmPassword.classList.contains('hidden')) {
         // Check empty password
         if (!this.password.value) {
-          alert(MESSAGES.EMPTY_PASSWORD);
+          this.showError(MESSAGES.EMPTY_PASSWORD);
           return;
         }
 
         // Check password and confirm password matched
         if (this.confirmPassword.value !== this.password.value) {
-          alert(MESSAGES.PASSWORD);
+          this.showError(MESSAGES.PASSWORD);
           this.confirmPassword.value = '';
           return;
         }
@@ -62,7 +63,7 @@ export default class LoginView {
    * @param {Boolean} hasUser
    */
   existUser(hasUser) {
-    if (!hasUser) alert(`Users ${this.userName.value} has registered before`);
+    if (!hasUser) this.showError(`Users ${this.userName.value} has registered before`);
   }
 
   /**
@@ -77,7 +78,7 @@ export default class LoginView {
     }
 
     // Login mode: When login what show the alert
-    if (this.confirmPassword.classList.contains('hidden')) alert(MESSAGES.LOGIN_FAIL);
+    if (this.confirmPassword.classList.contains('hidden')) this.showError(MESSAGES.LOGIN_FAIL);
     this.password.value = '';
   }
 
@@ -103,5 +104,13 @@ export default class LoginView {
       linkRegisterForm.textContent = 'Create new account';
       submitBtn.textContent = 'Login';
     });
+  }
+
+  /**
+   * Create an flash message error 
+   * @param {String} error 
+   */
+   showError(error) {
+    FlashMessage.showMessage(error)
   }
 }

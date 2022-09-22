@@ -8,12 +8,10 @@ export default class APITask {
    * @return Object
    */
   async addTask(taskName) {
-    try {
-      const response = await fetch(API_TASKS , APIHelper.requestOptions('POST', taskName));
-      return await response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await fetch(API_TASKS , APIHelper.requestOptions('POST', taskName));
+    const result = await response.json();
+
+    return result;
   }
 
   /**
@@ -21,17 +19,15 @@ export default class APITask {
    * @returns Array
    */
   async getTaskList() {
-    try {
-      const response = await Promise.all([
-        fetch(APIHelper.apiEndpoint('/tasks-todo')),
-        fetch(APIHelper.apiEndpoint('/tasks-in-progress')),
-        fetch(APIHelper.apiEndpoint('/tasks-done')),
-        fetch(APIHelper.apiEndpoint('/tasks-archived')),
-      ]);
-      return await Promise.all(response.map((r) => r.json()));
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await Promise.all([
+      fetch(APIHelper.apiEndpoint('/tasks-todo')),
+      fetch(APIHelper.apiEndpoint('/tasks-in-progress')),
+      fetch(APIHelper.apiEndpoint('/tasks-done')),
+      fetch(APIHelper.apiEndpoint('/tasks-archived')),
+    ]);
+    const result = await Promise.all(response.map((r) => r.json()));
+
+    return result;
   }
 
   /**
@@ -40,12 +36,10 @@ export default class APITask {
    * @returns Object
    */
   async getDetailTask(id) {
-    try {
-      const response = await fetch(`${API_TASKS}/${id}`);
-      return await response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await fetch(`${API_TASKS}/${id}`);
+    const result = await response.json();
+
+    return result;
   }
 
   /**
@@ -55,14 +49,11 @@ export default class APITask {
    * @returns Boolean
    */
   async updateTask(id, updateData) {
-    try {
-      const response = await 
-        fetch(`${API_TASKS}/${id}`, 
-        APIHelper.requestOptions('PATCH', updateData));
-      return response.ok;
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await 
+      fetch(`${API_TASKS}/${id}`, 
+      APIHelper.requestOptions('PATCH', updateData));
+      
+    return response.ok;
   }
 
   /**
@@ -71,11 +62,8 @@ export default class APITask {
    * @returns Number
    */
    async deleteTask(id) {
-    try {
-      const response = await fetch(`${API_TASKS}/${id}`, APIHelper.requestOptions('DELETE'));
-      return response.status;
-    } catch (error) {
-      throw new Error(error);
-    }
+     const response = await fetch(`${API_TASKS}/${id}`, APIHelper.requestOptions('DELETE'));
+
+     return response.status;
   }
 }

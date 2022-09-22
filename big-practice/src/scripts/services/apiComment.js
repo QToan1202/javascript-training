@@ -8,12 +8,10 @@ export default class APIComments {
    * @returns Array
    */
    async getTaskComments(id) {
-    try {
-      const response = await fetch(APIHelper.apiEndpoint(`/task-comments/${id}`));
-      return await response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
+     const response = await fetch(APIHelper.apiEndpoint(`/task-comments/${id}`));
+     const result = await response.json();
+
+     return result;
   }
 
   /**
@@ -22,12 +20,10 @@ export default class APIComments {
    * @returns Object
    */
   async addComment(comment) {
-    try {
-      const response = await fetch(API_COMMENTS, APIHelper.requestOptions('POST', comment));
-      return await response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await fetch(API_COMMENTS, APIHelper.requestOptions('POST', comment));
+    const result = await response.json();
+
+    return result
   }
 
   /**
@@ -36,11 +32,8 @@ export default class APIComments {
    * @returns Number
    */
   async deleteComment(id) {
-    try {
-      const response = await fetch(`${API_COMMENTS}/${id}`, APIHelper.requestOptions('DELETE'));
-      return response.status;
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await fetch(`${API_COMMENTS}/${id}`, APIHelper.requestOptions('DELETE'));
+    
+    return response.status;
   }
 }
