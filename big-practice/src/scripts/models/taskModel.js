@@ -27,7 +27,7 @@ export default class TaskModel {
       // Calling API addTask form APITask
       return await this.APITask.addTask(task);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when adding a new task');
     }
   }
 
@@ -40,7 +40,7 @@ export default class TaskModel {
       this.tasksList = await this.APITask.getTaskList();
       return this.tasksList;
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when getting tasks list');
     }
   }
 
@@ -53,7 +53,7 @@ export default class TaskModel {
     try {
       return await this.APITask.getDetailTask(id);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when getting task content');
     }
   }
 
@@ -67,7 +67,7 @@ export default class TaskModel {
     try {
       return await this.APITask.updateTask(id, updateData);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when updating task');
     }
   }
 
@@ -80,7 +80,7 @@ export default class TaskModel {
     try {
       return await this.APITask.deleteTask(id);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when deleting task');
     }
   }
 
@@ -93,7 +93,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.getTaskComments(id);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when getting comments list');
     }
   }
 
@@ -108,7 +108,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.addComment(comment);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when adding comment');
     }
   }
 
@@ -121,7 +121,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.deleteComment(id);
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error when deleting comment');
     }
   }
 }

@@ -19,7 +19,7 @@ export default class UserModel {
     try {
       this.users = await this.APIUser.getAllUser();
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Can\'t get users list, check your internet');
     }
   }
 
@@ -38,7 +38,7 @@ export default class UserModel {
 
       return false;
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Can\'t login');
     }
   }
 
@@ -59,7 +59,7 @@ export default class UserModel {
       Storage.setData('user', response);
       return true;
     } catch (error) {
-      return this.showError(error);
+      return this.showError('Error occurred in create account process');
     }
   }
 }
