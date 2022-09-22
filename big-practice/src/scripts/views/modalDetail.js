@@ -1,6 +1,7 @@
 import Comment from '../templates/comment';
 import Task from '../templates/task';
 import date from '../utilities/date';
+import FlashMessage from '../utilities/flashMessage';
 import Storage from '../utilities/storageHelper';
 
 export default class ModalView {
@@ -31,7 +32,7 @@ export default class ModalView {
    * @param {Object} task
    */
   renderDetailModal(task, handler) {
-    if(!Object.keys(task).length) throw new Error('Empty content');
+    if(!Object.keys(task).length) throw FlashMessage.showMessage('Empty content');
 
     const { id, taskName, dueDate, description, state } = task;
     const element = document.createElement('div');
@@ -45,7 +46,7 @@ export default class ModalView {
     selectState.value = state;
 
     const alert = document.createElement('p');
-    const dueDateElement = document.getElementById('js-due-date');
+    const dueDateElement = document.getElementById('js-due-date-modal');
 
     alert.classList.add('alert');
 
@@ -54,7 +55,7 @@ export default class ModalView {
 
     // Only show alert when time diff less than or equal 3 days
     if (diffDate <= 3) {
-      alert.textContent = date.diffTime(dueDate);
+      alert.textContent = date.diffTime(dueDate, Math.ceil, 'left');
       dueDateElement.parentElement.appendChild(alert);
     }
     this.closeDetailModal(handler);
@@ -69,6 +70,7 @@ export default class ModalView {
     const oldTitle = title.textContent;
     const desc = document.getElementById('js-desc');
     const oldDesc = desc.textContent;
+    const dueDate = document.getElementById('js-due-date-modal');
 
     // Add event to update title
     title.addEventListener('focusin', () => {
@@ -114,6 +116,17 @@ export default class ModalView {
       this.updateData.state = selectState;
       attachColumn.appendChild(selectedTask);
     });
+
+    // Add event to update due date
+    dueDate.addEventListener('change', (event) => {
+      const idTask = event.currentTarget.closest('.card').id;
+      const selectedTask = document.getElementById(idTask);
+      const oldDueDate = selectedTask.querySelector('#js-due-date');
+      const newDueDate = date.formatDate(event.target.value);
+
+      this.updateData.dueDate = newDueDate;
+      oldDueDate.innerHTML = date.diffTime(newDueDate, Math.ceil, 'left');
+    })
   }
 
   /**

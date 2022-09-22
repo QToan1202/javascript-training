@@ -18,29 +18,48 @@ function getTemporaryDueDate() {
   return `${date.getMonth() + 1 + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
 
-function diffTime(date) {
+function diffTime(date, method = Math.floor, adverb = 'ago') {
   const convertDate = new Date(date);
   const day = 1000 * 60 * 60 * 24;
-  const diff = Math.round(Math.abs(convertDate - Date.now()) / day);
+  const diff = method(Math.abs(convertDate - Date.now()) / day);
 
   switch (diff) {
     case 0:
       return 'Today';
 
     case 1:
-      return `${diff} day ago`;
+      return `${diff} day ${adverb}`;
 
     case 2:
     case 3:
-      return `${diff} days ago`;
+      return `${diff} days ${adverb}`;
 
     default:
       return date;
   }
 }
 
+function convertDateInput(dateStr) {
+  const [month, day, year] = dateStr.split('/');
+
+  // Subtract month by 1 because JavaScript counts months from 0 to 11
+  // Add day by 1 because the timezone difference
+  const date = new Date(+year, +month - 1, +day + 1);
+  const [dateValue] = date.toISOString().split('T');
+
+  return dateValue;
+}
+
+function formatDate(date) {
+  const [year, month, day] = date.split('-');
+
+  return [month, day, year].join('/');
+}
+
 export default {
   getCurrentDate,
   getTemporaryDueDate,
   diffTime,
+  convertDateInput,
+  formatDate,
 };
