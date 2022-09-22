@@ -1,0 +1,26 @@
+@use '../abstracts' as *;
+
+.flash {
+  background-color: $pale-rose;
+  padding: 20px;
+  min-width: 400px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 4px;
+  border-left: 8px solid $pinkish-red;
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+    padding-right: 10px;
+  }
+}
+
+.show {
+  animation: show_slide 0.5s ease forwards;
+}
+
+.hide {
+  animation: hide_slide 0.5s ease forwards;
+}

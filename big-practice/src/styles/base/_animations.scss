@@ -1,0 +1,19 @@
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hide_slide {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(110%);
+  }
+}
