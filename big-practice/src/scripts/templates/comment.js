@@ -5,7 +5,10 @@ export default class Comment {
     `<div class="row  row--center  js-comment-field  spacing">
         <img class="avatar  clear-left" src="${avatar}" alt="avatar" />
         <div class="row row--direction">
-          <h3 class="name">${userName}</h3>
+          <div class="row  row--center">
+            <h3 class="name">${userName}</h3>
+            <p class="spacing-left  spacing-right"> (Lorem) </p>
+          </div>
           <p>${content}</p>
         </div>
         <img class="offset-left" src="${deleteIcon}" alt="delete-icon" id="comment-${id}" />
