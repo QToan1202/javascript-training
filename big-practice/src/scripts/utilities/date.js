@@ -56,9 +56,10 @@ function formatDate(date) {
   return [month, day, year].join('/');
 }
 
-function timeElapse(date) {
-  const second = 1000 * 60;
-  const diff = Math.floor((Date.now() - (+date)) / second);
+function timeElapse(timeStamp) {
+  const minutes = 1000 * 60;
+  const diff = Math.floor((Date.now() - (+timeStamp)) / minutes);
+  const [dateString] = new Date(timeStamp).toISOString().split('T');
 
   switch (true) {
     case (diff === 0):
@@ -71,7 +72,7 @@ function timeElapse(date) {
       return `${diff} mins ago`;
   
     default:
-      return date;
+      return formatDate(dateString);
   }
 }
 
