@@ -51,7 +51,7 @@ export default class ModalView {
     alert.classList.add('alert');
 
     // Get the diff time at the beginner the string 
-    const [ diffDate ] = date.diffTime(dueDate).split(' ');
+    const [ diffDate ] = date.diffTime(dueDate, Math.ceil).split(' ');
 
     // Only show alert when time diff less than or equal 3 days
     if (diffDate <= 3) {
