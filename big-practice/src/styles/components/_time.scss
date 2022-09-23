@@ -1,0 +1,9 @@
+@use '../abstracts' as *;
+
+.time {
+  margin-left: 10px;
+  font-size: 12px;
+  line-height: 14px;
+  font-style: italic;
+  color: $raven;
+}

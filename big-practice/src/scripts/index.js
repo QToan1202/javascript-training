@@ -3,4 +3,4 @@ import TaskModel from './models/taskModel';
 import ModalDetail from './views/modalDetail';
 import TaskView from './views/taskView';
 
-const app = new TaskController(new TaskModel(), new TaskView(), new ModalDetail());
+new TaskController(new TaskModel(), new TaskView(), new ModalDetail());
