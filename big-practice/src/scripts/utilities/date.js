@@ -56,10 +56,30 @@ function formatDate(date) {
   return [month, day, year].join('/');
 }
 
+function timeElapse(date) {
+  const second = 1000 * 60;
+  const diff = Math.floor((Date.now() - (+date)) / second);
+
+  switch (true) {
+    case (diff === 0):
+      return 'Now';
+    
+    case (diff === 1): 
+      return `${diff} min ago`;
+
+    case (diff < 60):
+      return `${diff} mins ago`;
+  
+    default:
+      return date;
+  }
+}
+
 export default {
   getCurrentDate,
   getTemporaryDueDate,
   diffTime,
   convertDateInput,
   formatDate,
+  timeElapse,
 };
