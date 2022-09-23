@@ -63,7 +63,7 @@ function timeElapse(timeStamp) {
 
   switch (true) {
     case (diff === 0):
-      return 'Now';
+      return 'Just now';
     
     case (diff === 1): 
       return `${diff} min ago`;
