@@ -133,11 +133,11 @@ export default class ModalView {
    * Render each comment object to bottom the modal
    * @param {Object} comment 
    */
-  renderComment({ content, id, createdDate }) {
+  renderComment({ content, id, createdDate, user: { avatar, userName } }) {
     const commentContainer = document.getElementById('js-comment-container');
     const comment = document.createElement('template');
 
-    comment.innerHTML = Comment.renderComment(this.user.avatar, this.user.userName, content, id, createdDate);
+    comment.innerHTML = Comment.renderComment(avatar, userName, content, id, createdDate);
     commentContainer.appendChild(comment.content.firstElementChild);
   }
 
