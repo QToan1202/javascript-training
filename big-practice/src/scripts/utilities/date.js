@@ -1,3 +1,7 @@
+/**
+ * Get the current date with then return with format mm/dd/yyy
+ * @returns String
+ */
 function getCurrentDate() {
   const date = new Date();
 
@@ -8,6 +12,10 @@ function getCurrentDate() {
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
 
+/**
+ * Set due date by 1 month with the current month
+ * @returns String
+ */
 function getTemporaryDueDate() {
   const date = new Date();
 
@@ -18,6 +26,13 @@ function getTemporaryDueDate() {
   return `${date.getMonth() + 1 + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
 
+/**
+ * Calculating diff time in due date and created date
+ * @param {String} date 
+ * @param {String} method 
+ * @param {String} adverb 
+ * @returns String
+ */
 function diffTime(date, method = Math.floor, adverb = 'ago') {
   const convertDate = new Date(date);
   const day = 1000 * 60 * 60 * 24;
@@ -39,6 +54,11 @@ function diffTime(date, method = Math.floor, adverb = 'ago') {
   }
 }
 
+/**
+ * Convert string date to match format with input date type
+ * @param {String} dateStr 
+ * @returns String
+ */
 function convertDateInput(dateStr) {
   const [month, day, year] = dateStr.split('/');
 
@@ -50,12 +70,22 @@ function convertDateInput(dateStr) {
   return dateValue;
 }
 
+/**
+ * Convert date string from yyyy-mm-dd to mm/dd/yyyy
+ * @param {String} date 
+ * @returns String
+ */
 function formatDate(date) {
   const [year, month, day] = date.split('-');
 
   return [month, day, year].join('/');
 }
 
+/**
+ * Calculate the time elapsed when added comment to present
+ * @param {String} timeStamp 
+ * @returns String
+ */
 function timeElapse(timeStamp) {
   const minutes = 1000 * 60;
   const diffMins = Math.floor((Date.now() - (+timeStamp)) / minutes);
