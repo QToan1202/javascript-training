@@ -8,7 +8,11 @@ export default class TaskModel {
   constructor() {
     this.APITask = new APITask();
     this.APIComments = new APIComments();
-    this.hasLogin = Storage.getData('hasLogin') || false;
+    this.hasLogin = Storage.getData('hasLogin');
+  }
+
+  bindErrorOccurred(callback) {
+    this.showError = callback;
   }
 
   /**
@@ -23,7 +27,7 @@ export default class TaskModel {
       // Calling API addTask form APITask
       return await this.APITask.addTask(task);
     } catch (error) {
-      throw new Error('Error occurred in adding process');
+      return this.showError('Error when adding a new task');
     }
   }
 
@@ -36,7 +40,7 @@ export default class TaskModel {
       this.tasksList = await this.APITask.getTaskList();
       return this.tasksList;
     } catch (error) {
-      throw new Error('Error occurred in getting process');
+      return this.showError('Error when getting tasks list');
     }
   }
 
@@ -49,7 +53,7 @@ export default class TaskModel {
     try {
       return await this.APITask.getDetailTask(id);
     } catch (error) {
-      throw new Error('Error occurred in getting process');
+      return this.showError('Error when getting task content');
     }
   }
 
@@ -63,7 +67,7 @@ export default class TaskModel {
     try {
       return await this.APITask.updateTask(id, updateData);
     } catch (error) {
-      throw new Error('Error occurred in uppdate process');
+      return this.showError('Error when updating task');
     }
   }
 
@@ -76,7 +80,7 @@ export default class TaskModel {
     try {
       return await this.APITask.deleteTask(id);
     } catch (error) {
-      throw new Error('Error occurred in delete process');
+      return this.showError('Error when deleting task');
     }
   }
 
@@ -89,7 +93,7 @@ export default class TaskModel {
     try {
       return await this.APIComments.getTaskComments(id);
     } catch (error) {
-      throw new Error('Error occurred in getting comments process');
+      return this.showError('Error when getting comments list');
     }
   }
 
@@ -97,14 +101,14 @@ export default class TaskModel {
    * Add new comment
    * @param {String} content
    * @param {Number} taskId
-   * @returns Object
+   * @returns Object or Flash Message
    */
   async addComment(content, taskId) {
     const comment = new Comment(content, taskId);
     try {
       return await this.APIComments.addComment(comment);
     } catch (error) {
-      throw new Error('Error occurred in adding comment process');
+      return this.showError('Error when adding comment');
     }
   }
 
@@ -113,11 +117,11 @@ export default class TaskModel {
    * @param {Number} taskId
    * @returns Number
    */
-  async deteleComment(id) {
+  async deleteComment(id) {
     try {
       return await this.APIComments.deleteComment(id);
     } catch (error) {
-      throw new Error('Error occurred in deleting comment process');
+      return this.showError('Error when deleting comment');
     }
   }
 }

@@ -7,12 +7,10 @@ export default class APIUser {
    * @returns Array
    */
   async getAllUser() {
-    try {
-      const response = await fetch(API_USERS);
-      return await response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await fetch(API_USERS);
+    const result = response.json();
+
+    return result;
   }
 
   /**
@@ -21,11 +19,9 @@ export default class APIUser {
    * @returns Object
    */
   async createAccount(account) {
-    try {
-      const response = await fetch(API_USERS, APIHelper.requestOptions('POST', account));
-      return await response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await fetch(API_USERS, APIHelper.requestOptions('POST', account));
+    const result = response.json();
+
+    return result;
   }
 }

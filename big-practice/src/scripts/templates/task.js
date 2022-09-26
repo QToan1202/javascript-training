@@ -21,7 +21,7 @@ export default class Task {
         <div class="row  row--task">
           <p>${date.diffTime(createdDate)}</p>
           <img class="offset-left" src="${clockIcon}" alt="clock-icon" draggable="false" />
-          <p>${date.diffTime(dueDate).replace('ago', 'left')}</p>
+          <p id="js-due-date">${date.diffTime(dueDate, Math.ceil, 'left')}</p>
         </div>
       </div>
     </div>`
@@ -58,7 +58,7 @@ export default class Task {
     <div class="row  row--direction">
       <h3 class="title">Due Date</h3>
       <div class="row  row--center">
-        <p id="js-due-date">${dueDate}</p>
+        <input class="date" type="date" id="js-due-date-modal" value="${date.convertDateInput(dueDate)}" />
       </div>
     </div>
 
@@ -66,6 +66,7 @@ export default class Task {
           <h3 class="title  spacing-top">Comments</h3>
           <textarea class="comments" id="js-comment" placeholder="Enter new comment..." rows="1"></textarea>
         </div>
+        <div id="js-comment-container"></div>
       </div>
     </div>`
   );

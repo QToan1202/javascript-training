@@ -1,27 +1,33 @@
 export default class Controller {
-  constructor(taskModel, taskView, modalDetail) {
+  constructor(taskModel, taskView, modalDetailView) {
     this.taskModel = taskModel;
     this.taskView = taskView;
-    this.modalDetail = modalDetail;
+    this.modalDetailView = modalDetailView;
 
     this.init();
   }
 
   init = () => {
+    this.taskModel.bindErrorOccurred(this.onErrorOccurred);
+
     this.taskView.redirectToLogin(this.taskModel.hasLogin);
     this.taskView.setUserInformation();
     this.taskView.logOutUser();
 
-    this.taskView.bindAddTask(this.handlerAddTask);
+    this.taskView.bindAddTask(this.handleAddTask);
     this.renderList();
-    this.taskView.bindGetTaskDetail(this.handlerGetDetailTask);
+    this.taskView.bindGetTaskDetail(this.handleGetDetailTask);
 
     this.taskView.dragTask();
-    this.taskView.dropTask(this.handlerUpdateTask);
-    this.taskView.bindDeleteTask(this.handlerDeleteTask);
+    this.taskView.dropTask(this.handleUpdateTask);
+    this.taskView.bindDeleteTask(this.handleDeleteTask);
 
     this.taskView.searchingTasks();
   };
+
+  onErrorOccurred = (error) => {
+    this.taskView.showError(error);
+  }
 
   /**
    * Get the task list from model
@@ -39,7 +45,7 @@ export default class Controller {
    * @param {String} taskName
    * @param {Number} userId
    */
-  handlerAddTask = async (taskName, userId) => {
+  handleAddTask = async (taskName, userId) => {
     const task = await this.taskModel.addTask(taskName, userId);
     this.taskView.displayTask(this.taskView.todoColumn, task);
     this.taskView.resetForm();
@@ -50,13 +56,14 @@ export default class Controller {
    * Then receive that task to render the detail card
    * @param {Number} id
    */
-  handlerGetDetailTask = async (id) => {
+  handleGetDetailTask = async (id) => {
     const task = await this.taskModel.getDetailTask(id);
-    this.modalDetail.renderDetailModal(task, this.handlerUpdateTask);
-    this.modalDetail.bindUpdateTask();
-    this.modalDetail.renderCommentList(await this.taskModel.getComments(id));
-    this.modalDetail.bindAddComment(this.handlerAddComment);
-    this.modalDetail.bindDeleteComment(this.handlerDeleteComment);
+    this.modalDetailView.renderDetailModal(task, this.handleUpdateTask);
+    this.modalDetailView.bindUpdateTask();
+
+    this.modalDetailView.renderCommentList(await this.taskModel.getComments(id));
+    this.modalDetailView.bindAddComment(this.handleAddComment);
+    this.modalDetailView.bindDeleteComment(this.handleDeleteComment);
   };
 
   /**
@@ -64,7 +71,7 @@ export default class Controller {
    * @param {Number} id
    * @param {Object} updateData
    */
-  handlerUpdateTask = async (id, updateData) => {
+  handleUpdateTask = async (id, updateData) => {
     await this.taskModel.updateTask(id, updateData);
   };
 
@@ -72,17 +79,18 @@ export default class Controller {
    * Delete a task
    * @param {Number} id
    */
-  handlerDeleteTask = async (id) => {
+  handleDeleteTask = async (id) => {
     const status = await this.taskModel.deleteTask(id);
     if (status === 200) this.taskView.deleteTask(id);
   };
 
-  handlerAddComment = async (content, taskId) => {
+  handleAddComment = async (content, taskId) => {
     const comment = await this.taskModel.addComment(content, taskId);
-    this.modalDetail.renderComment(comment);
+    this.modalDetailView.renderComment(comment);
   };
 
-  handlerDeleteComment = async (id) => {
-    await this.taskModel.deteleComment(id);
+  handleDeleteComment = async (id) => {
+    const status = await this.taskModel.deleteComment(id);
+    if (status === 200) this.modalDetailView.deleteComment(id);
   };
 }

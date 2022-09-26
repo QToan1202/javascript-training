@@ -6,6 +6,7 @@ import {
   LOGIN_PAGE,
   MESSAGES,
 } from '../utilities/constant';
+import FlashMessage from '../utilities/flashMessage';
 import Session from '../utilities/storageHelper';
 
 export default class TaskView {
@@ -81,7 +82,7 @@ export default class TaskView {
           return;
         };
 
-        alert(MESSAGES.EMPTY_NAME);
+        this.showError(MESSAGES.EMPTY_NAME);
       }
     });
   }
@@ -141,7 +142,7 @@ export default class TaskView {
 
       dropTask.removeAttribute('style');
 
-      // Default: when drop a task on an emtpy column
+      // Default: when drop a task on an empty column
       let attachColumn = targetElement.querySelector('.js-col-task');
 
       // Drop a task on another task
@@ -172,7 +173,7 @@ export default class TaskView {
 
   
   /**
-   * Add event for detele button to delete task base on ID
+   * Add event for delete button to delete task base on ID
    * @param {Function} handler
    */
    bindDeleteTask(handler) {
@@ -181,7 +182,7 @@ export default class TaskView {
         const taskId = event.target.closest('.task').id;
 
         if (!taskId) {
-          alert(MESSAGES.MISS_ID);
+          this.showError(MESSAGES.MISS_ID);
           return;
         }
 
@@ -248,5 +249,13 @@ export default class TaskView {
 
     // Add event for clear button to clear text
     this.clearBtn.addEventListener('click', () => [...allTasks].map((task) => task.classList.remove('card--hidden')));
+  }
+
+ /**
+   * Create an flash message error 
+   * @param {String} error 
+   */
+  showError(error) {
+    FlashMessage.showMessage(error)
   }
 }

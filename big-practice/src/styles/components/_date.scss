@@ -1,0 +1,13 @@
+@use '../abstracts' as *;
+
+.date {
+  outline: none;
+  border: none;
+  font-family: $font-regular;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+::-webkit-calendar-picker-indicator{
+  margin-left: -15px;
+}

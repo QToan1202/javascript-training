@@ -2,14 +2,14 @@
   "users": [
     {
       "userName": "hello",
-      "password": "123444444",
+      "password": "123",
       "avatar": "https://picsum.photos/id/1/200",
       "id": 1
     },
     {
       "userName": "test",
-      "password": "12222222",
-      "avatar": "https://picsum.photos/id/2/200",
+      "password": "122",
+      "avatar": "https://picsum.photos/id/200/200",
       "id": 2
     },
     {
@@ -21,32 +21,97 @@
   ],
   "tasks": [
     {
-      "taskName": "Hello world 2",
+      "taskName": "Add script",
       "description": "Lorem",
-      "dueDate": "12/12/2022",
-      "createdDate": "20/10/2022",
-      "state": "todo",
+      "dueDate": "09/27/2022",
+      "createdDate": "10/20/2022",
+      "state": "in-progress",
       "userId": 1,
       "id": 1
     },
     {
-      "taskName": "Hello from the other side",
+      "taskName": "Prepare for project 4",
       "description": "Lorem",
-      "dueDate": "12/12/2022",
-      "createdDate": "20/10/2022",
-      "state": "done",
+      "dueDate": "12/05/2022",
+      "createdDate": "10/20/2022",
+      "state": "todo",
       "userId": 1,
       "id": 2
     },
     {
-      "taskName": "ta",
+      "taskName": "Discuss the project with the instructor",
       "description": "",
-      "dueDate": "13/10/2022",
-      "createdDate": "13/9/2022",
+      "dueDate": "09/30/2022",
+      "createdDate": "9/13/2022",
       "state": "todo",
       "userId": 3,
       "id": 3
+    },
+    {
+      "taskName": "Config env for next project",
+      "description": "",
+      "dueDate": "09/29/2022",
+      "createdDate": "9/26/2022",
+      "state": "in-progress",
+      "userId": 3,
+      "id": 4
+    },
+    {
+      "taskName": "E-Commerce Web App",
+      "description": "",
+      "dueDate": "09/23/2022",
+      "createdDate": "9/26/2022",
+      "state": "done",
+      "userId": 3,
+      "id": 5
+    },
+    {
+      "taskName": "User require",
+      "description": "",
+      "dueDate": "10/26/2022",
+      "createdDate": "9/26/2022",
+      "state": "in-progress",
+      "userId": 3,
+      "id": 6
+    },
+    {
+      "taskName": "Fix home page UI",
+      "description": "Show product by category",
+      "dueDate": "10/28/2022",
+      "createdDate": "9/26/2022",
+      "state": "in-progress",
+      "userId": 3,
+      "id": 7
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "content": "New comment",
+      "createdDate": 1663916802487,
+      "taskId": 2,
+      "userId": 3,
+      "id": 1
+    },
+    {
+      "content": "Checking async/await",
+      "createdDate": 1664127373228,
+      "taskId": 1,
+      "userId": 3,
+      "id": 2
+    },
+    {
+      "content": "TailwindCSS",
+      "createdDate": 1664121523000,
+      "taskId": 6,
+      "userId": 3,
+      "id": 3
+    },
+    {
+      "content": "React",
+      "createdDate": 1664130116775,
+      "taskId": 6,
+      "userId": 2,
+      "id": 4
+    }
+  ]
 }
