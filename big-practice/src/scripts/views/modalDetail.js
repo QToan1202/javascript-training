@@ -52,9 +52,10 @@ export default class ModalView {
 
     // Get the diff time at the beginner the string 
     const [ diffDate ] = date.diffTime(dueDate, Math.ceil).split(' ');
+    const overDue = new Date(dueDate) < Date.now();
 
-    // Only show alert when time diff less than or equal 3 days
-    if (diffDate <= 3) {
+    // Only show alert when time diff less than or equal 3 days and not over due
+    if (diffDate <= 3 && !overDue) {
       alert.textContent = date.diffTime(dueDate, Math.ceil, 'left');
       dueDateElement.parentElement.appendChild(alert);
     }
