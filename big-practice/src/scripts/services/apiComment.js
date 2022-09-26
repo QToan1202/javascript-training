@@ -9,7 +9,7 @@ export default class APIComments {
    */
    async getTaskComments(id) {
      const response = await fetch(APIHelper.apiEndpoint(`/task-comments/${id}`));
-     const result = await response.json();
+     const result = response.json();
 
      return result;
   }
@@ -21,9 +21,9 @@ export default class APIComments {
    */
   async addComment(comment) {
     const response = await fetch(API_COMMENTS, APIHelper.requestOptions('POST', comment));
-    const result = await response.json();
+    const result = response.json();
 
-    return result
+    return result;
   }
 
   /**

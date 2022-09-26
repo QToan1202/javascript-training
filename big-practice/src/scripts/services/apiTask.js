@@ -9,7 +9,7 @@ export default class APITask {
    */
   async addTask(taskName) {
     const response = await fetch(API_TASKS , APIHelper.requestOptions('POST', taskName));
-    const result = await response.json();
+    const result = response.json();
 
     return result;
   }
@@ -25,7 +25,7 @@ export default class APITask {
       fetch(APIHelper.apiEndpoint('/tasks-done')),
       fetch(APIHelper.apiEndpoint('/tasks-archived')),
     ]);
-    const result = await Promise.all(response.map((r) => r.json()));
+    const result = Promise.all(response.map((r) => r.json()));
 
     return result;
   }
@@ -37,7 +37,7 @@ export default class APITask {
    */
   async getDetailTask(id) {
     const response = await fetch(`${API_TASKS}/${id}`);
-    const result = await response.json();
+    const result = response.json();
 
     return result;
   }

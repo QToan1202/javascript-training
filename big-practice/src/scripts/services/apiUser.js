@@ -8,7 +8,7 @@ export default class APIUser {
    */
   async getAllUser() {
     const response = await fetch(API_USERS);
-    const result = await response.json();
+    const result = response.json();
 
     return result;
   }
@@ -20,7 +20,7 @@ export default class APIUser {
    */
   async createAccount(account) {
     const response = await fetch(API_USERS, APIHelper.requestOptions('POST', account));
-    const result = await response.json();
+    const result = response.json();
 
     return result;
   }
