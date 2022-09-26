@@ -23,7 +23,7 @@
     {
       "taskName": "Add script",
       "description": "Lorem",
-      "dueDate": "09/25/2022",
+      "dueDate": "09/27/2022",
       "createdDate": "10/20/2022",
       "state": "in-progress",
       "userId": 1,
@@ -73,6 +73,15 @@
       "state": "in-progress",
       "userId": 3,
       "id": 6
+    },
+    {
+      "taskName": "Fix home page UI",
+      "description": "Show product by category",
+      "dueDate": "10/28/2022",
+      "createdDate": "9/26/2022",
+      "state": "in-progress",
+      "userId": 3,
+      "id": 7
     }
   ],
   "comments": [
