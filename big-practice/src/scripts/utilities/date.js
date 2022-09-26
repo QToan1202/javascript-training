@@ -58,18 +58,23 @@ function formatDate(date) {
 
 function timeElapse(timeStamp) {
   const minutes = 1000 * 60;
-  const diff = Math.floor((Date.now() - (+timeStamp)) / minutes);
+  const diffMins = Math.floor((Date.now() - (+timeStamp)) / minutes);
   const [dateString] = new Date(timeStamp).toISOString().split('T');
+  const diffHours = Math.floor(diffMins / 60);
 
   switch (true) {
-    case (diff === 0):
+    case (diffMins === 0):
       return 'Just now';
     
-    case (diff === 1): 
-      return `${diff} min ago`;
+    case (diffMins === 1): 
+      return `${diffMins} min ago`;
 
-    case (diff < 60):
-      return `${diff} mins ago`;
+    case (diffMins < 60):
+      return `${diffMins} mins ago`;
+
+    case (diffMins < (60 * 24)):
+      
+      return `${diffHours} ${(diffHours === 1) ? 'hour' : 'hours'} ago`;
   
     default:
       return formatDate(dateString);
