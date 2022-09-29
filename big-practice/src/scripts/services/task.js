@@ -1,4 +1,4 @@
-import APIHelper from './apiHelpers';
+import APIHelper from './helpers';
 import { API_TASKS } from '../utilities/constant'
 
 export default class APITask {
@@ -7,7 +7,7 @@ export default class APITask {
    * @param {String} taskName
    * @return Object
    */
-  async addTask(taskName) {
+  async add(taskName) {
     const response = await fetch(API_TASKS , APIHelper.requestOptions('POST', taskName));
     const result = response.json();
 
@@ -18,7 +18,7 @@ export default class APITask {
    * Get task form 4 API each have different state
    * @returns Array
    */
-  async getTaskList() {
+  async get() {
     const response = await Promise.all([
       fetch(APIHelper.apiEndpoint('/tasks-todo')),
       fetch(APIHelper.apiEndpoint('/tasks-in-progress')),
@@ -35,7 +35,7 @@ export default class APITask {
    * @param {Number} id
    * @returns Object
    */
-  async getDetailTask(id) {
+  async find(id) {
     const response = await fetch(`${API_TASKS}/${id}`);
     const result = response.json();
 
@@ -48,7 +48,7 @@ export default class APITask {
    * @param {Object} updateData
    * @returns Boolean
    */
-  async updateTask(id, updateData) {
+  async edit(id, updateData) {
     const response = await 
       fetch(`${API_TASKS}/${id}`, 
       APIHelper.requestOptions('PATCH', updateData));
@@ -61,7 +61,7 @@ export default class APITask {
    * @param {Number} id
    * @returns Number
    */
-   async deleteTask(id) {
+   async delete(id) {
      const response = await fetch(`${API_TASKS}/${id}`, APIHelper.requestOptions('DELETE'));
 
      return response.status;

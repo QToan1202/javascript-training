@@ -1,4 +1,4 @@
-import APIHelper from './apiHelpers';
+import APIHelper from './helpers';
 import { API_COMMENTS } from '../utilities/constant';
   
 export default class APIComments {
@@ -7,7 +7,7 @@ export default class APIComments {
    * @param {Number} id
    * @returns Array
    */
-   async getTaskComments(id) {
+   async get(id) {
      const response = await fetch(APIHelper.apiEndpoint(`/task-comments/${id}`));
      const result = response.json();
 
@@ -19,7 +19,7 @@ export default class APIComments {
    * @param {Object} comment
    * @returns Object
    */
-  async addComment(comment) {
+  async add(comment) {
     const response = await fetch(API_COMMENTS, APIHelper.requestOptions('POST', comment));
     const result = response.json();
 
@@ -31,7 +31,7 @@ export default class APIComments {
    * @param {Number} id
    * @returns Number
    */
-  async deleteComment(id) {
+  async delete(id) {
     const response = await fetch(`${API_COMMENTS}/${id}`, APIHelper.requestOptions('DELETE'));
     
     return response.status;
