@@ -1,5 +1,5 @@
 import APIHelper from './helpers';
-import { API_TASKS } from '../utilities/constant'
+import { API_TASKS } from '../constants/url'
 
 export default class APITask {
   /**

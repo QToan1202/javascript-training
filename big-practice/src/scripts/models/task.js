@@ -1,4 +1,4 @@
-import { STATES } from '../utilities/constant';
+import STATES from '../constants/states';
 import date from '../utilities/date';
 
 

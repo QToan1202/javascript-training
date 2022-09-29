@@ -23,7 +23,7 @@ export default class UserList {
     try {
       this.users = await this.APIUser.get();
     } catch (error) {
-      return this.showError('Can\'t get users list, check your internet');
+      this.showError('Can\'t get users list, check your internet');
     }
   }
 

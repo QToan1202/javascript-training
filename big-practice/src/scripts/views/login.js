@@ -1,4 +1,5 @@
-import { BASE_URL, MESSAGES } from '../utilities/constant';
+import { BASE_URL } from '../constants/url';
+import MESSAGES from '../constants/messages';
 import Storage from '../utilities/storageHelper';
 import FlashMessage from '../utilities/flashMessage';
 

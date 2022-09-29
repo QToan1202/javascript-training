@@ -1,11 +1,11 @@
 import Task from '../templates/task';
+import MESSAGES from '../constants/messages';
 import {
   DRAG_TASK_BG,
   EFFECT_ALLOWED,
   DROP_EFFECT,
-  LOGIN_PAGE,
-  MESSAGES,
-} from '../utilities/constant';
+} from '../constants/common';
+import { LOGIN_PAGE } from '../constants/url';
 import FlashMessage from '../utilities/flashMessage';
 import Session from '../utilities/storageHelper';
 
