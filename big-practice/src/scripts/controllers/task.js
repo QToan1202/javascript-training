@@ -55,7 +55,7 @@ export default class Controller {
    */
   handleAddTask = async (taskName, userId) => {
     const task = await this.taskList.add(taskName, userId);
-    this.taskView.displayTask(this.taskView.todoColumn, task);
+    this.taskView.displayTask(task);
     this.taskView.resetForm();
   };
 

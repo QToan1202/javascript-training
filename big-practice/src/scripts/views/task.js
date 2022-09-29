@@ -15,9 +15,6 @@ export default class TaskView {
     this.clearBtn = document.getElementById('js-clear-button');
     this.taskName = document.getElementById('js-add-task-input');
     this.todoColumn = document.getElementById('js-todo');
-    this.inProgressColumn = document.getElementById('js-in-progress');
-    this.doneColumn = document.getElementById('js-done');
-    this.archivedColumn = document.getElementById('js-archived');
     this.columns = document.getElementsByClassName('js-col');
     this.updateData = {};
   }
@@ -39,30 +36,29 @@ export default class TaskView {
   }
 
   /**
-   * Add a new task to a specify column
-   * @param {Element} column
+   * Add a new task to first column(Todo column)
    * @param {Object} task
    */
-  displayTask(column, {
-    id,
-    taskName,
-    createdDate,
-    dueDate,
-  }) {
+  displayTask({ id,taskName, createdDate, dueDate }) {
     const element = document.createElement('template');
+
     element.innerHTML = Task.renderWorkItem(id, taskName, createdDate, dueDate);
-    column.appendChild(element.content.firstElementChild);
+    this.todoColumn.appendChild(element.content.firstElementChild);
   }
 
   /**
    * Display all task in database
    * @param {Array} tasks
    */
-  renderTaskList([ todoTasks, inProgressTasks, doneTasks, archivedTasks ]) {
-    if (todoTasks.length) todoTasks.map((task) => this.displayTask(this.todoColumn, task));
-    if (inProgressTasks.length) inProgressTasks.map((task) => this.displayTask(this.inProgressColumn, task));
-    if (doneTasks.length) doneTasks.map((task) => this.displayTask(this.doneColumn, task));
-    if (archivedTasks.length) archivedTasks.map((task) => this.displayTask(this.archivedColumn, task));
+  renderTaskList(tasks) {
+    tasks.forEach((task) => {
+      const { id, taskName, createdDate, dueDate, state } = task;
+      const element = document.createElement('template');
+      const column = document.getElementById(`js-${state}`)
+
+      element.innerHTML = Task.renderWorkItem(id, taskName, createdDate, dueDate);
+      column.appendChild(element.content.firstElementChild);
+    });
   }
 
   /**

@@ -19,13 +19,8 @@ export default class APITask {
    * @returns Array
    */
   async get() {
-    const response = await Promise.all([
-      fetch(APIHelper.apiEndpoint('/tasks-todo')),
-      fetch(APIHelper.apiEndpoint('/tasks-in-progress')),
-      fetch(APIHelper.apiEndpoint('/tasks-done')),
-      fetch(APIHelper.apiEndpoint('/tasks-archived')),
-    ]);
-    const result = Promise.all(response.map((r) => r.json()));
+    const response = await fetch(API_TASKS);
+    const result = response.json();
 
     return result;
   }
