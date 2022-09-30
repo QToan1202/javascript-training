@@ -4,13 +4,16 @@ import APIHelper from './helpers';
 export default class APIUser {
   /**
    * Get all the user in database
-   * @returns Array
+   * @returns Object
    */
   async get() {
     const response = await fetch(API_USERS);
-    const result = response.json();
+    const result = await response.json();
 
-    return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 
   /**
@@ -20,8 +23,11 @@ export default class APIUser {
    */
   async add(account) {
     const response = await fetch(API_USERS, APIHelper.requestOptions('POST', account));
-    const result = response.json();
+    const result = await response.json();
 
-    return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 }

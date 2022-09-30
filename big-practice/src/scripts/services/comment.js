@@ -5,13 +5,16 @@ export default class APIComments {
   /**
    * Get comments belong to task
    * @param {Number} id
-   * @returns Array
+   * @returns Object
    */
    async get(id) {
-     const response = await fetch(APIHelper.apiEndpoint(`/task-comments/${id}`));
-     const result = response.json();
+    const response = await fetch(APIHelper.apiEndpoint(`/task-comments/${id}`));
+    const result = await response.json();
 
-     return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 
   /**
@@ -21,19 +24,22 @@ export default class APIComments {
    */
   async add(comment) {
     const response = await fetch(API_COMMENTS, APIHelper.requestOptions('POST', comment));
-    const result = response.json();
+    const result = await response.json();
 
-    return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 
   /**
    * Delete comment in the task detail
    * @param {Number} id
-   * @returns Number
+   * @returns Object
    */
   async delete(id) {
     const response = await fetch(`${API_COMMENTS}/${id}`, APIHelper.requestOptions('DELETE'));
     
-    return response.status;
+    return {status: response.status};
   }
 }
