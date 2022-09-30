@@ -12,6 +12,7 @@ export default class loginController {
     this.loginView.renderForm();
     this.loginView.bindCreateAccount(this.handleCreateAccount);
     await this.userList.get();
+    this.loginView.clearErrorMsg();
   };
 
   /**
