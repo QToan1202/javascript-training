@@ -132,9 +132,9 @@ export default class ModalView {
 
   /**
    * Render each comment object to bottom the modal
-   * @param {Object} comment 
-   */
-  renderComment({ content, id, createdDate, user: { avatar, userName } }) {
+   * @param {Object} comment
+  //  */
+  renderComment({ content, id, createdDate, avatar = this.user.avatar, userName = this.user.userName }) {
     const commentContainer = document.getElementById('js-comment-container');
     const comment = document.createElement('template');
 
@@ -147,7 +147,11 @@ export default class ModalView {
    * @param {Array} comments
    */
   renderCommentList(comments) {
-    comments.map((comment) => this.renderComment(comment));
+    comments.forEach((comment) => {
+      const {content, id, createdDate, user: { avatar, userName }} = comment;
+      
+      this.renderComment({content, id, createdDate, avatar, userName});
+    });
   }
 
   /**
@@ -198,5 +202,13 @@ export default class ModalView {
     const parent = deletedComment.closest('.js-comment-field');
 
     parent.remove();
+  }
+
+  /**
+   * Create an flash message error 
+   * @param {String} error 
+   */
+   showError(error) {
+    FlashMessage.showMessage(error)
   }
 }

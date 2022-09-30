@@ -11,6 +11,7 @@ export default class Controller {
   init = () => {
     // Send a callback to taskList to showing error for end user
     this.taskList.bindErrorOccurred(this.handleErrorOccurred);
+    this.commentList.bindErrorOccurred(this.handleErrorOccurred);
 
     // Redirect un-login user and logout
     this.taskView.redirectToLogin(this.taskList.hasLogin);
@@ -35,6 +36,7 @@ export default class Controller {
    */
   handleErrorOccurred = (error) => {
     this.taskView.showError(error);
+    this.modalDetailView.showError(error);
   }
 
   /**

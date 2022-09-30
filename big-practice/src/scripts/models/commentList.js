@@ -59,7 +59,7 @@ export default class CommentList {
     try {
       const { status } = await this.APIComments.delete(id);
       
-      if (status !== 201) this.showError(ERROR_CODE[status]);
+      if (status !== 200) this.showError(ERROR_CODE[status]);
       return status;
     } catch (error) {
       return this.showError(MESSAGES.INTERNET);
