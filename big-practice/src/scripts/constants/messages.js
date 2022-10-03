@@ -7,7 +7,7 @@ const MESSAGES = {
   MISS_ID: 'Selected task don\'t have ID',
   EMPTY_NAME: 'Task name is empty',
   REQUIRED: 'All field are required',
-  INTERNET: 'Checking your internet',
+  INTERNET_ERROR: 'Checking your internet',
 }
 
 export default MESSAGES;

@@ -22,48 +22,48 @@ export default class TaskList {
    * Add a new task with taskName
    * @param {String} taskName
    * @param {Number} userId
-   * @return Object
+   * @return Object or Error
    */
   async add(taskName, userId) {
     const task = new Task(taskName, userId);
     try {
       const { status, data } = await this.APITask.add(task);
       
-      if (status !== 201) this.showError(ERROR_CODE[status]);
+      if (status !== 201) return this.showError(ERROR_CODE[status]);
       return data;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
   /**
    * Get all task in db.json file
-   * @returns Array
+   * @returns Array or Error
    */
   async get() {
     try {
       const { status, data } = await this.APITask.get();
 
-      if (status !== 200) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       return data;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
   /**
    * Get the task information with ID
    * @param {Number} id
-   * @returns Object
+   * @returns Object or Error
    */
   async find(id) {
     try {
       const { status, data } = await this.APITask.find(id);
 
-      if (status !== 200) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       return data;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
@@ -71,32 +71,32 @@ export default class TaskList {
    * Update task
    * @param {Number} id
    * @param {Object} updateData
-   * @returns Boolean
+   * @returns Boolean or Error
    */
   async edit(id, updateData) {
     try {
       const { status } = await this.APITask.edit(id, updateData);
       
-      if (status !== 200) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       return status;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
   /**
    * Delete task description
    * @param {Number} id
-   * @returns Number
+   * @returns Number or Error
    */
   async delete(id) {
     try {
       const { status } = await this.APITask.delete(id);
       
-      if (status !== 200) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       return status;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 }
