@@ -19,16 +19,16 @@ export default class CommentList {
   /**
    * Get task comments
    * @param {Number} id
-   * @returns Array
+   * @returns Array or Error
    */
    async get(id) {
     try {
       const { status, data } = await this.APIComments.get(id);
       
-      if (status !== 200) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       return data;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
@@ -36,33 +36,33 @@ export default class CommentList {
    * Add new comment
    * @param {String} content
    * @param {Number} taskId
-   * @returns Object or Flash Message
+   * @returns Object or Error
    */
   async add(content, taskId) {
     const comment = new Comment(content, taskId);
     try {
       const { status, data } = await this.APIComments.add(comment);
       
-      if (status !== 201) this.showError(ERROR_CODE[status]);
+      if (status !== 201) return this.showError(ERROR_CODE[status]);
       return data;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
   /**
    * Delete comment
    * @param {Number} taskId
-   * @returns Number
+   * @returns Number or Error
    */
   async delete(id) {
     try {
       const { status } = await this.APIComments.delete(id);
       
-      if (status !== 201) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       return status;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 }

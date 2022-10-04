@@ -20,15 +20,16 @@ export default class UserList {
 
   /**
    * Get all existed users
+   * @returns Error if occurred
    */
   async get() {
     try {
       const { status, data } = await this.APIUser.get();
       
-      if (status !== 200) this.showError(ERROR_CODE[status]);
+      if (status !== 200) return this.showError(ERROR_CODE[status]);
       this.users = data;
     } catch (error) {
-      this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 
@@ -51,7 +52,7 @@ export default class UserList {
    * Create a new user if that userName not created before
    * @param {String} userName
    * @param {String} password
-   * @returns Boolean
+   * @returns Boolean or Error
    */
   async add(userName, password) {
     const duplicateName = this.users.some((user) => user.userName === userName);
@@ -61,11 +62,11 @@ export default class UserList {
       const newAccount = new User(userName, password);
       const { status, data } = await this.APIUser.add(newAccount);
       
-      if (status !== 201) this.showError(ERROR_CODE[status]);
+      if (status !== 201) return this.showError(ERROR_CODE[status]);
       Storage.setData('user', data);
       return true;
     } catch (error) {
-      return this.showError(MESSAGES.INTERNET);
+      return this.showError(MESSAGES.INTERNET_ERROR);
     }
   }
 }
