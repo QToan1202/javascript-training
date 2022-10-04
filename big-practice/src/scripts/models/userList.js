@@ -1,13 +1,17 @@
-import APIUser from '../services/apiUser';
+import APIUser from '../services/user';
 import Storage from '../utilities/storageHelper';
 import User from './user';
 
-export default class UserModel {
+export default class UserList {
   constructor() {
     this.APIUser = new APIUser();
     this.users = [];
   }
 
+  /**
+   * Alert error when occurred
+   * @param {Function} callback Controller.handleErrorOccurred
+   */
   bindErrorOccurred(callback) {
     this.showError = callback;
   }
@@ -15,9 +19,9 @@ export default class UserModel {
   /**
    * Get all existed users
    */
-  async getUsers() {
+  async get() {
     try {
-      this.users = await this.APIUser.getAllUser();
+      this.users = await this.APIUser.get();
     } catch (error) {
       return this.showError('Can\'t get users list, check your internet');
     }
@@ -27,7 +31,7 @@ export default class UserModel {
    * Find user account
    * @returns Boolean
    */
-  loginUser(userName, password) {
+  login(userName, password) {
     try {
       const loginUser = this.users.find((user) => user.userName === userName && user.password === password);
 
@@ -48,13 +52,13 @@ export default class UserModel {
    * @param {String} password
    * @returns Boolean
    */
-  async createAccount(userName, password) {
+  async add(userName, password) {
     const duplicateName = this.users.some((user) => user.userName === userName);
 
     if (duplicateName) return false;
     try {
       const newAccount = new User(userName, password);
-      const response = await this.APIUser.createAccount(newAccount);
+      const response = await this.APIUser.add(newAccount);
 
       Storage.setData('user', response);
       return true;

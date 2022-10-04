@@ -1,5 +1,5 @@
-import LoginController from '../controllers/loginController';
-import UserModel from '../models/userModel';
-import LoginView from '../views/loginView';
+import LoginController from '../controllers/login';
+import UserList from '../models/userList';
+import LoginView from '../views/login';
 
-new LoginController(new UserModel(), new LoginView());
+new LoginController(new UserList(), new LoginView());

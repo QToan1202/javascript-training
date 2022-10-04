@@ -1,12 +1,12 @@
 import { API_USERS } from '../utilities/constant';
-import APIHelper from './apiHelpers';
+import APIHelper from './helpers';
 
 export default class APIUser {
   /**
    * Get all the user in database
    * @returns Array
    */
-  async getAllUser() {
+  async get() {
     const response = await fetch(API_USERS);
     const result = response.json();
 
@@ -18,7 +18,7 @@ export default class APIUser {
    * @param {Object} account 
    * @returns Object
    */
-  async createAccount(account) {
+  async add(account) {
     const response = await fetch(API_USERS, APIHelper.requestOptions('POST', account));
     const result = response.json();
 

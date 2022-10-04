@@ -58,7 +58,7 @@ export default class TaskView {
    * Display all task in database
    * @param {Array} tasks
    */
-  renderTaskList([todoTasks, inProgressTasks, doneTasks, archivedTasks]) {
+  renderTaskList([ todoTasks, inProgressTasks, doneTasks, archivedTasks ]) {
     if (todoTasks.length) todoTasks.map((task) => this.displayTask(this.todoColumn, task));
     if (inProgressTasks.length) inProgressTasks.map((task) => this.displayTask(this.inProgressColumn, task));
     if (doneTasks.length) doneTasks.map((task) => this.displayTask(this.doneColumn, task));

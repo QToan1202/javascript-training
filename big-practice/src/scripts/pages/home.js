@@ -1,6 +1,7 @@
-import TaskController from '../controllers/taskController';
-import TaskModel from '../models/taskModel';
+import TaskController from '../controllers/task';
+import CommentList from '../models/commentList';
+import TaskList from '../models/taskList';
 import ModalDetail from '../views/modalDetail';
-import TaskView from '../views/taskView';
+import TaskView from '../views/task';
 
-new TaskController(new TaskModel(), new TaskView(), new ModalDetail());
+new TaskController(new TaskList(), new CommentList(), new TaskView(), new ModalDetail());
