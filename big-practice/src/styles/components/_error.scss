@@ -1,0 +1,10 @@
+@use '../abstracts' as *;
+
+.error {
+  margin: 10px 0;
+  color: $pinkish-red;
+  font-size: 18px;
+  font-style: italic;
+  align-self: center;
+  min-height: 20px;
+}

@@ -10,6 +10,7 @@ export default class LoginView {
     this.password = document.getElementById('js-user-password');
     this.confirmPassLabel = document.getElementById('js-label-confirm-password');
     this.confirmPassword = document.getElementById('js-user-confirm-password');
+    this.errorMsg = document.getElementById('js-error');
   }
 
   /**
@@ -22,7 +23,7 @@ export default class LoginView {
 
       // Check if all field have been entered
       if (!this.userName.value || !this.password.value) {
-        this.showError(MESSAGES.REQUIRED);
+        this.errorMsg.textContent = MESSAGES.REQUIRED;
         return;
       }
 
@@ -43,13 +44,13 @@ export default class LoginView {
       if (!this.confirmPassword.classList.contains('hidden')) {
         // Check empty password
         if (!this.password.value) {
-          this.showError(MESSAGES.EMPTY_PASSWORD);
+          this.errorMsg.textContent = MESSAGES.EMPTY_PASSWORD;
           return;
         }
 
         // Check password and confirm password matched
         if (this.confirmPassword.value !== this.password.value) {
-          this.showError(MESSAGES.PASSWORD);
+          this.errorMsg.textContent = MESSAGES.PASSWORD;
           this.confirmPassword.value = '';
           return;
         }
@@ -64,7 +65,7 @@ export default class LoginView {
    * @param {Boolean} hasUser
    */
   existUser(hasUser) {
-    if (!hasUser) this.showError(`Users ${this.userName.value} has registered before`);
+    if (!hasUser) this.errorMsg.textContent = `Users ${this.userName.value} has registered before`;
   }
 
   /**
@@ -79,8 +80,10 @@ export default class LoginView {
     }
 
     // Login mode: When login what show the alert
-    if (this.confirmPassword.classList.contains('hidden')) this.showError(MESSAGES.LOGIN_FAIL);
+    if (this.confirmPassword.classList.contains('hidden')) this.errorMsg.textContent = MESSAGES.LOGIN_FAIL;
+    this.userName.value = '';
     this.password.value = '';
+    this.confirmPassword.value = '';
   }
 
   /**
@@ -88,10 +91,11 @@ export default class LoginView {
    */
   renderForm() {
     const linkRegisterForm = document.getElementById('js-register-form');
-
+    
     linkRegisterForm.addEventListener('click', () => {
       const submitBtn = document.querySelector('button[type=submit]');
-
+      
+      this.errorMsg.textContent = ''
       this.confirmPassLabel.classList.toggle('hidden');
       this.confirmPassword.classList.toggle('hidden');
 
@@ -111,7 +115,20 @@ export default class LoginView {
    * Create an flash message error 
    * @param {String} error 
    */
-   showError(error) {
+  showError(error) {
     FlashMessage.showMessage(error)
+  }
+
+  /**
+   * Add event for all input that clear error message when user beginning enter
+   */
+  clearErrorMsg() {
+    const inputFields = [this.userName, this.password, this.confirmPassword];
+
+    inputFields.forEach((field) => {
+      field.addEventListener('input',() => {
+        this.errorMsg.textContent = '';
+      });
+    });
   }
 }
