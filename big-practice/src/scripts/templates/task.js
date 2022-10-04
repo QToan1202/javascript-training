@@ -2,7 +2,7 @@ import clockIcon from '../../assets/images/clock-icon.svg';
 import deleteIcon from '../../assets/images/delete-icon.svg';
 import editIcon from '../../assets/images/edit-icon.svg';
 import capitalize from '../utilities/capitalize';
-import { STATES } from '../utilities/constant';
+import STATES from '../constants/states';
 import date from '../utilities/date';
 
 export default class Task {

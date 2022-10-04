@@ -1,4 +1,4 @@
-import { API_URL } from '../utilities/constant';
+import { API_URL } from '../constants/url';
 
 export default class APIHelper {
   /**

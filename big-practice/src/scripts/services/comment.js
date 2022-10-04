@@ -1,5 +1,5 @@
 import APIHelper from './helpers';
-import { API_COMMENTS } from '../utilities/constant';
+import { API_COMMENTS } from '../constants/url';
   
 export default class APIComments {
   /**

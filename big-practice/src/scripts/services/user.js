@@ -1,4 +1,4 @@
-import { API_USERS } from '../utilities/constant';
+import { API_USERS } from '../constants/url';
 import APIHelper from './helpers';
 
 export default class APIUser {

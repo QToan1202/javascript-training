@@ -1,4 +1,4 @@
-import { AVATAR_URL } from "./constant";
+import { AVATAR_URL } from '../constants/url';
 
 /**
  * Get a random image base on ID
