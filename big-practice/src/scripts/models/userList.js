@@ -1,3 +1,5 @@
+import ERROR_CODE from '../constants/errorCode';
+import MESSAGES from '../constants/messages';
 import APIUser from '../services/user';
 import Storage from '../utilities/storageHelper';
 import User from './user';
@@ -21,9 +23,12 @@ export default class UserList {
    */
   async get() {
     try {
-      this.users = await this.APIUser.get();
+      const { status, data } = await this.APIUser.get();
+      
+      if (status !== 200) this.showError(ERROR_CODE[status]);
+      this.users = data;
     } catch (error) {
-      this.showError('Can\'t get users list, check your internet');
+      this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -32,18 +37,14 @@ export default class UserList {
    * @returns Boolean
    */
   login(userName, password) {
-    try {
-      const loginUser = this.users.find((user) => user.userName === userName && user.password === password);
+    const loginUser = this.users.find((user) => user.userName === userName && user.password === password);
 
-      if (loginUser) {
-        Storage.setData('user', loginUser);
-        return true;
-      }
-
-      return false;
-    } catch (error) {
-      return this.showError('Can\'t login');
+    if (loginUser) {
+      Storage.setData('user', loginUser);
+      return true;
     }
+
+    return false;
   }
 
   /**
@@ -58,12 +59,13 @@ export default class UserList {
     if (duplicateName) return false;
     try {
       const newAccount = new User(userName, password);
-      const response = await this.APIUser.add(newAccount);
-
-      Storage.setData('user', response);
+      const { status, data } = await this.APIUser.add(newAccount);
+      
+      if (status !== 201) this.showError(ERROR_CODE[status]);
+      Storage.setData('user', data);
       return true;
     } catch (error) {
-      return this.showError('Error occurred in create account process');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 }

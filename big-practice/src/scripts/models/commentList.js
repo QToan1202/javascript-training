@@ -1,3 +1,5 @@
+import ERROR_CODE from '../constants/errorCode';
+import MESSAGES from '../constants/messages';
 import APIComment from '../services/comment';
 import Comment from './comment';
 
@@ -17,13 +19,16 @@ export default class CommentList {
   /**
    * Get task comments
    * @param {Number} id
-   * @returns Number
+   * @returns Array
    */
    async get(id) {
     try {
-      return await this.APIComments.get(id);
+      const { status, data } = await this.APIComments.get(id);
+      
+      if (status !== 200) this.showError(ERROR_CODE[status]);
+      return data;
     } catch (error) {
-      return this.showError('Error when getting comments list');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -36,9 +41,12 @@ export default class CommentList {
   async add(content, taskId) {
     const comment = new Comment(content, taskId);
     try {
-      return await this.APIComments.add(comment);
+      const { status, data } = await this.APIComments.add(comment);
+      
+      if (status !== 201) this.showError(ERROR_CODE[status]);
+      return data;
     } catch (error) {
-      return this.showError('Error when adding comment');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -49,9 +57,12 @@ export default class CommentList {
    */
   async delete(id) {
     try {
-      return await this.APIComments.delete(id);
+      const { status } = await this.APIComments.delete(id);
+      
+      if (status !== 201) this.showError(ERROR_CODE[status]);
+      return status;
     } catch (error) {
-      return this.showError('Error when deleting comment');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 }

@@ -9,20 +9,26 @@ export default class APITask {
    */
   async add(taskName) {
     const response = await fetch(API_TASKS , APIHelper.requestOptions('POST', taskName));
-    const result = response.json();
+    const result = await response.json();
 
-    return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 
   /**
-   * Get task form 4 API each have different state
-   * @returns Array
+   * Get tasks
+   * @returns Object
    */
   async get() {
     const response = await fetch(API_TASKS);
-    const result = response.json();
+    const result = await response.json();
 
-    return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 
   /**
@@ -32,33 +38,36 @@ export default class APITask {
    */
   async find(id) {
     const response = await fetch(`${API_TASKS}/${id}`);
-    const result = response.json();
+    const result = await response.json();
 
-    return result;
+    return {
+      status: response.status,
+      data: result
+    };
   }
 
   /**
    * Update task base on ID
    * @param {Number} id
    * @param {Object} updateData
-   * @returns Boolean
+   * @returns Object
    */
   async edit(id, updateData) {
     const response = await 
       fetch(`${API_TASKS}/${id}`, 
       APIHelper.requestOptions('PATCH', updateData));
       
-    return response.ok;
+    return {status: response.status};
   }
 
   /**
    * Calling API to delete a task with the ID
    * @param {Number} id
-   * @returns Number
+   * @returns Object
    */
    async delete(id) {
      const response = await fetch(`${API_TASKS}/${id}`, APIHelper.requestOptions('DELETE'));
 
-     return response.status;
+     return {status: response.status};
   }
 }

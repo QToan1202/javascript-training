@@ -1,6 +1,8 @@
 import Task from './task';
 import APITask from '../services/task';
 import Storage from '../utilities/storageHelper';
+import ERROR_CODE from '../constants/errorCode';
+import MESSAGES from '../constants/messages';
 
 export default class TaskList {
   constructor() {
@@ -25,10 +27,12 @@ export default class TaskList {
   async add(taskName, userId) {
     const task = new Task(taskName, userId);
     try {
-      // Calling API addTask form APITask
-      return await this.APITask.add(task);
+      const { status, data } = await this.APITask.add(task);
+      
+      if (status !== 201) this.showError(ERROR_CODE[status]);
+      return data;
     } catch (error) {
-      return this.showError('Error when adding a new task');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -38,10 +42,12 @@ export default class TaskList {
    */
   async get() {
     try {
-      this.tasksList = await this.APITask.get();
-      return this.tasksList;
+      const { status, data } = await this.APITask.get();
+
+      if (status !== 200) this.showError(ERROR_CODE[status]);
+      return data;
     } catch (error) {
-      return this.showError('Error when getting tasks list');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -52,9 +58,12 @@ export default class TaskList {
    */
   async find(id) {
     try {
-      return await this.APITask.find(id);
+      const { status, data } = await this.APITask.find(id);
+
+      if (status !== 200) this.showError(ERROR_CODE[status]);
+      return data;
     } catch (error) {
-      return this.showError('Error when getting task content');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -66,9 +75,12 @@ export default class TaskList {
    */
   async edit(id, updateData) {
     try {
-      return await this.APITask.edit(id, updateData);
+      const { status } = await this.APITask.edit(id, updateData);
+      
+      if (status !== 200) this.showError(ERROR_CODE[status]);
+      return status;
     } catch (error) {
-      return this.showError('Error when updating task');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 
@@ -79,9 +91,12 @@ export default class TaskList {
    */
   async delete(id) {
     try {
-      return await this.APITask.delete(id);
+      const { status } = await this.APITask.delete(id);
+      
+      if (status !== 200) this.showError(ERROR_CODE[status]);
+      return status;
     } catch (error) {
-      return this.showError('Error when deleting task');
+      return this.showError(MESSAGES.INTERNET);
     }
   }
 }
